@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomNetworking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -11,7 +12,7 @@ namespace ClientModel
     {
 		// The socket used to communicate with the server.  If no connection has been
 		// made yet, this is null.
-		private Socket socket;
+		private StringSocket socket;
 
 		// Register for this event to be motified when a line of text arrives.
 		public event Action<String> IncomingLineEvent;
@@ -27,12 +28,13 @@ namespace ClientModel
 		/// <summary>
 		/// Connect to the server at the given hostname and port and with the give name.
 		/// </summary>
-		public void Connect(string hostname, int port)
+		public void Connect(string hostname, int port, String name)
 		{
 			if (socket == null)
 			{
 				TcpClient client = new TcpClient(hostname, port);
-				socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+				socket = new StringSocket(client.Client, UTF8Encoding.Default);
+				socket.BeginSend(name + "\n", (e, p) => { }, null);
 				socket.BeginReceive(LineReceived, null);
 			}
 		}
@@ -45,22 +47,20 @@ namespace ClientModel
 		{
 			if (socket != null)
 			{
-				byte[] bytes = Encoding.UTF8.GetBytes(line + "\n");
-				socket.BeginSend(bytes, 0, bytes.Length, 0, (e) => { }, null);
+				socket.BeginSend(line + "\n", (e, p) => { }, null);
 			}
 		}
 
 		/// <summary>
 		/// Deal with an arriving line of text.
 		/// </summary>
-		private void LineReceived(byte[] bytes, Exception e, object p)
+		private void LineReceived(String s, Exception e, object p)
 		{
 			if (IncomingLineEvent != null)
 			{
-				string s = System.Text.Encoding.UTF8.GetString(bytes);
 				IncomingLineEvent(s);
 			}
 			socket.BeginReceive(LineReceived, null);
-		}  
-    }
+		}
+	}
 }

@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClientModel
+namespace Model
 {
     public class ClientModel
     {
@@ -28,13 +28,12 @@ namespace ClientModel
 		/// <summary>
 		/// Connect to the server at the given hostname and port and with the give name.
 		/// </summary>
-		public void Connect(string hostname, int port, String name)
+		public void Connect(string hostname, int port)
 		{
 			if (socket == null)
 			{
 				TcpClient client = new TcpClient(hostname, port);
 				socket = new StringSocket(client.Client, UTF8Encoding.Default);
-				socket.BeginSend(name + "\n", (e, p) => { }, null);
 				socket.BeginReceive(LineReceived, null);
 			}
 		}

@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\bin\Debug\ClientModel.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\bin\Debug\ClientModel.pdb
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\bin\Debug\StringSocketOfficial.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.pdb

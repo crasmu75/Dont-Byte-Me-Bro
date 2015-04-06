@@ -12,3 +12,6 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.exe
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.pdb
+C:\Users\delacens\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe.config
+C:\Users\delacens\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.exe
+C:\Users\delacens\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.pdb

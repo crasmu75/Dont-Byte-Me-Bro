@@ -4,3 +4,5 @@ C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Publi
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.csprojResolveAssemblyReference.cache
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.exe
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.exe
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb

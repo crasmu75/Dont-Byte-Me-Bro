@@ -9,93 +9,47 @@
 int main()
 {
 
-  int status;
-  struct addrinfo hostInfo;
-  struct addrinfo *hostInfoList;
+  char sendbuf[512] = "Received";
+ char recvbuf[512] = "";
+ wchar_t wbuf[512] = L"";
+ int size;
+ int bytesRecv;
+ int bytesSent;
+ WSADATA wsaData;
+ SOCKET listenSocket;
+ SOCKET clientSocket;
+ SOCKADDR_IN listenSocketAddress;
+ SOCKADDR_IN clientSocketAddress;
   
+  
+  WSAStartup(MAKEWORD(2,0), &wsaData);
 
-  memset(&hostInfo, 0, sizeof hostInfo);
-  
-  std::cout << "Setting up structures" << std::endl;
-  hostInfo.ai_family = AF_UNSPEC;
-  hostInfo.ai_socktype = SOCK_STREAM;
-  hostInfo.ai_flags = AI_PASSIVE;
-  status = getaddrinfo(NULL, "5555", &hostInfo, &hostInfoList);
-  
-
-  std::cout << "Creating socket...." << std::endl;
-  int socketfd;
-  socketfd = socket(hostInfoList->ai_family, hostInfoList->ai_socktype, hostInfoList->ai_protocol);
-  if(socketfd == -1)
-    {
-      std::cout<< "error creating socket" << std::endl;
-    }
+ listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+ listenSocketAddress.sin_family = AF_INET;
+ listenSocketAddress.sin_port = 5555;
+ listenSocketAddress.sin_addr.S_un.S_addr = INADDR_ANY;
 
   
-  std::cout << "Binding Socket..." << std::endl;
-  int yes = 1;
-  status = setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR, &yes,sizeof(int) );
-  status = bind(socketfd, hostInfoList->ai_addr, hostInfoList->ai_addrlen);
-  if(status == -1)
-    {
-      std::cout << "bind error " << std::endl;
-      freeaddrinfo(hostInfoList);
-      close(socketfd);
-    }
+  bind(listenSocket, (struct sockaddr*)&listenSocketAddress, sizeof (listenSocketAddress));
+ listen(listenSocket, SOMAXCONN);
+ size = sizeof(clientSocketAddress);
+ clientSocket = accept(listenSocket, (struct sockaddr*)&clientSocketAddress, &size);
+
+
   
-
-  std::cout<< "Listening for connections..." << std::endl;
-  status = listen(socketfd, 1);
-  if(status == -1)
-    {
-      std::cout << "listen error" << std::endl;
-    }
-
-  char sendBuff[1025];
-  int newSocket;
-  struct sockaddr_storage clientAddr;
-  socklen_t addrSize = sizeof(clientAddr);
-  newSocket = accept(socketfd, (struct sockaddr *)&clientAddr, &addrSize);
-  if(newSocket == -1)
-  {
-    std::cout << "listen error" << std::endl;
-  }
- 
-  else
-    {
-		write(newSocket, sendBuff, strlen(sendBuff));
-      std::cout<< "Connection accepted. Using the new socket"<< std::endl;
-    }
 
   bool stop = false;
 
   while(stop = false){
   
-	  std::cout << "Waiting to recieve data...." << std::endl;
-	  ssize_t bytesRecieved;
-	  char incommingDataBuffer[1000];
-	  bytesRecieved = recv(newSocket, incommingDataBuffer, 1000, 0);
-	  if(bytesRecieved == 0)
-		{
-		  std::cout << "Client host shut down." << std::endl;
-		}
-	  if(bytesRecieved == -1)
-		{
-		  std::cout<< "server recieve error" << std::endl;
-		  stop = true;
-		}
-  
-
-	  std::cout << bytesRecieved <<" sever bytes recieved: "<<  std::endl;
-	  incommingDataBuffer[bytesRecieved] = '\0';
-	  std::cout << incommingDataBuffer << std::endl;
-
-		std::cout<< "Sending back a message...." << std::endl;
-		char *msg = "thanks";
-		int length;
-		ssize_t bytesSent;
-		length = strlen(msg);
-		bytesSent = send(newSocket, msg, length, 0);
+	 bytesRecv = recv( clientSocket, recvbuf, sizeof (recvbuf), 0 );
+	 memset(wbuf, 0, sizeof (wbuf));
+	 mbstowcs(wbuf, recvbuf, strlen(recvbuf));
+	 OutputDebugString(wbuf);
+	 bytesSent = send( clientSocket, sendbuf, strlen(sendbuf), 0 );
+	 memset(wbuf, 0, sizeof (wbuf));
+	 mbstowcs(wbuf, sendbuf, strlen(sendbuf));
+	 OutputDebugString(wbuf);
   }
   
     std::cout<< "Message Sent... "<< std::endl;

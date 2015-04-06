@@ -51,6 +51,7 @@ int main()
       std::cout << "listen error" << std::endl;
     }
 
+  char sendBuff[1025];
   int newSocket;
   struct sockaddr_storage clientAddr;
   socklen_t addrSize = sizeof(clientAddr);
@@ -59,38 +60,42 @@ int main()
   {
     std::cout << "listen error" << std::endl;
   }
+ 
   else
     {
+		write(newSocket, sendBuff, strlen(sendBuff));
       std::cout<< "Connection accepted. Using the new socket"<< std::endl;
     }
 
   bool stop = false;
+
   while(stop = false){
-  std::cout << "Waiting to recieve data...." << std::endl;
-  ssize_t bytesRecieved;
-  char incommingDataBuffer[1000];
-  bytesRecieved = recv(newSocket, incommingDataBuffer, 1000, 0);
-  if(bytesRecieved == 0)
-    {
-      std::cout << "Client host shut down." << std::endl;
-    }
-  if(bytesRecieved == -1)
-    {
-      std::cout<< "server recieve error" << std::endl;
-      stop = true;
-    }
+  
+	  std::cout << "Waiting to recieve data...." << std::endl;
+	  ssize_t bytesRecieved;
+	  char incommingDataBuffer[1000];
+	  bytesRecieved = recv(newSocket, incommingDataBuffer, 1000, 0);
+	  if(bytesRecieved == 0)
+		{
+		  std::cout << "Client host shut down." << std::endl;
+		}
+	  if(bytesRecieved == -1)
+		{
+		  std::cout<< "server recieve error" << std::endl;
+		  stop = true;
+		}
   
 
-  std::cout << bytesRecieved <<" sever bytes recieved: "<<  std::endl;
-  incommingDataBuffer[bytesRecieved] = '\0';
-  std::cout << incommingDataBuffer << std::endl;
+	  std::cout << bytesRecieved <<" sever bytes recieved: "<<  std::endl;
+	  incommingDataBuffer[bytesRecieved] = '\0';
+	  std::cout << incommingDataBuffer << std::endl;
 
-    std::cout<< "Sending back a message...." << std::endl;
-    char *msg = "thanks";
-    int length;
-    ssize_t bytesSent;
-    length = strlen(msg);
-    bytesSent = send(newSocket, msg, length, 0);
+		std::cout<< "Sending back a message...." << std::endl;
+		char *msg = "thanks";
+		int length;
+		ssize_t bytesSent;
+		length = strlen(msg);
+		bytesSent = send(newSocket, msg, length, 0);
   }
   
     std::cout<< "Message Sent... "<< std::endl;

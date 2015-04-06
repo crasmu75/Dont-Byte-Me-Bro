@@ -1,0 +1,12 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\Launcher.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\Launcher.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatServer.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatClientModel.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\StringSocket.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatClient.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatServer.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\bin\Debug\ChatClientModel.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.pdb

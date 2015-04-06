@@ -1,0 +1,6 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\bin\Debug\ChatServer.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\bin\Debug\ChatServer.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\bin\Debug\StringSocket.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb

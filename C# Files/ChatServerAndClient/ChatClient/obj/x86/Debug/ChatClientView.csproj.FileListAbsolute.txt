@@ -1,0 +1,11 @@
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\bin\Debug\ChatClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\bin\Debug\ChatClient.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\bin\Debug\ChatClientModel.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\bin\Debug\StringSocket.dll
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\bin\Debug\ChatClientModel.pdb
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\ChatClientView.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\CC.Form1.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\ChatClient.Properties.Resources.resources
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\ChatClientView.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\ChatClient.exe
+C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatClient\obj\x86\Debug\ChatClient.pdb

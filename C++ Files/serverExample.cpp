@@ -34,7 +34,7 @@ int main()
   
   std::cout << "Binding Socket..." << std::endl;
   int yes = 1;
-  status = setsockopt(socketfd, SOL_SOCKET,SO_REUSEADDR, &yes, sizeof(int) == -1);
+  status = setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR, &yes,sizeof(int) );
   status = bind(socketfd, hostInfoList->ai_addr, hostInfoList->ai_addrlen);
   if(status == -1)
     {
@@ -64,6 +64,8 @@ int main()
       std::cout<< "Connection accepted. Using the new socket"<< std::endl;
     }
 
+  bool stop = false;
+  while(stop = false){
   std::cout << "Waiting to recieve data...." << std::endl;
   ssize_t bytesRecieved;
   char incommingDataBuffer[1000];
@@ -75,6 +77,7 @@ int main()
   if(bytesRecieved == -1)
     {
       std::cout<< "server recieve error" << std::endl;
+      stop = true;
     }
   
 
@@ -88,10 +91,10 @@ int main()
     ssize_t bytesSent;
     length = strlen(msg);
     bytesSent = send(newSocket, msg, length, 0);
-    std::cout<< "Stopping Server... "<< std::endl;
-    freeaddrinfo(hostInfoList);
-    close(newSocket);
-    close(socketfd);
+  }
+  
+    std::cout<< "Message Sent... "<< std::endl;
+  
  
 
   

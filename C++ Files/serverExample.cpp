@@ -20,8 +20,9 @@ int main()
   hostInfo.ai_family = AF_UNSPEC;
   hostInfo.ai_socktype = SOCK_STREAM;
   hostInfo.ai_flags = AI_PASSIVE;
-  status = getaddrinfo(NULL, "5555", &hostInfo, &hostInfoList);
+  status = getaddrinfo(NULL, "2113", &hostInfo, &hostInfoList);
   
+
 
   std::cout << "Creating socket...." << std::endl;
   int socketfd;
@@ -34,7 +35,9 @@ int main()
   
   std::cout << "Binding Socket..." << std::endl;
   int yes = 1;
+  //Why doesn't this work?
   status = setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR, &yes,sizeof(int) );
+  //**************8
   status = bind(socketfd, hostInfoList->ai_addr, hostInfoList->ai_addrlen);
   if(status == -1)
     {
@@ -45,12 +48,14 @@ int main()
   
 
   std::cout<< "Listening for connections..." << std::endl;
-  status = listen(socketfd, 5);
+  status = listen(socketfd, 1);
+  std::cout<< status << std::endl;
   if(status == -1)
     {
       std::cout << "listen error" << std::endl;
     }
-
+ 
+  
   char sendBuff[1025];
   int newSocket;
   struct sockaddr_storage clientAddr;
@@ -60,10 +65,9 @@ int main()
   {
     std::cout << "listen error" << std::endl;
   }
- 
   else
     {
-		write(newSocket, sendBuff, strlen(sendBuff));
+      write(newSocket, sendBuff, strlen(sendBuff));
       std::cout<< "Connection accepted. Using the new socket"<< std::endl;
     }
 
@@ -99,7 +103,9 @@ int main()
   }
   
     std::cout<< "Message Sent... "<< std::endl;
-  
+    freeaddrinfo(hostInfoList);
+    close(socketfd);
+    close(newSocket);
  
 
   

@@ -24,7 +24,7 @@ namespace ClientGui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            model.Connect(textBox1.Text, 5555);
+            model.Connect(textBox1.Text, 2113);
         }
 
         private void button2_Click(object sender, EventArgs e)

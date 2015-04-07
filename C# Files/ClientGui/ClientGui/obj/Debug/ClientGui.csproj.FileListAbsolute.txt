@@ -28,3 +28,16 @@ C:\Users\delacens\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\Client
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form1.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe.config
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.dll
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\StringSocketOfficial.dll
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetPanel.xml
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csprojResolveAssemblyReference.cache
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form1.resources
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache

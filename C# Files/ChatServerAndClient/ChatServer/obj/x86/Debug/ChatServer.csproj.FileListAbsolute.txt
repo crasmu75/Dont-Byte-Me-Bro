@@ -6,3 +6,9 @@ C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Publi
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.exe
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\bin\Debug\ChatServer.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\bin\Debug\ChatServer.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\bin\Debug\StringSocket.dll
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\ChatServer\obj\x86\Debug\ChatServer.csprojResolveAssemblyReference.cache

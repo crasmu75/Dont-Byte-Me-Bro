@@ -79,9 +79,10 @@ namespace Model
 				s = s.Substring(index + 1);
 			}
 
+			msg = new byte[1024];
 			// Ask for some more data
-			socket.BeginReceive(buffer, 0, buffer.Length,
-				SocketFlags.None, LineReceived, buffer);
+			socket.BeginReceive(msg, 0, msg.Length,
+				SocketFlags.None, LineReceived, msg);
 		}
 	}
 }

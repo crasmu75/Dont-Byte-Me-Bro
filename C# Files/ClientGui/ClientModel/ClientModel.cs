@@ -33,7 +33,7 @@ namespace Model
 			if (socket == null)
 			{
 				TcpClient client = new TcpClient(hostname, port);
-				socket = new StringSocket(client.Client, UTF8Encoding.Default);
+				socket = new StringSocket(client.Client, Encoding.ASCII);
 				socket.BeginReceive(LineReceived, null);
 			}
 		}

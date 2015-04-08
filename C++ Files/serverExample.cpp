@@ -20,8 +20,9 @@ int main()
   hostInfo.ai_family = AF_UNSPEC;
   hostInfo.ai_socktype = SOCK_STREAM;
   hostInfo.ai_flags = AI_PASSIVE;
-  status = getaddrinfo(NULL, "5555", &hostInfo, &hostInfoList);
+  status = getaddrinfo(NULL, "2113", &hostInfo, &hostInfoList);
   
+
 
   std::cout << "Creating socket...." << std::endl;
   int socketfd;
@@ -34,7 +35,9 @@ int main()
   
   std::cout << "Binding Socket..." << std::endl;
   int yes = 1;
-  status = setsockopt(socketfd, SOL_SOCKET,SO_REUSEADDR, &yes, sizeof(int) == -1);
+  //Why doesn't this work?
+  status = setsockopt(socketfd,SOL_SOCKET,SO_REUSEADDR, &yes,sizeof(int) );
+  //**************8
   status = bind(socketfd, hostInfoList->ai_addr, hostInfoList->ai_addrlen);
   if(status == -1)
     {
@@ -46,11 +49,14 @@ int main()
 
   std::cout<< "Listening for connections..." << std::endl;
   status = listen(socketfd, 1);
+  std::cout<< status << std::endl;
   if(status == -1)
     {
       std::cout << "listen error" << std::endl;
     }
-
+ 
+  
+  char sendBuff[1025];
   int newSocket;
   struct sockaddr_storage clientAddr;
   socklen_t addrSize = sizeof(clientAddr);
@@ -61,37 +67,45 @@ int main()
   }
   else
     {
+      write(newSocket, sendBuff, strlen(sendBuff));
       std::cout<< "Connection accepted. Using the new socket"<< std::endl;
     }
 
-  std::cout << "Waiting to recieve data...." << std::endl;
-  ssize_t bytesRecieved;
-  char incommingDataBuffer[1000];
-  bytesRecieved = recv(newSocket, incommingDataBuffer, 1000, 0);
-  if(bytesRecieved == 0)
-    {
-      std::cout << "Client host shut down." << std::endl;
-    }
-  if(bytesRecieved == -1)
-    {
-      std::cout<< "server recieve error" << std::endl;
-    }
+  bool stop = false;
+
+  while(stop = false){
+  
+	  std::cout << "Waiting to recieve data...." << std::endl;
+	  ssize_t bytesRecieved;
+	  char incommingDataBuffer[1000];
+	  bytesRecieved = recv(newSocket, incommingDataBuffer, 1000, 0);
+	  if(bytesRecieved == 0)
+		{
+		  std::cout << "Client host shut down." << std::endl;
+		}
+	  if(bytesRecieved == -1)
+		{
+		  std::cout<< "server recieve error" << std::endl;
+		  stop = true;
+		}
   
 
-  std::cout << bytesRecieved <<" sever bytes recieved: "<<  std::endl;
-  incommingDataBuffer[bytesRecieved] = '\0';
-  std::cout << incommingDataBuffer << std::endl;
+	  std::cout << bytesRecieved <<" sever bytes recieved: "<<  std::endl;
+	  incommingDataBuffer[bytesRecieved] = '\0';
+	  std::cout << incommingDataBuffer << std::endl;
 
-    std::cout<< "Sending back a message...." << std::endl;
-    char *msg = "thanks";
-    int length;
-    ssize_t bytesSent;
-    length = strlen(msg);
-    bytesSent = send(newSocket, msg, length, 0);
-    std::cout<< "Stopping Server... "<< std::endl;
+		std::cout<< "Sending back a message...." << std::endl;
+		char *msg = "thanks";
+		int length;
+		ssize_t bytesSent;
+		length = strlen(msg);
+		bytesSent = send(newSocket, msg, length, 0);
+  }
+  
+    std::cout<< "Message Sent... "<< std::endl;
     freeaddrinfo(hostInfoList);
-    close(newSocket);
     close(socketfd);
+    close(newSocket);
  
 
   

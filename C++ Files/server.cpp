@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <unistd.h>
 
 void error(const char *msg)
 {
@@ -36,16 +37,20 @@ void * receiveMessage(void * skts)
   socketArgs* clientSockets = (socketArgs *) skts;
 
   char buffer[256];
+  char buff[256];
   // Initializes all bytes in the incoming buffer to be zero.
    
      int current = clientSockets->currentSocket;
      while (1)
        {
 	 bzero(buffer,256);
+	 bzero(buff,256);
      // Reads bytes from the socket using the new file descriptor. This will block until there is something to read from the socket.
      // This will read the total number of characters send, or 255 (whichever is less) and place them in the buffer.
      // The read method returns the number of characters read.
      readCount = read(clientSockets->sockets[current],buffer,255);
+     buffer[static_cast<int> (strlen(buffer))] = '\n';
+     printf(buffer);
 
      // Throw an error if the number of characters read is less than 0.
      if (readCount < 0) error("ERROR reading from socket");
@@ -57,9 +62,11 @@ void * receiveMessage(void * skts)
      // The first parameter is the new file descriptor.
      // The second parameter is the message to be sent
      // The third parameter is the number of characters in the message.
-     // The write method returns the number of bytes successfully written.
+     // The write method returns the number of bytes successfully written
+     sprintf(buff, "Hold Up\n");
      for (int i = 0; i < clientSockets->count; i++)
        {
+	 writeCount = write(clientSockets->sockets[i],buff, strlen(buff));
 	 writeCount = write(clientSockets->sockets[i],buffer,strlen(buffer));
      if (writeCount < 0) error("ERROR writing to socket");
        }

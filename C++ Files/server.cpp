@@ -60,15 +60,10 @@ void * receiveMessage(void * skts)
      // The write method returns the number of bytes successfully written.
      for (int i = 0; i < clientSockets->count; i++)
        {
-     writeCount = write(clientSockets->sockets[i],buffer,19);
-     printf("increment: ");
-     printf("%d", i);
-     printf("\n");
-     printf(buffer);
-     printf("|");
+	 writeCount = write(clientSockets->sockets[i],buffer,strlen(buffer));
      if (writeCount < 0) error("ERROR writing to socket");
        }
-     printf("got past writing: ");
+   
     
        }
      // clientSockets->currentSocket = current;

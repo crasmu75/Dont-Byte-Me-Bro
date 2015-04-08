@@ -35,6 +35,7 @@ namespace ClientGui
 
         private void MessageReceived(String line)
         {
+			Console.WriteLine("Got here: " + line);
             textBox2.Invoke(new Action(() => { textBox2.Text += line + "\r\n"; }));
         }
     }

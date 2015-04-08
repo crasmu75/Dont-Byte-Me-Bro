@@ -14,6 +14,7 @@ namespace ClientGui
 	public partial class Form1 : Form
 	{
 		private ClientModel model;
+		private int portno = 2113;
 
         public Form1()
         {
@@ -24,7 +25,7 @@ namespace ClientGui
 
         private void button1_Click(object sender, EventArgs e)
         {
-            model.Connect(textBox1.Text, 2113);
+            model.Connect(textBox1.Text, portno);
         }
 
         private void button2_Click(object sender, EventArgs e)

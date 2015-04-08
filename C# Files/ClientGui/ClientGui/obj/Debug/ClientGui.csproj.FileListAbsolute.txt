@@ -3,7 +3,6 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.pdb
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.dll
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetPanel.dll
-C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\StringSocketOfficial.dll
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.pdb
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetPanel.xml
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csprojResolveAssemblyReference.cache

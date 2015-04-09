@@ -53,3 +53,4 @@ B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form2.resources
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form2.resources

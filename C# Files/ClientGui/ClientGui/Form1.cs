@@ -13,9 +13,19 @@ namespace ClientGui
 {
 	public partial class Form1 : Form
 	{
+		/// <summary>
+		/// New model for processing
+		/// </summary>
 		private ClientModel model;
+
+		/// <summary>
+		/// Hardcoded port number for connection
+		/// </summary>
 		private int portno = 2113;
 
+		/// <summary>
+		/// Initialization of this form, the connection form
+		/// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -23,20 +33,24 @@ namespace ClientGui
             model.IncomingLineEvent += MessageReceived;
         }
 
+		/// <summary>
+		/// Connect Button click - connects with the given IP address or host name
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            model.Connect(textBox1.Text, portno);
+            model.Connect(textBox_host.Text, portno);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            model.SendMessage(textBox3.Text);
-        }
-
+		/// <summary>
+		/// Message Received is the incoming line event. This happens whenever we get a 
+		/// message from the server.
+		/// </summary>
+		/// <param name="line"></param>
         private void MessageReceived(String line)
         {
-			
-            textBox2.Invoke(new Action(() => { textBox2.Text += line + "\r\n"; }));
+			// This is where we need to parse the message and figure out what to do with it.
         }
     }
 }

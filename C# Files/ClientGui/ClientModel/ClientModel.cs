@@ -28,15 +28,21 @@ namespace Model
         }
 
 		/// <summary>
-		/// Connect to the server at the given hostname and port and with the give name.
+		/// Connect to the server at the given hostname and port and with the given spreadsheet 
+		/// and user names.
 		/// </summary>
-		public void Connect(string hostname, int port)
+		public void Connect(string hostname, int port, string clientName, string spreadsheetName)
 		{
 			if (socket == null)
 			{
-				buffer = new byte[1024];
 				TcpClient client = new TcpClient(hostname, port);
 				socket = client.Client;
+
+				// Send message to connect to the server
+				SendMessage("connect " + clientName + " " + spreadsheetName);
+
+				// Start listening for messages back
+				buffer = new byte[1024];
 				socket.BeginReceive(buffer, 0, buffer.Length,
 									SocketFlags.None, LineReceived, buffer);
 			}
@@ -64,12 +70,14 @@ namespace Model
 			byte[] msg = (byte[])(result.AsyncState);
 			String s = Encoding.ASCII.GetString(msg);
 			int index;
+
 			// process separate messages according to placement of \n characters
 			while ((index = s.IndexOf('\n')) >= 0)
 			{
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
 
+				// Process this individual message using IncomingLineEvent
 				if (IncomingLineEvent != null)
 				{
 					IncomingLineEvent(line);
@@ -79,8 +87,8 @@ namespace Model
 				s = s.Substring(index + 1);
 			}
 
+			// Listen for more messages
 			msg = new byte[1024];
-			// Ask for some more data
 			socket.BeginReceive(msg, 0, msg.Length,
 				SocketFlags.None, LineReceived, msg);
 		}

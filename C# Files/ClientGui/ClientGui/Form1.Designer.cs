@@ -28,33 +28,33 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.textBox_host = new System.Windows.Forms.TextBox();
+			this.label_welcome = new System.Windows.Forms.Label();
 			this.button1 = new System.Windows.Forms.Button();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.button2 = new System.Windows.Forms.Button();
+			this.label_host = new System.Windows.Forms.Label();
+			this.label_welcome1 = new System.Windows.Forms.Label();
+			this.label_username = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
-			// textBox1
+			// textBox_host
 			// 
-			this.textBox1.Location = new System.Drawing.Point(92, 10);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 20);
-			this.textBox1.TabIndex = 0;
+			this.textBox_host.Location = new System.Drawing.Point(87, 77);
+			this.textBox_host.Name = "textBox_host";
+			this.textBox_host.Size = new System.Drawing.Size(115, 20);
+			this.textBox_host.TabIndex = 0;
 			// 
-			// label1
+			// label_welcome
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(39, 13);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(29, 13);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "Host";
+			this.label_welcome.AutoSize = true;
+			this.label_welcome.Location = new System.Drawing.Point(64, 20);
+			this.label_welcome.Name = "label_welcome";
+			this.label_welcome.Size = new System.Drawing.Size(203, 13);
+			this.label_welcome.TabIndex = 1;
+			this.label_welcome.Text = "Welcome to the Spreadsheet Application!";
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(221, 8);
+			this.button1.Location = new System.Drawing.Point(127, 207);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 2;
@@ -62,47 +62,44 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// textBox2
+			// label_host
 			// 
-			this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox2.Location = new System.Drawing.Point(16, 100);
-			this.textBox2.Multiline = true;
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(304, 394);
-			this.textBox2.TabIndex = 3;
+			this.label_host.AutoSize = true;
+			this.label_host.Location = new System.Drawing.Point(49, 80);
+			this.label_host.Name = "label_host";
+			this.label_host.Size = new System.Drawing.Size(32, 13);
+			this.label_host.TabIndex = 6;
+			this.label_host.Text = "Host:";
 			// 
-			// textBox3
+			// label_welcome1
 			// 
-			this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox3.Location = new System.Drawing.Point(52, 56);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(268, 20);
-			this.textBox3.TabIndex = 4;
+			this.label_welcome1.AutoSize = true;
+			this.label_welcome1.Location = new System.Drawing.Point(84, 36);
+			this.label_welcome1.Name = "label_welcome1";
+			this.label_welcome1.Size = new System.Drawing.Size(166, 13);
+			this.label_welcome1.TabIndex = 7;
+			this.label_welcome1.Text = "Please fill out all fields to connect.";
 			// 
-			// button2
+			// label_username
 			// 
-			this.button2.Location = new System.Drawing.Point(16, 56);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(30, 23);
-			this.button2.TabIndex = 5;
-			this.button2.Text = "Go";
-			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
+			this.label_username.AutoSize = true;
+			this.label_username.Location = new System.Drawing.Point(49, 111);
+			this.label_username.Name = "label_username";
+			this.label_username.Size = new System.Drawing.Size(58, 13);
+			this.label_username.TabIndex = 8;
+			this.label_username.Text = "Username:";
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(332, 506);
-			this.Controls.Add(this.button2);
-			this.Controls.Add(this.textBox3);
-			this.Controls.Add(this.textBox2);
+			this.ClientSize = new System.Drawing.Size(332, 242);
+			this.Controls.Add(this.label_username);
+			this.Controls.Add(this.label_welcome1);
+			this.Controls.Add(this.label_host);
 			this.Controls.Add(this.button1);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.label_welcome);
+			this.Controls.Add(this.textBox_host);
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.ResumeLayout(false);
@@ -112,12 +109,12 @@
 
 		#endregion
 
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox textBox_host;
+		private System.Windows.Forms.Label label_welcome;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Label label_host;
+		private System.Windows.Forms.Label label_welcome1;
+		private System.Windows.Forms.Label label_username;
 	}
 }
 

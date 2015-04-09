@@ -40,7 +40,10 @@ namespace ClientGui
 		/// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            model.Connect(textBox_host.Text, portno);
+			if (textBox_host.Text == "" || textBox_username.Text == "" || textBox_spreadsheet.Text == "")
+				MessageBox.Show("Please fill out all fields.");
+			else
+				model.Connect(textBox_host.Text, portno, textBox_username.Text, textBox_spreadsheet.Text);
         }
 
 		/// <summary>
@@ -51,6 +54,11 @@ namespace ClientGui
         private void MessageReceived(String line)
         {
 			// This is where we need to parse the message and figure out what to do with it.
+
+			// If this is a connection confirmed message, hide the current form and open the spreadsheet.
+			this.Hide();
+			Application.Run(new Form2());
         }
+
     }
 }

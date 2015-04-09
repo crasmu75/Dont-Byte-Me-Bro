@@ -40,3 +40,6 @@ B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro
 B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form1.resources
 B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
 B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe.config
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.exe
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.pdb

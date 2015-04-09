@@ -56,8 +56,16 @@ namespace ClientGui
 			// This is where we need to parse the message and figure out what to do with it.
 
 			// If this is a connection confirmed message, hide the current form and open the spreadsheet.
-			this.Hide();
-			Application.Run(new Form2());
+			if (true) // once the parser class has been created, this if will actually make sense
+			{
+				this.Hide();
+				Application.Run(new Form2());
+			}
+
+			// If it was an error message for connection attempt, pop up a box for that.
+			// The details will need to be parsed from the command, such as invalid username etc.
+			if (false)
+				MessageBox.Show("Connection attempt failed. Here are the details: ");
         }
 
     }

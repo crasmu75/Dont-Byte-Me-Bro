@@ -14,7 +14,7 @@ namespace CC
         /// </summary>
         static void Main(string[] args)
         {
-            new ChatServer(5000);
+            //new ChatServer(5000);
             new Thread(() => ChatClientView.Main()).Start();
             new Thread(() => ChatClientView.Main()).Start();
         }

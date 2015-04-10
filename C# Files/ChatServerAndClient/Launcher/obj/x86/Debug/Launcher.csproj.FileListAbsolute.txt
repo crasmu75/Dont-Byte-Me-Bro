@@ -10,3 +10,15 @@ C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Publi
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.csprojResolveAssemblyReference.cache
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.exe
 C:\Users\Camille\Documents\Visual Studio 2013\Projects\ChatServerAndClient\Public\Lab_Examples\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\Launcher.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\Launcher.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatClient.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatServer.exe
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatClientModel.dll
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\StringSocket.dll
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatClient.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatServer.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\bin\Debug\ChatClientModel.pdb
+B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ChatServerAndClient\Launcher\obj\x86\Debug\Launcher.csprojResolveAssemblyReference.cache

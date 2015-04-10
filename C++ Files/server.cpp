@@ -5,6 +5,7 @@
 
 */
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -13,6 +14,10 @@
 #include <netinet/in.h>
 #include <pthread.h>
 #include <unistd.h>
+#include <vector>
+
+
+using namespace std;
 
 void error(const char *msg)
 {
@@ -25,9 +30,8 @@ void error(const char *msg)
 
 typedef struct 
 {
-  int sockets[2];
-  int count;
-  int currentSocket;
+  vector<int> *sockets;
+  int socketFD;
 } socketArgs;
 
 void * receiveMessage(void * skts)
@@ -40,7 +44,7 @@ void * receiveMessage(void * skts)
   char buff[256];
   // Initializes all bytes in the incoming buffer to be zero.
    
-     int current = clientSockets->currentSocket;
+     int socket = clientSockets->socketFD;
      while (1)
        {
 	 bzero(buffer,256);
@@ -48,7 +52,7 @@ void * receiveMessage(void * skts)
      // Reads bytes from the socket using the new file descriptor. This will block until there is something to read from the socket.
      // This will read the total number of characters send, or 255 (whichever is less) and place them in the buffer.
      // The read method returns the number of characters read.
-     readCount = read(clientSockets->sockets[current],buffer,255);
+     readCount = read(socket,buffer,255);
      buffer[static_cast<int> (strlen(buffer))] = '\n';
      printf(buffer);
 
@@ -64,13 +68,24 @@ void * receiveMessage(void * skts)
      // The third parameter is the number of characters in the message.
      // The write method returns the number of bytes successfully written
      sprintf(buff, "Hold Up\n");
+     cout << "got here 3" << endl; 
+     vector<int> allSockets;
+     allSockets = *(clientSockets->sockets);
+      cout << "got here 4" << endl; 
+     
+     for (vector<int>::iterator it = allSockets.begin(); it != allSockets.end(); it++)
+	{
+	  writeCount = write((*it),buffer,strlen(buffer));
+	}
+
+     /*
      for (int i = 0; i < clientSockets->count; i++)
        {
 	 writeCount = write(clientSockets->sockets[i],buff, strlen(buff));
 	 writeCount = write(clientSockets->sockets[i],buffer,strlen(buffer));
      if (writeCount < 0) error("ERROR writing to socket");
        }
-   
+     */
     
        }
      // clientSockets->currentSocket = current;
@@ -96,7 +111,7 @@ int main(int argc, char *argv[])
 
      pthread_t thread;
 
-     socketArgs* clientSockets;
+    
 
      // If a port is not provided, set it to 2000 (default).
      if (argc < 2)
@@ -137,9 +152,11 @@ int main(int argc, char *argv[])
      //    while process is handling a particular conneciton.
      listen(socketFD,5);
      int numSockets = 0;
-     clientSockets->count = 0;
+     cout << "got here" << endl;
+     vector<int> *allSockets = new vector<int>;
      while (1)
        {
+	 socketArgs* clientSockets = new socketArgs();
      // Gets the size of the client address.
      clientLength = sizeof(clientAddr);
      
@@ -154,11 +171,13 @@ int main(int argc, char *argv[])
      // Throws an error if the connection could not be established.
      if (newSocketFD < 0) 
           error("ERROR on accept");
-
-     clientSockets->sockets[numSockets] = newSocketFD;
-     clientSockets->count++;
-     clientSockets->currentSocket = numSockets;
-     numSockets++;
+    cout << "got here 1" << endl;
+     allSockets->push_back(newSocketFD);
+cout << "got here2 " << endl;
+     clientSockets->sockets = allSockets;
+ cout << "got here3 " << endl;
+     clientSockets->socketFD = newSocketFD;
+cout << "got here4 " << endl;
      printf("Socket accepted\n");
 
      pthread_create(&thread, 0, receiveMessage, (void *)clientSockets);

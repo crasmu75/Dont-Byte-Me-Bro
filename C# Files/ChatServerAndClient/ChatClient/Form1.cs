@@ -22,7 +22,7 @@ namespace CC
 
         private void button1_Click(object sender, EventArgs e)
         {
-            model.Connect("localhost", 5000, textBox1.Text);
+            model.Connect("155.98.111.68", 2113, textBox1.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)

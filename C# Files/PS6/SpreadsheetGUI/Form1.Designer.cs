@@ -82,7 +82,7 @@
             this.closeToolStripMenuItem,
             this.closeAllToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 19);
 			this.fileToolStripMenuItem.Text = "File";
 			// 
 			// newToolStripMenuItem
@@ -132,7 +132,7 @@
 			this.calculatorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showCalculatorToolStripMenuItem});
 			this.calculatorToolStripMenuItem.Name = "calculatorToolStripMenuItem";
-			this.calculatorToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+			this.calculatorToolStripMenuItem.Size = new System.Drawing.Size(73, 19);
 			this.calculatorToolStripMenuItem.Text = "Calculator";
 			// 
 			// showCalculatorToolStripMenuItem
@@ -147,7 +147,7 @@
 			this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showHelpF1ToolStripMenuItem});
 			this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 19);
 			this.helpToolStripMenuItem.Text = "Help";
 			// 
 			// showHelpF1ToolStripMenuItem

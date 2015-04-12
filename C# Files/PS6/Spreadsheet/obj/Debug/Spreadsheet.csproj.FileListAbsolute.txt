@@ -1,0 +1,10 @@
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\Spreadsheet.XML
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\Spreadsheet.pdb
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\Formula.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\Formula.xml
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\obj\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\Spreadsheet\obj\Debug\Spreadsheet.pdb

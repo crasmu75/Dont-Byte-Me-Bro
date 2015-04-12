@@ -1,0 +1,16 @@
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\Spreadsheet.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\Formula.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\Spreadsheet.pdb
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\Spreadsheet.xml
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\Formula.xml
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\CalculatorGUI.csprojResolveAssemblyReference.cache
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\CalculatorGUI.csproj.GenerateResource.Cache
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

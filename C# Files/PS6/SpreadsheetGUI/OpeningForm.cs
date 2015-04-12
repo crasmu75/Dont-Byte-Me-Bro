@@ -58,8 +58,12 @@ namespace SpreadsheetGUI
 			// If this is a connection confirmed message, hide the current form and open the spreadsheet.
 			if (true) // once the parser class has been created, this if will actually make sense
 			{
-				this.Hide();
-				Application.Run(new Form1());
+				this.Invoke(new Action(() =>
+				{
+					this.Hide();
+					Form1 spForm = new Form1();
+					spForm.Show();
+				}));
 			}
 
 			// If it was an error message for connection attempt, pop up a box for that.

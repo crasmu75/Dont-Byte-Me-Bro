@@ -18,3 +18,5 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\o
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\bin\Debug\ClientModel.dll
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\bin\Debug\ClientModel.pdb

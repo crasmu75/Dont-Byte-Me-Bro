@@ -66,10 +66,12 @@ namespace SpreadsheetGUI
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
+			// Run the first form
+			Application.Run(new OpeningForm());
 
-			DemoApplicationContext appContext = DemoApplicationContext.getAppContext();
-			appContext.RunForm(new Form1());
-			Application.Run(appContext);
+			//DemoApplicationContext appContext = DemoApplicationContext.getAppContext();
+			//appContext.RunForm(new Form1());
+			//Application.Run(appContext);
 		}
 	}
 }

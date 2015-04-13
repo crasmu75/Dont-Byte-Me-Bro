@@ -255,7 +255,7 @@ namespace SpreadsheetGUI
         private void Update_Cells()
         {
             // Updates cells and catches circular exception to display error.
-            /*IEnumerable<string> recalc = null;
+            IEnumerable<string> recalc = null;
             try
             {
                 recalc = Frame1.SetContentsOfCell(currCell, Cell_Content_Display.Text);
@@ -269,7 +269,7 @@ namespace SpreadsheetGUI
             spreadsheetPanel1.GetSelection(out col, out row);
             UpdateSpreadsheetCells(recalc);
             spreadsheetPanel1.SetValue(col, row, Frame1.GetCellValue(currCell).ToString());
-            UpdateCurrCellTextBoxes();*/
+            UpdateCurrCellTextBoxes();
 
         }
 
@@ -281,7 +281,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void openFileMenu_Click(object sender, EventArgs e)
         {
-            /*// Asks user to save before opening (and replacing) current spreadsheet.
+            // Asks user to save before opening (and replacing) current spreadsheet.
             if (Frame1.Changed == true)
             {
                 DialogResult x = MessageBox.Show("Opening a new spreadsheet will result in loss of unsaved data. Would you like to save the spreadsheet before closing?", "Open Confirmation", MessageBoxButtons.YesNoCancel);
@@ -310,7 +310,7 @@ namespace SpreadsheetGUI
 
             spreadsheetPanel1.SetSelection(0, 0);
             currCell = "A1";
-            UpdateCurrCellTextBoxes();*/
+            UpdateCurrCellTextBoxes();
         }
 
         /// <summary>
@@ -318,13 +318,13 @@ namespace SpreadsheetGUI
         /// </summary>
         private void ClearAllCells()
         {
-            /*for (int i = 0; i < 26; i++)
+            for (int i = 0; i < 26; i++)
             {
                 for (int j = 0; j < 100; j++)
                 {
                     spreadsheetPanel1.SetValue(i, j, "");
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -334,7 +334,7 @@ namespace SpreadsheetGUI
         /// <returns></returns>
         private string OpenSpreadsheetDialog()
         {
-           /* OpenFileDialog dialog = new OpenFileDialog();
+            OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Spreadsheet Files|*.sprd|All Files|*.*";
             dialog.ShowDialog();
             if (dialog.FilterIndex == 1)
@@ -348,8 +348,7 @@ namespace SpreadsheetGUI
                 }
             }
 
-            return dialog.FileName;*/
-            return null;
+            return dialog.FileName;
         }
 
         /// <summary>
@@ -359,7 +358,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*DialogResult x = MessageBox.Show("Closing all of the spreadsheets may result in loss of data. "
+            DialogResult x = MessageBox.Show("Closing all of the spreadsheets may result in loss of data. "
             + "If you want to save a spreadsheet, please save or close it individually.\n\nAre you sure you want close all windows without saving?",
             "Close All Windows", MessageBoxButtons.YesNoCancel);
 
@@ -374,7 +373,7 @@ namespace SpreadsheetGUI
             else if (x == DialogResult.Cancel)
             {
                 return;
-            }*/
+            }
         }
 
         /// <summary>
@@ -386,7 +385,7 @@ namespace SpreadsheetGUI
         {
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            //DemoApplicationContext.getAppContext().RunForm(new Form1());
+            DemoApplicationContext.getAppContext().RunForm(new Form1());
         }
 
         /// <summary>
@@ -396,7 +395,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void saveCtrlSToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //SaveAsDocument();
+            SaveAsDocument();
         }
 
         /// <summary>
@@ -404,7 +403,7 @@ namespace SpreadsheetGUI
         /// </summary>
         private void SaveAsDocument()
         {
-           /* SaveFileDialog dialog = new SaveFileDialog();
+            SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Spreadsheet Files|*.sprd|All Files|*.*";
             dialog.ShowDialog();
             string filename = dialog.FileName;
@@ -419,7 +418,7 @@ namespace SpreadsheetGUI
             }
             lastFileName = filename;
             this.Text = lastFileName;
-            Frame1.Save(filename);*/
+            Frame1.Save(filename);
         }
 
         /// <summary>
@@ -429,7 +428,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-           /* if (Frame1.Changed == true)
+           if (Frame1.Changed == true)
             {
                 DialogResult x = MessageBox.Show("Closing the spreadsheet will result in loss of unsaved data. Would you like to save the spreadsheet before closing?", "Close Confirmation", MessageBoxButtons.YesNoCancel);
                 if (x == DialogResult.Yes)
@@ -441,7 +440,7 @@ namespace SpreadsheetGUI
                     e.Cancel = true;
                     return;
                 }
-            }*/
+            }
         }
 	}
 

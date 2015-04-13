@@ -10,3 +10,4 @@
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\SpreadsheetUtilities.xml
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleTester.csprojResolveAssemblyReference.cache

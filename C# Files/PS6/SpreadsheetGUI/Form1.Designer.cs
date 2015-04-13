@@ -106,7 +106,6 @@
             this.saveCtrlToolStripMenuItem.Name = "saveCtrlToolStripMenuItem";
             this.saveCtrlToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.saveCtrlToolStripMenuItem.Text = "Save ";
-            //this.saveCtrlToolStripMenuItem.Click += new System.EventHandler(this.saveCtrlToolStripMenuItem_Click);
             // 
             // saveCtrlSToolStripMenuItem
             // 
@@ -231,7 +230,6 @@
             this.HostName.Name = "HostName";
             this.HostName.Size = new System.Drawing.Size(100, 20);
             this.HostName.TabIndex = 9;
-            //this.HostName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // ConnectButton
             // 

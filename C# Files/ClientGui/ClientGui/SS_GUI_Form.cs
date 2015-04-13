@@ -51,7 +51,6 @@ namespace SpreadsheetGUI
 
             // Added to connect to server
             model = new ClientModel();
-            model.IncomingLineEvent += MessageReceived;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
 		}
@@ -120,26 +119,6 @@ namespace SpreadsheetGUI
 		{
 			Close();
 		}
-
-
-		/// <summary>
-		/// Provides a save function in the file menu. This will use the last used filename or ask for a new one.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		/*private void saveCtrlToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (lastFileName == null)
-			{
-				SaveAsDocument();
-			}
-			else
-			{
-				Frame1.Save(lastFileName);
-			}
-		}*/
-
-
 
 		/// <summary>
 		/// Updates the cells when the set content button is clicked.
@@ -274,6 +253,23 @@ namespace SpreadsheetGUI
         }
 
         /// <summary>
+        /// Provides a save function in the file menu. This will use the last used filename or ask for a new one.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveCtrlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lastFileName == null)
+            {
+                SaveAsDocument();
+            }
+            else
+            {
+                Frame1.Save(lastFileName);
+            }
+        }
+
+        /// <summary>
         /// Shows the open file dialog and requests for saving before opening the file.
         /// Also updates all of the cells in the spreadsheet to the opened spreadsheet file.
         /// </summary>
@@ -385,7 +381,7 @@ namespace SpreadsheetGUI
         {
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
+            //DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
         }
 
         /// <summary>

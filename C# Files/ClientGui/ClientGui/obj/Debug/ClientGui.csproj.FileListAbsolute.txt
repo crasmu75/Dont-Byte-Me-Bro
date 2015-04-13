@@ -20,11 +20,9 @@ C:\Users\delacens\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\Client
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.pdb
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.dll
-\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\StringSocketOfficial.dll
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientModel.pdb
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetPanel.xml
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csprojResolveAssemblyReference.cache
-\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form1.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
 B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\ClientGui.exe.config
@@ -54,3 +52,13 @@ B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form2.resources
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form2.resources
 B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Form2.resources
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\Formula.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetUtilities.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\Spreadsheet.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\Formula.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\bin\Debug\SpreadsheetUtilities.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Login_Form.resources
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\WindowsFormsApplication1.Form2.resources
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\SpreadsheetGUI.SS_GUI_Form.resources

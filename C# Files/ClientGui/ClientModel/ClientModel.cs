@@ -16,9 +16,31 @@ namespace Model
 		private Socket socket;
 
 		// Register for this event to be motified when a line of text arrives.
-		public event Action<String> IncomingLineEvent;
+		public event Action<String> ConnectionConfirmationEvent;
+
+        // Register event for an incoming cell update
+        public event Action<String> IncomingCellUpdateEvent;
+
+        // Register event for an incoming error message
+        public event Action<String> IncomingErrorEvent;
 
 		private byte[] buffer;
+
+
+        /// <summary>
+        /// Regex to identify incoming connected message
+        /// </summary>
+        Regex connectedCommand = new Regex(@"(connected)\s+[0-9]+\s+");
+
+        /// <summary>
+        /// Regex to identify incoming cell update
+        /// </summary>
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[.]+\s+");
+
+        /// <summary>
+        /// Regex to identify incoming error message
+        /// </summary>
+        Regex errorCommand = new Regex(@"(error)\s+[.]+\s+");
 
 		/// <summary>
         /// Creates a not yet connected client model.
@@ -79,11 +101,15 @@ namespace Model
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
 
-				// Process this individual message using IncomingLineEvent
-				if (IncomingLineEvent != null)
-				{
-					IncomingLineEvent(line);
-				}
+                // Call proper event action based on Regex match
+                if (cellUpdateCommand.IsMatch(line))
+                    IncomingCellUpdateEvent(line);
+
+                else if (errorCommand.IsMatch(line))
+                    IncomingErrorEvent(line);
+
+                else if (connectedCommand.IsMatch(line))
+                    ConnectionConfirmationEvent(line);
 
 				// delete the completed message from what we received
 				s = s.Substring(index + 1);

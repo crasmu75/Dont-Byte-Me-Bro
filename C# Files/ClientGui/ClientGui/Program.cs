@@ -17,8 +17,8 @@ namespace ClientGui
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			new Thread(() => Application.Run(new Form1())).Start();
-			new Thread(() => Application.Run(new Form1())).Start();
+			new Thread(() => Application.Run(new Login_Form())).Start();
+			new Thread(() => Application.Run(new Login_Form())).Start();
 	
 		}
 	}

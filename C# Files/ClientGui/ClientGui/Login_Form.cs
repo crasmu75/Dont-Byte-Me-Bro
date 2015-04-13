@@ -8,10 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SpreadsheetGUI;
 
 namespace ClientGui
 {
-	public partial class Form1 : Form
+	public partial class Login_Form : Form
 	{
 		/// <summary>
 		/// New model for processing
@@ -26,11 +27,11 @@ namespace ClientGui
 		/// <summary>
 		/// Initialization of this form, the connection form
 		/// </summary>
-        public Form1()
+        public Login_Form()
         {
             InitializeComponent();
             model = new ClientModel();
-            model.IncomingLineEvent += MessageReceived;
+            model.ConnectionConfirmationEvent += MessageReceived;
         }
 
 		/// <summary>
@@ -59,7 +60,7 @@ namespace ClientGui
 			if (true) // once the parser class has been created, this if will actually make sense
 			{
 				this.Hide();
-				Application.Run(new Form2());
+				Application.Run(new SS_GUI_Form());
 			}
 
 			// If it was an error message for connection attempt, pop up a box for that.

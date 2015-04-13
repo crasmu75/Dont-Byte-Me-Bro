@@ -14,7 +14,7 @@ using Model;
 
 namespace SpreadsheetGUI
 {
-	public partial class Form1 : Form
+	public partial class SS_GUI_Form : Form
 	{
 		Spreadsheet Frame1;
 		string currCell;
@@ -37,7 +37,7 @@ namespace SpreadsheetGUI
 		/// Initializes a new form, or spreadsheet window.
 		/// Also creates a new spreadsheet and sets the default startup values.
 		/// </summary>
-		public Form1()
+		public SS_GUI_Form()
 		{
 			InitializeComponent();
 			Frame1 = new Spreadsheet(s => true, s => s.ToUpper(), "ps6");
@@ -385,7 +385,7 @@ namespace SpreadsheetGUI
         {
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            DemoApplicationContext.getAppContext().RunForm(new Form1());
+            DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
         }
 
         /// <summary>

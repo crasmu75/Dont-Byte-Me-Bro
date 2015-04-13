@@ -66,8 +66,8 @@ namespace SpreadsheetGUI
 		{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new Thread(() => Application.Run(new Form1())).Start();
-            new Thread(() => Application.Run(new Form1())).Start();
+            new Thread(() => Application.Run(new SS_GUI_Form())).Start();
+            new Thread(() => Application.Run(new SS_GUI_Form())).Start();
 
 			/*Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);

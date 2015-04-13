@@ -61,7 +61,7 @@ namespace SpreadsheetGUI
 				this.Invoke(new Action(() =>
 				{
 					this.Hide();
-					Form1 spForm = new Form1();
+					SS_GUI_Form spForm = new SS_GUI_Form();
 					spForm.Show();
 				}));
 			}

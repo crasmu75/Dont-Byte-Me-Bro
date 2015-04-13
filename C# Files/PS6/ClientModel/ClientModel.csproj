@@ -42,6 +42,20 @@
     <Compile Include="ClientModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Project2\Resources.csproj">
+      <Project>{8897137d-0819-461c-bf7d-403925f97949}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Spreadsheet\Spreadsheet.csproj">
+      <Project>{1618b4ca-2a25-4107-b15b-8261e2087d15}</Project>
+      <Name>Spreadsheet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WindowsFormsApplication1\CalculatorGUI.csproj">
+      <Project>{f3845237-6610-42c1-ac01-23853dc90e2a}</Project>
+      <Name>CalculatorGUI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

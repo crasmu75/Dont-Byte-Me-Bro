@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -63,7 +64,12 @@ namespace SpreadsheetGUI
 		[STAThread]
 		static void Main()
 		{
-			Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            new Thread(() => Application.Run(new Form1())).Start();
+            new Thread(() => Application.Run(new Form1())).Start();
+
+			/*Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			// Run the first form
@@ -71,7 +77,7 @@ namespace SpreadsheetGUI
 
 			//DemoApplicationContext appContext = DemoApplicationContext.getAppContext();
 			//appContext.RunForm(new Form1());
-			//Application.Run(appContext);
+			//Application.Run(appContext);*/
 		}
 	}
 }

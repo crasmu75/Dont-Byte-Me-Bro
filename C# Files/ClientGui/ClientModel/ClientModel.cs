@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Model
@@ -26,6 +27,7 @@ namespace Model
         {
             socket = null;
         }
+
 
 		/// <summary>
 		/// Connect to the server at the given hostname and port and with the given spreadsheet 

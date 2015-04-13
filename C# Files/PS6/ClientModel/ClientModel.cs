@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Model
@@ -16,6 +17,12 @@ namespace Model
 		// Register for this event to be motified when a line of text arrives.
 		public event Action<String> IncomingLineEvent;
 
+        // Register event for an incoming cell update
+        public event Action<String> IncomingCellUpdateEvent;
+
+        // Register event for an incoming error message
+        public event Action<String> IncomingErrorEvent;
+
 		private byte[] buffer;
 
 		/// <summary>
@@ -25,6 +32,17 @@ namespace Model
 		{
 			socket = null;
 		}
+
+
+        /// <summary>
+        /// Regex to identify incoming cell update
+        /// </summary>
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[.]+\s+");
+
+        /// <summary>
+        /// Regex to identify incoming error message
+        /// </summary>
+        Regex errorCommand = new Regex(@"(error)\s+[.]+\s+");
 
 		/// <summary>
 		/// Connect to the server at the given hostname and port and with the given spreadsheet 
@@ -75,6 +93,13 @@ namespace Model
 			{
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
+
+                // Call proper event action based on Regex match
+                if (cellUpdateCommand.IsMatch(line))
+                    IncomingCellUpdateEvent(line);
+
+                else if (errorCommand.IsMatch(line))
+                    IncomingErrorEvent(line);
 
 				// Process this individual message using IncomingLineEvent
 				if (IncomingLineEvent != null)

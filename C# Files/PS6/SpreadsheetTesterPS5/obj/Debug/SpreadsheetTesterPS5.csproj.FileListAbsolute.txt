@@ -1,0 +1,12 @@
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\SpreadsheetTesterPS5.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\SpreadsheetTesterPS5.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\Formula.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\SpreadsheetUtilities.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\Spreadsheet.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\Formula.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\bin\Debug\SpreadsheetUtilities.xml
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\obj\Debug\SpreadsheetTesterPS5.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\obj\Debug\SpreadsheetTesterPS5.dll
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTesterPS5\obj\Debug\SpreadsheetTesterPS5.pdb

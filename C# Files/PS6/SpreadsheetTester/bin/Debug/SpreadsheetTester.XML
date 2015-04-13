@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetTester</name>
+    </assembly>
+    <members>
+        <member name="T:SpreadsheetTester.UnitTest1">
+            <summary>
+            This class contains tests for the Spreadsheet class.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.SetStringContent1">
+            <summary>
+            Tests getter and setter for text.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.SetStringContentTwice">
+            <summary>
+            Tests resetting cell text.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestReturnedSet1">
+            <summary>
+            Tests get cells to recalculate after a change in formula.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestReturnedSet2">
+            <summary>
+            Tests get cells to recalculate on a cell with no dependees.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.GetCellContentsFormula">
+            <summary>
+            Tests getting cell contents after change in formula.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestReturnedSetChanged">
+            <summary>
+            Tests get cells to recalculate after change in formula.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestCircularException1">
+            <summary>
+            Tests circular dependency.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestCircularException2">
+            <summary>
+            Tests circular dependency for reset formula.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestAddingEmptyCell">
+            <summary>
+            Tests get names of all nonempty cells after adding cells with no content.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestValidName">
+            <summary>
+            Tests for addition of valid cell names.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName1">
+            <summary>
+            Tests setting invalid cell name with an "ampersand" in the name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName2">
+            <summary>
+            Tests setting invalid cell name with just a number.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName3">
+            <summary>
+            Tests setting invalid cell name with just a ampersand.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName4">
+            <summary>
+            Tests setting invalid cell name with a number followed by a letter.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName5">
+            <summary>
+            Tests setting invalid cell name with a whitespace character to a number.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName6">
+            <summary>
+            Tests setting invalid cell name with empty string.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName7">
+            <summary>
+            Tests setting invalid cell name with a whiespace character to text.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestSetInvalidName8">
+            <summary>
+            Tests setting invalid cell name with a whitespace character to formula.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestGetInvalidName1">
+            <summary>
+            Tests getting invalid cell name with an ampersand in the name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestGetInvalidName2">
+            <summary>
+            Tests getting invalid cell name with just a number.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestGetInvalidName3">
+            <summary>
+            Tests getting invalid cell name with just an ampersand.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestGetInvalidName4">
+            <summary>
+            Tests getting invalid cell name with a number followed by a letter.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestGetInvalidName5">
+            <summary>
+            Tests getting invalid cell name with a whitespace character to a number.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestResetDouble">
+            <summary>
+            Tests reseting a formula to a double and getting cells to recalculate.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestResetString1">
+            <summary>
+            Tests resetting a formula to a string and getting cells to recalculate.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.TestResetString2">
+            <summary>
+            Tests resetting formula to an empty string and getting cells to recalculate.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.ValidCellNameEmpty">
+            <summary>
+            Tests passing empty string as cell name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.ValidCellNameNull">
+            <summary>
+            Tests passing null as a cell name.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.GetUnsetCell">
+            <summary>
+            Tests getting a cell who hasn't been set yet.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetTester.UnitTest1.AbstractSpreadsheet">
+            <summary>
+            Tests creating an abstract spreadsheet.
+            </summary>
+        </member>
+    </members>
+</doc>

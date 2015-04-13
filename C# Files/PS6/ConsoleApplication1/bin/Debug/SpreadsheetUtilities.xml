@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SpreadsheetUtilities</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:SpreadsheetUtilities.DependencyGraph" -->
+        <member name="M:SpreadsheetUtilities.DependencyGraph.#ctor">
+            <summary>
+            Creates an empty DependencyGraph. Initialize size at 0, and create a new dictionary with strings mapped to HashSets
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependents(System.String)">
+            <summary>
+            Reports whether dependents(s) is non-empty.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.HasDependees(System.String)">
+            <summary>
+            Reports whether dependees(s) is non-empty.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependents(System.String)">
+            <summary>
+            Enumerates dependents(s).
+            Returns an enumerable list containing Dependents.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.GetDependees(System.String)">
+            <summary>
+            Enumerates dependees(s).
+            Returns an enumerable list containing Dependees.
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.AddDependency(System.String,System.String)">
+            <summary>
+            Adds the ordered pair (s,t), if it doesn't exist
+            </summary>
+            <param name="s">Key to add dependent 't' to the dictionary.</param>
+            <param name="t">Dependent of 's' to be added to 's' hash set.</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.RemoveDependency(System.String,System.String)">
+            <summary>
+            Removes the ordered pair (s,t), if it exists
+            </summary>
+            <param name="s">Key to find 't' in the dictionary. i.e. the dependee of 't'.</param>
+            <param name="t">Dependent of 's' to be removed from 's' hash set.</param>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependents(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (s,r).  Then, for each
+            t in newDependents, adds the ordered pair (s,t).
+            </summary>
+        </member>
+        <member name="M:SpreadsheetUtilities.DependencyGraph.ReplaceDependees(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all existing ordered pairs of the form (r,s).  Then, for each 
+            t in newDependees, adds the ordered pair (t,s).
+            </summary>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Size">
+            <summary>
+            The number of ordered pairs in the DependencyGraph.
+            </summary>
+        </member>
+        <member name="P:SpreadsheetUtilities.DependencyGraph.Item(System.String)">
+            <summary>
+            The size of dependees(s).
+            This property is an example of an indexer.  If dg is a DependencyGraph, you would
+            invoke it like this:
+            dg["a"]
+            It should return the size of dependees("a")
+            </summary>
+        </member>
+    </members>
+</doc>

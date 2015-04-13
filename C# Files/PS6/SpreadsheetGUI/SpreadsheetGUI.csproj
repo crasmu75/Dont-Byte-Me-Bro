@@ -94,6 +94,10 @@
       <Project>{6700a798-70be-4555-82da-895d069794a2}</Project>
       <Name>ClientModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Project2\Resources.csproj">
+      <Project>{8897137d-0819-461c-bf7d-403925f97949}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Spreadsheet\Spreadsheet.csproj">
       <Project>{1618b4ca-2a25-4107-b15b-8261e2087d15}</Project>
       <Name>Spreadsheet</Name>

@@ -20,3 +20,10 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\o
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\bin\Debug\ClientModel.dll
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\bin\Debug\ClientModel.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\bin\Debug\SpreadsheetGUI.exe.config
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.exe
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.pdb
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Form1.resources
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Properties.Resources.resources
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache

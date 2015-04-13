@@ -63,7 +63,7 @@ namespace Model
 				socket = client.Client;
 
 				// Send message to connect to the server
-				SendMessage("connect " + clientName + " " + spreadsheetName);
+				SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
 
 				// Start listening for messages back
 				buffer = new byte[1024];

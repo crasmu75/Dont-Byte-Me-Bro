@@ -48,8 +48,6 @@
             this.Cell_Value_Label = new System.Windows.Forms.Label();
             this.Cell_Value_Display = new System.Windows.Forms.TextBox();
             this.Set_Content_Button = new System.Windows.Forms.Button();
-            this.HostName = new System.Windows.Forms.TextBox();
-            this.ConnectButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -224,30 +222,11 @@
             this.Set_Content_Button.UseVisualStyleBackColor = true;
             this.Set_Content_Button.Click += new System.EventHandler(this.Set_Content_Button_Click);
             // 
-            // HostName
-            // 
-            this.HostName.Location = new System.Drawing.Point(716, 0);
-            this.HostName.Name = "HostName";
-            this.HostName.Size = new System.Drawing.Size(100, 20);
-            this.HostName.TabIndex = 9;
-            // 
-            // ConnectButton
-            // 
-            this.ConnectButton.Location = new System.Drawing.Point(837, 0);
-            this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(75, 23);
-            this.ConnectButton.TabIndex = 10;
-            this.ConnectButton.Text = "CONNECT";
-            this.ConnectButton.UseVisualStyleBackColor = true;
-            this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
-            // 
-            // Form1
+            // SS_GUI_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1077, 680);
-            this.Controls.Add(this.ConnectButton);
-            this.Controls.Add(this.HostName);
             this.Controls.Add(this.Set_Content_Button);
             this.Controls.Add(this.spreadsheetPanel1);
             this.Controls.Add(this.Cell_Value_Display);
@@ -258,7 +237,7 @@
             this.Controls.Add(this.Cell_Name_Label);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "SS_GUI_Form";
             this.Text = "Spreadsheet";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
@@ -289,9 +268,7 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showHelpF1ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem calculatorToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem showCalculatorToolStripMenuItem;
-        private System.Windows.Forms.TextBox HostName;
-        private System.Windows.Forms.Button ConnectButton;
+        private System.Windows.Forms.ToolStripMenuItem showCalculatorToolStripMenuItem;
 	}
 }
 

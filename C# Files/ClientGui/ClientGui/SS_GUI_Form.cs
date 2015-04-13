@@ -27,12 +27,6 @@ namespace SpreadsheetGUI
         /// </summary>
         private ClientModel model;
 
-        /// <summary>
-        /// Hardcoded port number for connection
-        /// </summary>
-        private int portno = 2113;
-
-
 		/// <summary>
 		/// Initializes a new form, or spreadsheet window.
 		/// Also creates a new spreadsheet and sets the default startup values.
@@ -178,21 +172,6 @@ namespace SpreadsheetGUI
 			Form2 f2 = new Form2();
 			f2.Show();
 		}
-
-        private void HostName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ConnectButton_Click(object sender, EventArgs e)
-        {
-            model.Connect(HostName.Text, portno, "user1", "sheet1");
-        }
-
-        private void MessageReceived(String line)
-        {
-            
-        }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

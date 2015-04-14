@@ -22,7 +22,7 @@ namespace ClientGui
 		/// <summary>
 		/// Hardcoded port number for connection
 		/// </summary>
-		private int portno = 2113;
+		private int portno = 2000;
 
 		/// <summary>
 		/// Initialization of this form, the connection form

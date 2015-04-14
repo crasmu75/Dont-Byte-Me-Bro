@@ -24,23 +24,25 @@ namespace Model
         // Register event for an incoming error message
         public event Action<String> IncomingErrorEvent;
 
+		public event Action<String> testingEvent;
+
 		private byte[] buffer;
 
 
         /// <summary>
         /// Regex to identify incoming connected message
         /// </summary>
-        Regex connectedCommand = new Regex(@"(connected)\s+[0-9]+\s+");
+        Regex connectedCommand = new Regex(@"(connected)\s+[0-9]+");
 
         /// <summary>
         /// Regex to identify incoming cell update
         /// </summary>
-        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[.]+\s+");
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[.]+");
 
         /// <summary>
         /// Regex to identify incoming error message
         /// </summary>
-        Regex errorCommand = new Regex(@"(error)\s+[.]+\s+");
+        Regex errorCommand = new Regex(@"(error)\s+[.]+");
 
 		/// <summary>
         /// Creates a not yet connected client model.
@@ -95,11 +97,14 @@ namespace Model
 			String s = Encoding.ASCII.GetString(msg);
 			int index;
 
+
+
 			// process separate messages according to placement of \n characters
 			while ((index = s.IndexOf('\n')) >= 0)
 			{
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
+
 
                 // Call proper event action based on Regex match
                 if (cellUpdateCommand.IsMatch(line))
@@ -108,8 +113,11 @@ namespace Model
                 else if (errorCommand.IsMatch(line))
                     IncomingErrorEvent(line);
 
-                else if (connectedCommand.IsMatch(line))
-                    ConnectionConfirmationEvent(line);
+				else if (connectedCommand.IsMatch(line))
+				{
+					ConnectionConfirmationEvent(line);
+					testingEvent(line);
+				}
 
 				// delete the completed message from what we received
 				s = s.Substring(index + 1);

@@ -22,7 +22,7 @@ namespace ClientGui
 		/// <summary>
 		/// Hardcoded port number for connection
 		/// </summary>
-		private int portno = 2000;
+		private int portno = 2113;
 
 		/// <summary>
 		/// Initialization of this form, the connection form
@@ -54,8 +54,12 @@ namespace ClientGui
 		/// <param name="line"></param>
         private void MessageReceived(String line)
         {
-			this.Hide();
-			Application.Run(new SS_GUI_Form());
+			this.Invoke(new Action(() =>
+				{
+					this.Hide();
+					SS_GUI_Form spForm = new SS_GUI_Form();
+					spForm.Show();
+				}));
         }
     }
 }

@@ -37,12 +37,12 @@ namespace Model
         /// <summary>
         /// Regex to identify incoming cell update
         /// </summary>
-        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+\.+");
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+(.)+");
 
         /// <summary>
         /// Regex to identify incoming error message
         /// </summary>
-        Regex errorCommand = new Regex(@"(error)\s+[.]+");
+        Regex errorCommand = new Regex(@"(error)\s+(.)+");
 
 		/// <summary>
         /// Creates a not yet connected client model.
@@ -67,12 +67,26 @@ namespace Model
 					socket = client.Client;
 
 					// Send message to connect to the server
-					SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
+					try
+					{
+						SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
+					}
+					catch(Exception e)
+					{
+						Close();
+					}
 
 					// Start listening for messages back
 					buffer = new byte[1024];
-					socket.BeginReceive(buffer, 0, buffer.Length,
-										SocketFlags.None, LineReceived, buffer);
+					try
+					{
+						socket.BeginReceive(buffer, 0, buffer.Length,
+											SocketFlags.None, LineReceived, buffer);
+					}
+					catch(Exception e)
+					{
+						Close();
+					}
 				}
 				catch(Exception e)
 				{
@@ -91,7 +105,14 @@ namespace Model
 			msg = Encoding.ASCII.GetBytes(line);
 			if (socket != null)
 			{
-				socket.BeginSend(msg, 0,msg.Length,SocketFlags.None, null, msg);
+				try
+				{
+					socket.BeginSend(msg, 0, msg.Length, SocketFlags.None, null, msg);
+				}
+				catch(Exception e)
+				{
+					Close();
+				}
 			}
 		}
 
@@ -109,16 +130,11 @@ namespace Model
 			{
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
-
 				line = line.Trim();
-				testingevent(line);
 
                 // Call proper event action based on Regex match
 				if (cellUpdateCommand.IsMatch(line))
-				{
-					//testingevent("we here");
 					IncomingCellUpdateEvent(line);
-				}
 
 				else if (errorCommand.IsMatch(line))
 					IncomingErrorEvent(line);
@@ -132,8 +148,28 @@ namespace Model
 
 			// Listen for more messages
 			msg = new byte[1024];
-			socket.BeginReceive(msg, 0, msg.Length,
-				SocketFlags.None, LineReceived, msg);
+
+			try
+			{
+				socket.BeginReceive(msg, 0, msg.Length,
+					SocketFlags.None, LineReceived, msg);
+			}
+			catch(Exception e)
+			{
+				Close();
+			}
+		}
+
+		/// <summary>
+		/// Called when we can't send or receive to the server anymore.
+		/// </summary>
+		public void Close()
+		{
+			// shutdown and close the socket
+			socket.Shutdown(SocketShutdown.Both);
+			socket.Close();
+
+			IncomingErrorEvent("Connection to the server lost.");
 		}
 	}
 }

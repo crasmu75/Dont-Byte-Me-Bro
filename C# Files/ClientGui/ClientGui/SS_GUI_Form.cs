@@ -48,7 +48,6 @@ namespace SpreadsheetGUI
             model = currModel;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
-			model.testingevent += testinggg;
 		}
 
 		/// <summary>
@@ -197,20 +196,15 @@ namespace SpreadsheetGUI
             string cellName = words[1];
             char colChar = cellName[0];
             col = (int)colChar - 65;
-            row = Convert.ToInt32(cellName.Substring(1));
+            row = Convert.ToInt32(cellName.Substring(1)) - 1;
 
             spreadsheetPanel1.SetValue(col, row, words[2]);
             UpdateCurrCellTextBoxes();
         }
 
-		private void testinggg(string cmd)
-		{
-			//MessageBox.Show("yo man");
-		}
-
         private void ErrorCommand(string obj)
         {
-            MessageBox.Show(obj);
+            MessageBox.Show("An error occured: \n\n" + obj);
         }
 
     // UNUSED METHODS ----------------------------------------------------------------

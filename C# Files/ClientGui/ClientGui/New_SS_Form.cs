@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,11 @@ namespace ClientGui
 {
 	public partial class New_SS_Form : Form
 	{
-		public New_SS_Form()
+		ClientModel model;
+
+		public New_SS_Form(ClientModel currModel)
 		{
+			model = currModel;
 			InitializeComponent();
 		}
 	}

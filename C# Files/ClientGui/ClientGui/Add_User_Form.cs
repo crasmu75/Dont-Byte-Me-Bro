@@ -18,18 +18,22 @@ namespace ClientGui
 		/// </summary>
 		private ClientModel model;
 
-		public Add_User_Form()
+		public Add_User_Form(ClientModel currModel)
 		{
 			InitializeComponent();
 
 			// Added to connect to server
-			model = new ClientModel();
+			model = currModel;
 		}
 
 		private void button_add_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("Username being added.");
 			model.SendMessage("register " + textBox_username.Text);
+			this.Invoke(new Action(() =>
+			{
+				this.Hide();
+			}));
 		}
 	}
 }

@@ -32,7 +32,7 @@ namespace SpreadsheetGUI
 		/// Initializes a new form, or spreadsheet window.
 		/// Also creates a new spreadsheet and sets the default startup values.
 		/// </summary>
-		public SS_GUI_Form()
+		public SS_GUI_Form(ClientModel currModel)
 		{
 			InitializeComponent();
 			Frame1 = new Spreadsheet(s => true, s => s.ToUpper(), "ps6");
@@ -45,7 +45,7 @@ namespace SpreadsheetGUI
 			WindowState = FormWindowState.Maximized;
 
             // Added to connect to server
-            model = new ClientModel();
+            model = currModel;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
 			model.testingevent += testinggg;
@@ -205,7 +205,7 @@ namespace SpreadsheetGUI
 
 		private void testinggg(string cmd)
 		{
-			MessageBox.Show("yo man");
+			//MessageBox.Show("yo man");
 		}
 
         private void ErrorCommand(string obj)
@@ -371,7 +371,7 @@ namespace SpreadsheetGUI
             //DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
 			this.Invoke(new Action(() =>
 			{
-				New_SS_Form newSpForm = new New_SS_Form();
+				New_SS_Form newSpForm = new New_SS_Form(model);
 				newSpForm.Show();
 			}));
         }
@@ -440,7 +440,7 @@ namespace SpreadsheetGUI
 		{
 			this.Invoke(new Action(() =>
 			{
-				Add_User_Form addUserForm = new Add_User_Form();
+				Add_User_Form addUserForm = new Add_User_Form(model);
 				addUserForm.Show();
 			}));
 		}

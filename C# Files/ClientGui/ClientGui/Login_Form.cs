@@ -69,7 +69,7 @@ namespace ClientGui
 			this.Invoke(new Action(() =>
 				{
 					this.Hide();
-					SS_GUI_Form spForm = new SS_GUI_Form();
+					SS_GUI_Form spForm = new SS_GUI_Form(model);
 					spForm.Show();
 				}));
         }

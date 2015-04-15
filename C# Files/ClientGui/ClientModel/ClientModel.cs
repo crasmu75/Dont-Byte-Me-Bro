@@ -169,7 +169,7 @@ namespace Model
 			socket.Shutdown(SocketShutdown.Both);
 			socket.Close();
 
-			IncomingErrorEvent("Connection to the server lost.");
+			IncomingErrorEvent("Connection to the server lost. It is recommended that you restart\nthe application to restart the connection.");
 		}
 	}
 }

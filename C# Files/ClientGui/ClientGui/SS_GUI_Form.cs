@@ -234,63 +234,6 @@ namespace SpreadsheetGUI
         }
 
         /// <summary>
-        /// Provides a save function in the file menu. This will use the last used filename or ask for a new one.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void saveCtrlToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (lastFileName == null)
-            {
-                SaveAsDocument();
-            }
-            else
-            {
-                Frame1.Save(lastFileName);
-            }
-        }
-
-        /// <summary>
-        /// Shows the open file dialog and requests for saving before opening the file.
-        /// Also updates all of the cells in the spreadsheet to the opened spreadsheet file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void openFileMenu_Click(object sender, EventArgs e)
-        {
-            // Asks user to save before opening (and replacing) current spreadsheet.
-            if (Frame1.Changed == true)
-            {
-                DialogResult x = MessageBox.Show("Opening a new spreadsheet will result in loss of unsaved data. Would you like to save the spreadsheet before closing?", "Open Confirmation", MessageBoxButtons.YesNoCancel);
-                if (x == DialogResult.Yes)
-                {
-                    SaveAsDocument();
-                }
-                else if (x == DialogResult.Cancel)
-                {
-                    return;
-                }
-            }
-            string fileName = OpenSpreadsheetDialog();
-
-            if (fileName == null)
-                return;
-
-            // Opens new spreadsheet and updates all of the cells.
-            lastFileName = fileName;
-            this.Text = lastFileName;
-            Frame1 = new Spreadsheet(fileName, s => true, s => s.ToUpper(), "ps6");
-            IEnumerable<string> cells = Frame1.GetNamesOfAllNonemptyCells();
-            ClearAllCells();
-
-            UpdateSpreadsheetCells(cells);
-
-            spreadsheetPanel1.SetSelection(0, 0);
-            currCell = "A1";
-            UpdateCurrCellTextBoxes();
-        }
-
-        /// <summary>
         /// Clears all of the cells to be empty before opening a new spreadsheet.
         /// </summary>
         private void ClearAllCells()
@@ -335,22 +278,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult x = MessageBox.Show("Closing all of the spreadsheets may result in loss of data. "
-            + "If you want to save a spreadsheet, please save or close it individually.\n\nAre you sure you want close all windows without saving?",
-            "Close All Windows", MessageBoxButtons.YesNoCancel);
-
-            if (x == DialogResult.No)
-            {
-                return;
-            }
-            else if (x == DialogResult.Yes)
-            {
-                Environment.Exit(0);
-            }
-            else if (x == DialogResult.Cancel)
-            {
-                return;
-            }
+              Environment.Exit(0);
         }
 
         /// <summary>
@@ -371,58 +299,13 @@ namespace SpreadsheetGUI
         }
 
         /// <summary>
-        /// Provides a save function in the file menu. This will use the last used filename or ask for a new one.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void saveCtrlSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveAsDocument();
-        }
-
-        /// <summary>
-        /// Provides a save as function in the file menu. Automatically appends .sprd if needed.
-        /// </summary>
-        private void SaveAsDocument()
-        {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "Spreadsheet Files|*.sprd|All Files|*.*";
-            dialog.ShowDialog();
-            string filename = dialog.FileName;
-            // Matches and appends .sprd extension.
-            if (dialog.FilterIndex == 1)
-            {
-                Regex r = new Regex("(.sprd)");
-                if (!r.IsMatch(filename))
-                {
-                    filename += ".sprd";
-                }
-            }
-            lastFileName = filename;
-            this.Text = lastFileName;
-            Frame1.Save(filename);
-        }
-
-        /// <summary>
         /// When the user attempts to close a form, a dialog box asks if the user would like to save the spreadsheet if it has been changed.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-           if (Frame1.Changed == true)
-            {
-                DialogResult x = MessageBox.Show("Closing the spreadsheet will result in loss of unsaved data. Would you like to save the spreadsheet before closing?", "Close Confirmation", MessageBoxButtons.YesNoCancel);
-                if (x == DialogResult.Yes)
-                {
-                    SaveAsDocument();
-                }
-                else if (x == DialogResult.Cancel)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
+           
         }
 
 		/// <summary>

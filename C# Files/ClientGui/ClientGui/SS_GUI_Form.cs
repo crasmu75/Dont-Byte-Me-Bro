@@ -11,6 +11,7 @@ using SS;
 using System.Text.RegularExpressions;
 using WindowsFormsApplication1;
 using Model;
+using ClientGui;
 
 namespace SpreadsheetGUI
 {
@@ -368,6 +369,11 @@ namespace SpreadsheetGUI
             // Tell the application context to run the form on the same
             // thread as the other forms.
             //DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
+			this.Invoke(new Action(() =>
+			{
+				New_SS_Form newSpForm = new New_SS_Form();
+				newSpForm.Show();
+			}));
         }
 
         /// <summary>
@@ -424,6 +430,20 @@ namespace SpreadsheetGUI
                 }
             }
         }
+
+		/// <summary>
+		/// menu strip button to click to add a new user
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Invoke(new Action(() =>
+			{
+				Add_User_Form addUserForm = new Add_User_Form();
+				addUserForm.Show();
+			}));
+		}
 	}
 
 }

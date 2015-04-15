@@ -48,6 +48,8 @@
 			this.Cell_Value_Label = new System.Windows.Forms.Label();
 			this.Cell_Value_Display = new System.Windows.Forms.TextBox();
 			this.Set_Content_Button = new System.Windows.Forms.Button();
+			this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -64,7 +66,8 @@
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.calculatorToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.usersToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 6);
@@ -222,6 +225,21 @@
 			this.Set_Content_Button.UseVisualStyleBackColor = true;
 			this.Set_Content_Button.Click += new System.EventHandler(this.Set_Content_Button_Click);
 			// 
+			// usersToolStripMenuItem
+			// 
+			this.usersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addUserToolStripMenuItem});
+			this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+			this.usersToolStripMenuItem.Size = new System.Drawing.Size(47, 19);
+			this.usersToolStripMenuItem.Text = "Users";
+			// 
+			// addUserToolStripMenuItem
+			// 
+			this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
+			this.addUserToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.addUserToolStripMenuItem.Text = "Add User";
+			this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
+			// 
 			// SS_GUI_Form
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,7 +286,9 @@
 		private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showHelpF1ToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem calculatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showCalculatorToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem showCalculatorToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem addUserToolStripMenuItem;
 	}
 }
 

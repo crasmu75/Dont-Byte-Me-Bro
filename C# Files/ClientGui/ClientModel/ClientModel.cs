@@ -61,16 +61,23 @@ namespace Model
 		{
 			if (socket == null)
 			{
-				TcpClient client = new TcpClient(hostname, port);
-				socket = client.Client;
+				try
+				{
+					TcpClient client = new TcpClient(hostname, port);
+					socket = client.Client;
 
-				// Send message to connect to the server
-				SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
+					// Send message to connect to the server
+					SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
 
-				// Start listening for messages back
-				buffer = new byte[1024];
-				socket.BeginReceive(buffer, 0, buffer.Length,
-									SocketFlags.None, LineReceived, buffer);
+					// Start listening for messages back
+					buffer = new byte[1024];
+					socket.BeginReceive(buffer, 0, buffer.Length,
+										SocketFlags.None, LineReceived, buffer);
+				}
+				catch(Exception e)
+				{
+					IncomingErrorEvent(e.Message);
+				}
 			}
 		}
 

@@ -33,7 +33,13 @@ namespace ClientGui
             model = new ClientModel();
             model.ConnectionConfirmationEvent += MessageReceived;
 			model.testingevent += testgghgh;
+			model.IncomingErrorEvent += ErrorReceived;
         }
+
+		private void ErrorReceived(string obj)
+		{
+			MessageBox.Show("An error occured: \n\n" + obj);
+		}
 
 		private void testgghgh(string obj)
 		{

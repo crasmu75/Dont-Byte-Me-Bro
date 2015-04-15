@@ -1,9 +1,3 @@
-/* A simple server in the internet domain using TCP
-   The port number is passed as an argument 
-   Code taken from:
-   www.linuxhowtos.org/c_c++/socket.htm
-
-*/
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
@@ -15,148 +9,133 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <vector>
-
+#include "commandParser.h"
+#include "spreadsheetSession.h"
+#include "workItem.h"
 
 using namespace std;
 
 void error(const char *msg)
 {
-    perror(msg);
-    exit(1);
+  perror(msg);
+  exit(1);
 }
 
 
 
-
-typedef struct 
+typedef struct
 {
   vector<int> *sockets;
   int socketFD;
 } socketArgs;
 
-void * receiveMessage(void * skts)
+void * receiveConnection(void * skts)
 {
   pthread_t thread;
   int writeCount, readCount;
-  socketArgs* clientSockets = (socketArgs *) skts;
-
-  char buffer[256];
-  char buff[256];
-  // Initializes all bytes in the incoming buffer to be zero.
-   
-     int socket = clientSockets->socketFD;
-     while (1)
-       {
-	 bzero(buffer,256);
-	 bzero(buff,256);
-     // Reads bytes from the socket using the new file descriptor. This will block until there is something to read from the socket.
-     // This will read the total number of characters send, or 255 (whichever is less) and place them in the buffer.
-     // The read method returns the number of characters read.
-     readCount = read(socket,buffer,255);
-     buffer[static_cast<int> (strlen(buffer))] = '\n';
-     printf(buffer);
-
-     // Throw an error if the number of characters read is less than 0.
-     if (readCount < 0) error("ERROR reading from socket");
-
-     // Prints the message received.
-     printf("Here is the message: %s\n",buffer);
-
-     // Sends a message back to the client using the new file descriptor. 
-     // The first parameter is the new file descriptor.
-     // The second parameter is the message to be sent
-     // The third parameter is the number of characters in the message.
-     // The write method returns the number of bytes successfully written
-     sprintf(buff, "Hold Up\n");
-     cout << "got here 3" << endl; 
-     vector<int> allSockets;
-     allSockets = *(clientSockets->sockets);
-      cout << "got here 4" << endl; 
-     
-     for (vector<int>::iterator it = allSockets.begin(); it != allSockets.end(); it++)
-	{
-	  writeCount = write((*it),buffer,strlen(buffer));
-	}
-
-     /*
-     for (int i = 0; i < clientSockets->count; i++)
-       {
-	 writeCount = write(clientSockets->sockets[i],buff, strlen(buff));
-	 writeCount = write(clientSockets->sockets[i],buffer,strlen(buffer));
-     if (writeCount < 0) error("ERROR writing to socket");
-       }
-     */
-    
-       }
-     // clientSockets->currentSocket = current;
-     // pthread_create(&thread, 0, receiveMessage, (void *)clientSockets);
-     // pthread_detach(thread);
-     // Close socket connections. DO THIS EVENTUALLY!
-     // close();
+  socketArgs * clientSockets = (socketArgs *) skts;
+  vector<spreadsheetSession::spreadsheetSession> *spreadsheetSessions;
   
+  char buffer[256];
+  char buffer2[256];
+  int socket = clientSockets->socketFD;
+  while(1)
+    {
+      bzero(buffer, 256);
+      readCount = read(socket,buffer,255);
+      cout<< buffer << endl;
+      string commandStr = commandParser::parseCommand(buffer);
+      if(commandStr.compare("connect"))
+	{
+	  string clientName = commandParser::parseClientName(buffer);
+	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
+	  //Check if spreadsheet Session exist
+	  for (vector<spreadsheetSession::spreadsheetSession>::iterator it = spreadsheetSessions->begin(); it != spreadsheetSessions->end(); it++)
+	    {
+	      if(spreadsheetName.compare(it->spreadsheetSession::getspreadsheetName()))
+	      {
+		string addCommand = "add " + clientName;
+		workItem::workItem addRequest(socket,addCommand);
+		it->enqueue(addRequest);
+	      }
+	   //Doesn't exist 
+	      else
+	      {
+		//Construct ss session
+		spreadsheetSession::spreadsheetSession session(spreadsheetName);
+		string addCommand = "add " + clientName;
+		workItem::workItem addRequest(socket,addCommand);
+		it->enqueue(addRequest);
+		spreadsheetSessions->push_back(session);
+	      }
+	    }
+	  break;
+	}
+	
+
+
+
+
+
+
+
+      
+     bzero(buffer,256);
+     bzero(buffer2,256);
+     sprintf(buffer, "connected 7\n");
+     sprintf(buffer2, "cell A1 dontfreakoutcamille\n");
+     vector<int> allSockets;
+     allSockets = *(clientSockets->sockets); 
+     for (vector<int>::iterator it = allSockets.begin(); it != allSockets.end(); it++)
+       {
+	 writeCount = write((*it),buffer,strlen(buffer));
+	 writeCount = write((*it),buffer2,strlen(buffer2));
+       }
+    }
 }
 
 int main(int argc, char *argv[])
 {
-  // Socket file descriptors and port number.
-     int socketFD, newSocketFD, portno;
-     // Size of the address of the client.
-     socklen_t clientLength;
-     // Buffer to hold characters coming into socket connection.
-     char buffer[256];
-     // Structure containing an internet address.
-     struct sockaddr_in serverAddr, clientAddr;
-     // Used to hold number of bytes to be read or written.
-     int readCount, writeCount;
+  int socketFD, newSocketFD, portno;
+  char buffer[256];
+  struct sockaddr_in serverAddr,clientAddr;
+  pthread_t thread;
+  socklen_t clientLength;
+  
+  if(argc < 2)
+    {
+      cout << "Using default port 2000" << endl;
+      portno = 2000;
+    }
+  else
+    {
+      portno = atoi(argv[1]);
+    }
 
-     pthread_t thread;
+  socketFD = socket(AF_INET, SOCK_STREAM, 0);
+  if(socketFD < 0)
+    {
+      error("Error opening socket");
+    }
+  
+  bzero((char *) &serverAddr, sizeof(serverAddr));
+  serverAddr.sin_family = AF_INET;
+  serverAddr.sin_addr.s_addr = INADDR_ANY;
+  serverAddr.sin_port = htons(portno);
 
-    
+  // Binds the socket (referenced by the socket file descriptor) with the provided server address.
+  if (bind(socketFD, (struct sockaddr *) &serverAddr,
+       sizeof(serverAddr)) < 0) 
+       error("ERROR on binding");
 
-     // If a port is not provided, set it to 2000 (default).
-     if (argc < 2)
-       {
-	 printf("Using default port 2000");
-	 portno = 2000;
-       }
-
-     // Set port to provided command line argument.
-     else
-       portno = atoi(argv[1]);
-     
-     // Create new socket with Internet domain, Stream type socket, and default protocol (TCP for Stream).
-     // Returns an entry into the file descriptor table, used for subsequent references to this socket.
-     socketFD = socket(AF_INET, SOCK_STREAM, 0);
-     if (socketFD < 0) 
-        error("ERROR opening socket");
-
-     // Sets all values in server address buffer to zero.
-     bzero((char *) &serverAddr, sizeof(serverAddr));
-
-     // Sets code family of server address to be Internet domain.
-     serverAddr.sin_family = AF_INET;
-     // Sets the IP address of the host.
-     // INADDR_ANY gets the IP address of the machine running the server.
-     serverAddr.sin_addr.s_addr = INADDR_ANY;
-     // Sets the port number of the server to be the provided port.
-     serverAddr.sin_port = htons(portno);
-
-     // Binds the socket (referenced by the socket file descriptor) with the provided server address.
-     if (bind(socketFD, (struct sockaddr *) &serverAddr,
-              sizeof(serverAddr)) < 0) 
-              error("ERROR on binding");
-
-     // Allows process to listen on socket for connections. 
-     // First argument is file descriptor referencing socket to listen on.
-     // Second argument is the size of the backlog queue for number of connections that can be waiting 
-     //    while process is handling a particular conneciton.
-     listen(socketFD,5);
-     int numSockets = 0;
-     cout << "got here" << endl;
-     vector<int> *allSockets = new vector<int>;
-     while (1)
-       {
-	 socketArgs* clientSockets = new socketArgs();
+  // Allows process to listen on socket for connections. 
+  // First argument is file descriptor ref
+  listen(socketFD,5);
+  int numSockets = 0;
+  vector<int> *allSockets = new vector<int>;
+  while (1)
+  {
+     socketArgs* clientSockets = new socketArgs();
      // Gets the size of the client address.
      clientLength = sizeof(clientAddr);
      
@@ -171,23 +150,17 @@ int main(int argc, char *argv[])
      // Throws an error if the connection could not be established.
      if (newSocketFD < 0) 
           error("ERROR on accept");
-    cout << "got here 1" << endl;
+
      allSockets->push_back(newSocketFD);
-cout << "got here2 " << endl;
      clientSockets->sockets = allSockets;
- cout << "got here3 " << endl;
      clientSockets->socketFD = newSocketFD;
-cout << "got here4 " << endl;
-     printf("Socket accepted\n");
-
-     pthread_create(&thread, 0, receiveMessage, (void *)clientSockets);
+     pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);
-       }
+
+  }
+  close(socketFD);
 
 
-     close(socketFD);
-     
 
-     // Exit program normally.
-     return 0; 
+ 
 }

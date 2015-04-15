@@ -27,5 +27,7 @@ class spreadsheetSession
   void removeUser();
   void sendCommand(std::string);
   std::string getspreadsheetName();
+  void enqueue(workItem::workItem);
+  void dequeue(workItem::workItem);
 };
 

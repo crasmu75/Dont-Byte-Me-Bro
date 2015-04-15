@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.label_new_user = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBox_username = new System.Windows.Forms.TextBox();
 			this.button_add = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -42,12 +42,12 @@
 			this.label_new_user.TabIndex = 0;
 			this.label_new_user.Text = "New Username: ";
 			// 
-			// textBox1
+			// textBox_username
 			// 
-			this.textBox1.Location = new System.Drawing.Point(132, 42);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(115, 20);
-			this.textBox1.TabIndex = 1;
+			this.textBox_username.Location = new System.Drawing.Point(132, 42);
+			this.textBox_username.Name = "textBox_username";
+			this.textBox_username.Size = new System.Drawing.Size(115, 20);
+			this.textBox_username.TabIndex = 1;
 			// 
 			// button_add
 			// 
@@ -57,6 +57,7 @@
 			this.button_add.TabIndex = 2;
 			this.button_add.Text = "Add";
 			this.button_add.UseVisualStyleBackColor = true;
+			this.button_add.Click += new System.EventHandler(this.button_add_Click);
 			// 
 			// Add_User_Form
 			// 
@@ -64,7 +65,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(289, 169);
 			this.Controls.Add(this.button_add);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.textBox_username);
 			this.Controls.Add(this.label_new_user);
 			this.Name = "Add_User_Form";
 			this.Text = "Add_User_Form";
@@ -76,7 +77,7 @@
 		#endregion
 
 		private System.Windows.Forms.Label label_new_user;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBox_username;
 		private System.Windows.Forms.Button button_add;
 	}
 }

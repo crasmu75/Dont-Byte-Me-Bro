@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,23 @@ namespace ClientGui
 {
 	public partial class Add_User_Form : Form
 	{
+		/// <summary>
+		/// New model for processing
+		/// </summary>
+		private ClientModel model;
+
 		public Add_User_Form()
 		{
 			InitializeComponent();
+
+			// Added to connect to server
+			model = new ClientModel();
+		}
+
+		private void button_add_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("Username being added.");
+			model.SendMessage("register " + textBox_username.Text);
 		}
 	}
 }

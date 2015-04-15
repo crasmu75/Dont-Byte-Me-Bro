@@ -70,3 +70,5 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Login_Form.resources
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\WindowsFormsApplication1.Form2.resources
 C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\SpreadsheetGUI.SS_GUI_Form.resources
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Add_User_Form.resources
+C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.New_SS_Form.resources

@@ -9,9 +9,9 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <vector>
-#include "commandParser.h"
-#include "spreadsheetSession.h"
-#include "workItem.h"
+#include "Parser/commandParser.h"
+#include "spreadsheetSession/spreadsheetSession.h"
+#include "spreadsheetSession/workItem.h"
 
 using namespace std;
 

@@ -47,6 +47,7 @@ namespace SpreadsheetGUI
             model = new ClientModel();
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
+			model.testingevent += testinggg;
 		}
 
 		/// <summary>
@@ -186,6 +187,7 @@ namespace SpreadsheetGUI
 
         private void CellUpdateCommand(string cmd)
         {
+			MessageBox.Show("Got here.");
             int row, col;
 
             char[] delimiterChars = { ' ', '\n'};
@@ -199,6 +201,11 @@ namespace SpreadsheetGUI
             spreadsheetPanel1.SetValue(col, row, words[2]);
             UpdateCurrCellTextBoxes();
         }
+
+		private void testinggg(string cmd)
+		{
+			MessageBox.Show("yo man");
+		}
 
         private void ErrorCommand(string obj)
         {

@@ -24,7 +24,7 @@ namespace Model
         // Register event for an incoming error message
         public event Action<String> IncomingErrorEvent;
 
-		public event Action<String> testingEvent;
+		public event Action<String> testingevent;
 
 		private byte[] buffer;
 
@@ -37,7 +37,7 @@ namespace Model
         /// <summary>
         /// Regex to identify incoming cell update
         /// </summary>
-        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[.]+");
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+[/.]+");
 
         /// <summary>
         /// Regex to identify incoming error message
@@ -97,27 +97,24 @@ namespace Model
 			String s = Encoding.ASCII.GetString(msg);
 			int index;
 
-
-
 			// process separate messages according to placement of \n characters
 			while ((index = s.IndexOf('\n')) >= 0)
 			{
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
 
-
                 // Call proper event action based on Regex match
-                if (cellUpdateCommand.IsMatch(line))
-                    IncomingCellUpdateEvent(line);
+				if (cellUpdateCommand.IsMatch(line))
+				{
+					testingevent("we here");
+					IncomingCellUpdateEvent(line);
+				}
 
-                else if (errorCommand.IsMatch(line))
-                    IncomingErrorEvent(line);
+				else if (errorCommand.IsMatch(line))
+					IncomingErrorEvent(line);
 
 				else if (connectedCommand.IsMatch(line))
-				{
 					ConnectionConfirmationEvent(line);
-					testingEvent(line);
-				}
 
 				// delete the completed message from what we received
 				s = s.Substring(index + 1);

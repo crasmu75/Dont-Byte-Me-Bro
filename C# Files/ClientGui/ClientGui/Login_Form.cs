@@ -32,7 +32,13 @@ namespace ClientGui
             InitializeComponent();
             model = new ClientModel();
             model.ConnectionConfirmationEvent += MessageReceived;
+			model.testingevent += testgghgh;
         }
+
+		private void testgghgh(string obj)
+		{
+			MessageBox.Show(obj);
+		}
 
 		/// <summary>
 		/// Connect Button click - connects with the given IP address or host name

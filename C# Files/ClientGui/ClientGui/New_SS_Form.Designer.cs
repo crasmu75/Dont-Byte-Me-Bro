@@ -59,6 +59,7 @@
 			this.button_open.TabIndex = 2;
 			this.button_open.Text = "Open";
 			this.button_open.UseVisualStyleBackColor = true;
+			this.button_open.Click += new System.EventHandler(this.button_open_Click);
 			// 
 			// label_instructions
 			// 

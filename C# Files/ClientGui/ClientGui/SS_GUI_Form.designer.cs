@@ -79,7 +79,7 @@
             this.closeToolStripMenuItem,
             this.closeAllToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 19);
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(94, 19);
 			this.fileToolStripMenuItem.Text = "File";
 			// 
 			// newToolStripMenuItem
@@ -129,7 +129,7 @@
 			// showHelpF1ToolStripMenuItem
 			// 
 			this.showHelpF1ToolStripMenuItem.Name = "showHelpF1ToolStripMenuItem";
-			this.showHelpF1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.showHelpF1ToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
 			this.showHelpF1ToolStripMenuItem.Text = "Show Help";
 			this.showHelpF1ToolStripMenuItem.Click += new System.EventHandler(this.showHelpF1ToolStripMenuItem_Click);
 			// 

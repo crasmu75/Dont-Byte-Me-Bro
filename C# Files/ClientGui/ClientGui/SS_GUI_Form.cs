@@ -48,6 +48,7 @@ namespace SpreadsheetGUI
             model = currModel;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
+			model.ConnectionConfirmationEvent += (string line) => {};
 		}
 
 		/// <summary>

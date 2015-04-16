@@ -28,6 +28,9 @@ namespace Model
 
 		private byte[] buffer;
 
+		public string host, clientn, spreadsheet;
+		public int portn;
+
 
         /// <summary>
         /// Regex to identify incoming connected message
@@ -65,6 +68,11 @@ namespace Model
 				{
 					TcpClient client = new TcpClient(hostname, port);
 					socket = client.Client;
+
+					host = hostname;
+					portn = port;
+					clientn = clientName;
+					spreadsheet = spreadsheetName;
 
 					// Send message to connect to the server
 					try

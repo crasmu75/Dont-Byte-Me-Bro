@@ -34,7 +34,7 @@ void * receiveConnection(void * skts)
   pthread_t thread;
   int writeCount, readCount;
   socketArgs * clientSockets = (socketArgs *) skts;
-  vector<spreadsheetSession::spreadsheetSession> *spreadsheetSessions;
+  vector<spreadsheetSession::spreadsheetSession> *spreadsheetSessions = new vector<spreadsheetSession::spreadsheetSession>();
   
   char buffer[256];
   char buffer2[256];
@@ -43,34 +43,40 @@ void * receiveConnection(void * skts)
     {
       bzero(buffer, 256);
       readCount = read(socket,buffer,255);
-      cout<< buffer << endl;
+      if(readCount == 0)
+	{
+	  cout << "read error" << endl;
+	}
       string commandStr = commandParser::parseCommand(buffer);
-      if(commandStr.compare("connect"))
+      if(commandStr.compare("connect") == 0)
 	{
 	  string clientName = commandParser::parseClientName(buffer);
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
 	  //Check if spreadsheet Session exist
+	  bool foundSheet = false;
 	  for (vector<spreadsheetSession::spreadsheetSession>::iterator it = spreadsheetSessions->begin(); it != spreadsheetSessions->end(); it++)
 	    {
-	      if(spreadsheetName.compare(it->spreadsheetSession::getspreadsheetName()))
+	      if(spreadsheetName.compare(it->spreadsheetSession::getspreadsheetName()) == 0)
 	      {
+		cout << "were in here" << endl;
 		string addCommand = "add " + clientName;
 		workItem::workItem addRequest(socket,addCommand);
 		it->enqueue(addRequest);
+		foundSheet = true;
 	      }
-	   //Doesn't exist 
-	      else
-	      {
-		//Construct ss session
-		spreadsheetSession::spreadsheetSession session(spreadsheetName);
+	    }
+	  if(!foundSheet)
+	    {
+	        cout << " creating new session....." << endl;
+	      	spreadsheetSession::spreadsheetSession session(spreadsheetName);
 		string addCommand = "add " + clientName;
 		workItem::workItem addRequest(socket,addCommand);
-		it->enqueue(addRequest);
+		session.enqueue(addRequest);
 		spreadsheetSessions->push_back(session);
-	      }
 	    }
 	  break;
 	}
+    }
 	
 
 
@@ -91,7 +97,7 @@ void * receiveConnection(void * skts)
 	 writeCount = write((*it),buffer,strlen(buffer));
 	 writeCount = write((*it),buffer2,strlen(buffer2));
        }
-    }
+    
 }
 
 int main(int argc, char *argv[])

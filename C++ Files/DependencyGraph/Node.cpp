@@ -6,6 +6,8 @@ Node::Node(std::string s):dependents(new std::list<Node>()), dependees(new std::
   name = s;
 }
 
+Node::~Node(){}
+
 void Node::add_dependent(Node n)
 {
   (*dependents).push_back(n);
@@ -63,3 +65,16 @@ void Node::remove_all_dependees()
     }
   (*dependees).clear();
 }
+
+/*
+ * Checks if two Nodes are equal (used in the remove method)
+ */
+bool Node::operator==(const Node &rhs) 
+{
+  if(name == rhs.name)
+	return true;
+  else
+	return false;
+}
+
+int main(){}

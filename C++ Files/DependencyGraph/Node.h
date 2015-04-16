@@ -12,6 +12,7 @@
     void remove_dependee(Node n);
     void remove_all_dependents();
     void remove_all_dependees();
+    bool operator== (const Node & rhs);
    
     std::string name;
     std::list<Node> *dependents;

@@ -19,3 +19,8 @@ B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.csprojResolveAssemblyReference.cache
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.dll
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.pdb
+\\chips.eng.utah.edu\home\kameronp\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\bin\Debug\ClientModel.dll
+\\chips.eng.utah.edu\home\kameronp\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\bin\Debug\ClientModel.pdb
+\\chips.eng.utah.edu\home\kameronp\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\kameronp\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.dll
+\\chips.eng.utah.edu\home\kameronp\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientModel\obj\Debug\ClientModel.pdb

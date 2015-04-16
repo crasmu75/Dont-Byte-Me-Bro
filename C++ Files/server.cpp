@@ -27,6 +27,7 @@ typedef struct
 {
   vector<int> *sockets;
   int socketFD;
+  vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions;
 } socketArgs;
 
 void * receiveConnection(void * skts)
@@ -34,7 +35,7 @@ void * receiveConnection(void * skts)
   pthread_t thread;
   int writeCount, readCount;
   socketArgs * clientSockets = (socketArgs *) skts;
-  vector<spreadsheetSession::spreadsheetSession> *spreadsheetSessions = new vector<spreadsheetSession::spreadsheetSession>();
+ 
   
   char buffer[256];
   char buffer2[256];
@@ -54,38 +55,31 @@ void * receiveConnection(void * skts)
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
 	  //Check if spreadsheet Session exist
 	  bool foundSheet = false;
-	  for (vector<spreadsheetSession::spreadsheetSession>::iterator it = spreadsheetSessions->begin(); it != spreadsheetSessions->end(); it++)
+	  for (vector<spreadsheetSession::spreadsheetSession*>::iterator it = clientSockets->spreadsheetSessions->begin(); it != clientSockets->spreadsheetSessions->end(); it++)
 	    {
-	      if(spreadsheetName.compare(it->spreadsheetSession::getspreadsheetName()) == 0)
+	      if(spreadsheetName.compare((*it)->spreadsheetSession::getspreadsheetName()) == 0)
 	      {
-		cout << "were in here" << endl;
 		string addCommand = "add " + clientName;
 		workItem::workItem addRequest(socket,addCommand);
-		it->enqueue(addRequest);
+		(*it)->enqueue(addRequest);
 		foundSheet = true;
 	      }
 	    }
 	  if(!foundSheet)
 	    {
 	        cout << " creating new session....." << endl;
-	      	spreadsheetSession::spreadsheetSession session(spreadsheetName);
+	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName);
 		string addCommand = "add " + clientName;
+		cout<< "addCommand: " << addCommand << endl;
 		workItem::workItem addRequest(socket,addCommand);
-		session.enqueue(addRequest);
-		spreadsheetSessions->push_back(session);
+		session->enqueue(addRequest);
+		//Maybe lock this? what if two connection try to push onto the spreadsheetSessions?
+		clientSockets->spreadsheetSessions->push_back(session);
 	    }
 	  break;
 	}
     }
 	
-
-
-
-
-
-
-
-      
      bzero(buffer,256);
      bzero(buffer2,256);
      sprintf(buffer, "connected 7\n");
@@ -97,11 +91,15 @@ void * receiveConnection(void * skts)
 	 writeCount = write((*it),buffer,strlen(buffer));
 	 writeCount = write((*it),buffer2,strlen(buffer2));
        }
+
+
+
     
 }
 
 int main(int argc, char *argv[])
 {
+  vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions = new vector<spreadsheetSession::spreadsheetSession*>();
   int socketFD, newSocketFD, portno;
   char buffer[256];
   struct sockaddr_in serverAddr,clientAddr;
@@ -160,13 +158,10 @@ int main(int argc, char *argv[])
      allSockets->push_back(newSocketFD);
      clientSockets->sockets = allSockets;
      clientSockets->socketFD = newSocketFD;
+     clientSockets->spreadsheetSessions = spreadsheetSessions;
      pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);
 
   }
   close(socketFD);
-
-
-
- 
 }

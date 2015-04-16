@@ -31,5 +31,6 @@ class spreadsheetSession
   std::string getspreadsheetName();
   void enqueue(workItem::workItem);
   void dequeue(workItem::workItem);
+  void addSocketFD(int);
 };
 

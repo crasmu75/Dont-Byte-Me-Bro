@@ -13,16 +13,29 @@ typedef struct
   stack<cell::cell> *sessionStack;
   vector<int> *socketFDs;
 } queueArgs;
+
+
 void * doWork(void * args)
 {
   queueArgs *qArgs = (queueArgs *) args;
-  
-  while(true)
+
+ while(true)
     {
-      cout<< "We up in las vegas. They hate us." << endl;
-      sleep(1);
+      //cout<< "in do work function " << qArgs->sessionQueue->size() << endl;
+      //sleep(2);
+    
+  if(qArgs->sessionQueue->size() > 0)
+	{
+	  workItem::workItem wrkItem;
+	   cout<< "in do work function " << qArgs->sessionQueue->size() << endl;
+	   wrkItem = qArgs->sessionQueue->front();
+	   qArgs->sessionQueue->pop();
+	   string msg = wrkItem.getCommand();
+	   cout<<msg<<endl;
+	}
+      sleep(3);
     }
-  
+ 
   
 }
 spreadsheetSession::spreadsheetSession(std::string name)
@@ -31,7 +44,7 @@ spreadsheetSession::spreadsheetSession(std::string name)
   string xmlName = name + ".xml";
   this->active = true;
   ifstream f(name.c_str());
-  cout << "they hate us" << endl;
+  
   if(!f.good())
     {
       this->cellContentsMap = map<string, string>();
@@ -55,7 +68,7 @@ spreadsheetSession::spreadsheetSession(std::string name)
   pthread_t thread;
   pthread_create(&thread, 0, doWork,  (void *) qArgs);
   pthread_detach(thread);
-  
+  //pthread_join(thread, NULL);
 }
 spreadsheetSession::spreadsheetSession(const spreadsheetSession &other)
 {
@@ -74,6 +87,5 @@ std::string spreadsheetSession::getspreadsheetName()
 
 void spreadsheetSession::enqueue(workItem::workItem item)
 {
-  cout << "in enqueue function " << endl;
   sessionQueue.push(item);
 }

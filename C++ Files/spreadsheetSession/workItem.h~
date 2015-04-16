@@ -1,4 +1,4 @@
- #include<string>
+#include<string>
 
 #ifndef WORKITEM_H
 #define WORKITEM_H
@@ -12,7 +12,6 @@ class workItem
   ~workItem();
   int getSocket();
   std::string getCommand();
-  workItem& operator=(const workItem&);
  private:
   int socketFD;
   std::string command;

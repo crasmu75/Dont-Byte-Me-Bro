@@ -28,8 +28,3 @@ string workItem::getCommand()
 {
   return this->command;
 }
-workItem& workItem::operator=(const workItem& other) 
-{
-  this->socketFD = other.socketFD;
-  this->command = other.command;
-}

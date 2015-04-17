@@ -24,6 +24,13 @@ namespace ClientGui
 
 			// Added to connect to server
 			model = currModel;
+			model.ConnectionConfirmationEvent += (string line) => { };
+			model.testingevent += testin;
+		}
+
+		private void testin(string obj)
+		{
+			MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		private void button_add_Click(object sender, EventArgs e)
@@ -32,7 +39,7 @@ namespace ClientGui
 			model.SendMessage("register " + textBox_username.Text);
 			this.Invoke(new Action(() =>
 			{
-				this.Hide();
+				this.Close();
 			}));
 		}
 	}

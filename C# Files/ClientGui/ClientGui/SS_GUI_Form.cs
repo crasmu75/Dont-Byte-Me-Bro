@@ -49,6 +49,12 @@ namespace SpreadsheetGUI
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
 			model.ConnectionConfirmationEvent += (string line) => {};
+			model.testingevent += testingeee;
+		}
+
+		private void testingeee(string obj)
+		{
+			MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		/// <summary>
@@ -188,7 +194,6 @@ namespace SpreadsheetGUI
 
         private void CellUpdateCommand(string cmd)
         {
-			MessageBox.Show("Got here.");
             int row, col;
 
             char[] delimiterChars = { ' ', '\n'};

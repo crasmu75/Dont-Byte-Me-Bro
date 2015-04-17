@@ -19,14 +19,24 @@ namespace ClientGui
 		{
 			model = currModel;
 			newModel = new ClientModel();
-			model.ConnectionConfirmationEvent += ConnectionReceived;
+			newModel.ConnectionConfirmationEvent += ConnectionReceived;
+			model.testingevent += testinggggg;
+			newModel.testingevent += testinggggg;
+
 			InitializeComponent();
+		}
+
+		private void testinggggg(string obj)
+		{
+			MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		private void ConnectionReceived(string obj)
 		{
 			this.Invoke(new Action(() =>
 			{
+				this.Close();
+
 				// make sure to pass in the new model that has the new socket
 				New_SS_Form newSpForm = new New_SS_Form(newModel);
 				newSpForm.Show();

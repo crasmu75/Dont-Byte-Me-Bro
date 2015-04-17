@@ -140,6 +140,8 @@ namespace Model
 				String line = s.Substring(0, index);
 				line = line.Trim();
 
+				testingevent(line);
+
                 // Call proper event action based on Regex match
 				if (cellUpdateCommand.IsMatch(line))
 					IncomingCellUpdateEvent(line);

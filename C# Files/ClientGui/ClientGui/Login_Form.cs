@@ -22,7 +22,7 @@ namespace ClientGui
 		/// <summary>
 		/// Hardcoded port number for connection
 		/// </summary>
-		private int portno = 2113;
+		private int portno = 2115;
 
 		/// <summary>
 		/// Initialization of this form, the connection form
@@ -43,7 +43,7 @@ namespace ClientGui
 
 		private void testgghgh(string obj)
 		{
-			MessageBox.Show(obj);
+			MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		/// <summary>

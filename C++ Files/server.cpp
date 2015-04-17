@@ -22,7 +22,9 @@ void error(const char *msg)
 }
 
 
-
+/*
+  Provides a structure to hold the socket information of the client who has connected to a socket
+*/
 typedef struct
 {
   vector<int> *sockets;
@@ -30,6 +32,10 @@ typedef struct
   vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions;
 } socketArgs;
 
+
+// Receives a connection from a user who just connected to a client. This socket waits until the user sends a 'connect' command.
+// After receiving a connect command over the socket, this thread either adds the user to an exisitng spreadsheet session 
+//  or creates a new one and adds the user.
 void * receiveConnection(void * skts)
 {
   pthread_t thread;
@@ -83,14 +89,16 @@ void * receiveConnection(void * skts)
      bzero(buffer,256);
      bzero(buffer2,256);
      sprintf(buffer, "connected 7\n");
-     sprintf(buffer2, "cell A1 dontfreakoutcamille\n");
+     /*
      vector<int> allSockets;
      allSockets = *(clientSockets->sockets); 
+
+     
      for (vector<int>::iterator it = allSockets.begin(); it != allSockets.end(); it++)
        {
 	 writeCount = write((*it),buffer,strlen(buffer));
-	 writeCount = write((*it),buffer2,strlen(buffer2));
        }
+     */
 
 
 
@@ -99,44 +107,63 @@ void * receiveConnection(void * skts)
 
 int main(int argc, char *argv[])
 {
+  // Provides a vector of spreadsheet session pointers representing the active spreadsheet sessions.
   vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions = new vector<spreadsheetSession::spreadsheetSession*>();
-  int socketFD, newSocketFD, portno;
-  char buffer[256];
+  
+  // Represents the socket and port number the server will listen over for connection requests.
+  int socketFD, portno;
+
+  // Represents the socket of a user who connects to the server.
+  int newSocketFD;
+
+  // Represents the server and client addresses of the socket connection.
   struct sockaddr_in serverAddr,clientAddr;
+
+  // Provides a thread to listen for received messages from a connected user.
   pthread_t thread;
+
   socklen_t clientLength;
   
+  // If the user doesn't provide a port, the server uses 2000 as default.
   if(argc < 2)
     {
       cout << "Using default port 2000" << endl;
       portno = 2000;
     }
+
+  // Set the port number to the provided command line argument to receive sockets on. 
   else
     {
       portno = atoi(argv[1]);
     }
 
+  // Opens a socket to begin accepting users.
   socketFD = socket(AF_INET, SOCK_STREAM, 0);
   if(socketFD < 0)
     {
       error("Error opening socket");
     }
   
+  // Zeros out server address and sets variables to accept the socket over the internet and from any ip address.
   bzero((char *) &serverAddr, sizeof(serverAddr));
   serverAddr.sin_family = AF_INET;
   serverAddr.sin_addr.s_addr = INADDR_ANY;
+  // Sets the server address to use the user's provided port.
   serverAddr.sin_port = htons(portno);
 
-  // Binds the socket (referenced by the socket file descriptor) with the provided server address.
+  // Binds the socket (referenced by the socket file descriptor) with the provided server address created above.
   if (bind(socketFD, (struct sockaddr *) &serverAddr,
        sizeof(serverAddr)) < 0) 
        error("ERROR on binding");
 
   // Allows process to listen on socket for connections. 
-  // First argument is file descriptor ref
+  // First argument is file descriptor representing the socket to listen for connections over.
   listen(socketFD,5);
-  int numSockets = 0;
+ 
+  // Represents a vector of all of the sockets currently connected to the server.
   vector<int> *allSockets = new vector<int>;
+
+  // Continually accepts client sockets
   while (1)
   {
      socketArgs* clientSockets = new socketArgs();
@@ -161,7 +188,6 @@ int main(int argc, char *argv[])
      clientSockets->spreadsheetSessions = spreadsheetSessions;
      pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);
-
   }
   close(socketFD);
 }

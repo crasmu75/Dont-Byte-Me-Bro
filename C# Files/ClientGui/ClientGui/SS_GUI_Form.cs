@@ -49,7 +49,7 @@ namespace SpreadsheetGUI
             model.IncomingCellUpdateEvent += CellUpdateCommand;
             model.IncomingErrorEvent += ErrorCommand;
 			model.ConnectionConfirmationEvent += (string line) => {};
-			model.testingevent += testingeee;
+			model.testingevent += (string line) => { };
 		}
 
 		private void testingeee(string obj)
@@ -107,9 +107,12 @@ namespace SpreadsheetGUI
 		/// </summary>
 		private void UpdateCurrCellTextBoxes()
 		{
-			Cell_Content_Display.Text = Frame1.GetCellContents(currCell).ToString();
-			Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
-			Cell_Name_Display.Text = currCell;
+			this.Invoke((MethodInvoker)delegate
+			{
+				Cell_Content_Display.Text = Frame1.GetCellContents(currCell).ToString();
+				Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
+				Cell_Name_Display.Text = currCell;
+			});
 		}
 
 		/// <summary>
@@ -134,6 +137,7 @@ namespace SpreadsheetGUI
             // Convert current row and col to cell name to send to server
             int row, col;
             spreadsheetPanel1.GetSelection(out col, out row);
+			row++;
             char cellCol = (char) (col + 65);
             string cell = cellCol + row.ToString();
 

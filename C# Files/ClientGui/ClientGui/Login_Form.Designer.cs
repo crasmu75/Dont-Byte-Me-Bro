@@ -47,6 +47,7 @@
 			this.textBox_host.Name = "textBox_host";
 			this.textBox_host.Size = new System.Drawing.Size(115, 20);
 			this.textBox_host.TabIndex = 0;
+			this.textBox_host.Text = "155.98.111.6";
 			// 
 			// label_welcome
 			// 
@@ -144,7 +145,7 @@
 			this.label_note1.TabIndex = 13;
 			this.label_note1.Text = "If you wish to open a new spreadsheet, enter the name you want it to have.";
 			// 
-			// Form1
+			// Login_Form
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -161,7 +162,7 @@
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label_welcome);
 			this.Controls.Add(this.textBox_host);
-			this.Name = "Form1";
+			this.Name = "Login_Form";
 			this.Text = "Form1";
 			this.ResumeLayout(false);
 			this.PerformLayout();

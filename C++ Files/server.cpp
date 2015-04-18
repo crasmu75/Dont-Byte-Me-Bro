@@ -66,7 +66,7 @@ void * receiveConnection(void * skts)
 	      if(spreadsheetName.compare((*it)->spreadsheetSession::getspreadsheetName()) == 0)
 	      {
 		string addCommand = "add " + clientName;
-		workItem::workItem addRequest(socket,addCommand);
+		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
 		(*it)->enqueue(addRequest);
 		foundSheet = true;
 	      }
@@ -77,7 +77,7 @@ void * receiveConnection(void * skts)
 	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName);
 		string addCommand = "add " + clientName;
 		cout<< "addCommand: " << addCommand << endl;
-		workItem::workItem addRequest(socket,addCommand);
+		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
 		session->enqueue(addRequest);
 		//Maybe lock this? what if two connection try to push onto the spreadsheetSessions?
 		clientSockets->spreadsheetSessions->push_back(session);
@@ -86,10 +86,12 @@ void * receiveConnection(void * skts)
 	}
     }
 	
+
+  /*
      bzero(buffer,256);
      bzero(buffer2,256);
      sprintf(buffer, "connected 7\n");
-     /*
+     
      vector<int> allSockets;
      allSockets = *(clientSockets->sockets); 
 

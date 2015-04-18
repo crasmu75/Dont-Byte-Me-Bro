@@ -11,8 +11,8 @@ class spreadsheetSession
   private:
   std::string spreadsheetName;
   std::map<std::string,std::string> cellContentsMap;
-  std::queue<workItem::workItem> sessionQueue;
-  std::stack<cell::cell> sessionStack;
+  std::queue<workItem::workItem*> sessionQueue;
+  std::stack<cell::cell*> sessionStack;
   std::vector<int> socketFDs;
   bool active;
   //void * doWork(void * args);
@@ -29,8 +29,8 @@ class spreadsheetSession
   void removeUser();
   void sendCommand(std::string);
   std::string getspreadsheetName();
-  void enqueue(workItem::workItem);
-  void dequeue(workItem::workItem);
+  void enqueue(workItem::workItem*);
+  void dequeue(workItem::workItem*);
   void addSocketFD(int);
 };
 

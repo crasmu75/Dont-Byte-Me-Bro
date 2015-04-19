@@ -38,7 +38,7 @@ namespace ClientGui
 
 		private void ErrorReceived(string obj)
 		{
-			MessageBox.Show("An error occured: \n\n" + obj);
+			//MessageBox.Show("An error occured: \n\n" + obj);
 		}
 
 		private void testgghgh(string obj)

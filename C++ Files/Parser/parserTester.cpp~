@@ -34,6 +34,4 @@ int main(int argv, char** arvc)
   std::cout<< "Contents:\t" << commandParser::parseSpreadsheetName(msg) << std::endl;
   
   
-
-  std::cout << commandParser::parseCells("A1 + B2") << std::endl;
 }

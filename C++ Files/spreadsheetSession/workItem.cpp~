@@ -33,8 +33,3 @@ workItem& workItem::operator=(const workItem& other)
   this->socketFD = other.socketFD;
   this->command = other.command;
 }
-
-int workItem::getSocketFD()
-{
-  return this->socketFD;
-}

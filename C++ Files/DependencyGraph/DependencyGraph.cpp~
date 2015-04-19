@@ -1,0 +1,12 @@
+#include "DependencyGraph.h"
+
+DependencyGraph::DependencyGraph()
+{
+  size = 0;
+}
+
+int DependencyGraph::GetSize()
+{
+  return size;
+}
+

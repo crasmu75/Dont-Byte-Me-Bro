@@ -1,10 +1,6 @@
 #include<iostream>
 #include<string>
 #include<list>
-
-#ifndef NODE_H
-#define NODE_H
-
   class Node
   {
   public:
@@ -29,5 +25,3 @@
     void add_dependee2(Node n);
     void remove_dependent2(Node n);
   };
-
-#endif

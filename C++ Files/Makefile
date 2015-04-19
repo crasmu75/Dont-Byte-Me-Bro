@@ -1,2 +1,2 @@
-spreadsheet:	spreadsheetSession/spreadsheetSession.cpp Parser/xmlParser.cpp Parser/commandParser.cpp server.cpp spreadsheetSession/cell.cpp spreadsheetSession/workItem.cpp 
-	g++ spreadsheetSession/spreadsheetSession.cpp Parser/xmlParser.cpp Parser/commandParser.cpp server.cpp spreadsheetSession/cell.cpp spreadsheetSession/workItem.cpp -pthread
+spreadsheet:	spreadsheetSession/spreadsheetSession.cpp Parser/xmlParser.cpp Parser/commandParser.cpp server.cpp spreadsheetSession/cell.cpp spreadsheetSession/workItem.cpp DependencyGraph/DependencyGraph.cpp DependencyGraph/Node.cpp
+	g++ spreadsheetSession/spreadsheetSession.cpp Parser/xmlParser.cpp Parser/commandParser.cpp server.cpp spreadsheetSession/cell.cpp spreadsheetSession/workItem.cpp DependencyGraph/DependencyGraph.cpp DependencyGraph/Node.cpp -pthread

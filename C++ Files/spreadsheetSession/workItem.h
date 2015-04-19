@@ -12,6 +12,7 @@ class workItem
   ~workItem();
   int getSocket();
   std::string getCommand();
+  int getSocketFD();
   workItem& operator=(const workItem&);
  private:
   int socketFD;

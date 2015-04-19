@@ -29,7 +29,7 @@ typedef struct
   vector<int> *socketFDs;
   DependencyGraph::DependencyGraph *dependencyGraph;
   map<string, string> *cellContentsMap;
-  string spreadsheetName;
+  string *xmlName;
   
 } queueArgs;
 
@@ -78,20 +78,6 @@ void * doWork(void * args)
  while(true)
     {
 
-      testTime = time(NULL);
-      timePassed = static_cast<int>(testTime - startTime);
-      cout << timePassed << endl;
-	   
-      if(timePassed % 10 == 0)
-       {
-	 string name = qArgs->spreadsheetName;
-	 name += ".xml";
-	 ofstream output(name.c_str());
-	 map<string,string> *mPointer = qArgs->cellContentsMap;
-	 cout << "saving file" << output << endl;
-	 writeFile(*mPointer,output);
-        }
-
       if(qArgs->sessionQueue->size() > 0)
 	{
 	  
@@ -102,7 +88,14 @@ void * doWork(void * args)
 	   string msg = wrkItem->getCommand();
 	   string command = commandParser::parseCommand(msg);
 
-	   
+	   testTime = time(NULL);
+	   timePassed = static_cast<int>(testTime - startTime);
+	   if(timePassed % 10 == 0)
+	     {
+	       string name = qArgs->xmlName;
+	       ofstream output(name.c_str());
+	       writeFile(cellContentsMap,output);
+	     }
 	   	     
 	   if (command.compare("add") == 0)
 	     {
@@ -219,7 +212,6 @@ spreadsheetSession::spreadsheetSession(std::string name)
   spreadsheetName = name;
   string xmlName = name + ".xml";
   
- 
   this->active = true;
   ifstream f(xmlName.c_str());
   
@@ -263,7 +255,7 @@ spreadsheetSession::spreadsheetSession(std::string name)
   qArgs->socketFDs = &(this->socketFDs);
   qArgs->cellContentsMap = &(this->cellContentsMap);
   qArgs->dependencyGraph = &(this->dependencyGraph);
-  qArgs->spreadsheetName = this->spreadsheetName;
+  qArgs->xmlName = &(xmlName);
 
   pthread_t thread;
   pthread_create(&thread, 0, doWork,  (void *) qArgs);

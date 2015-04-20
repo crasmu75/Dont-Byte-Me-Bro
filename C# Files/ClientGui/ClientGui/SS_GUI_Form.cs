@@ -147,6 +147,8 @@ namespace SpreadsheetGUI
             string message = "";
             message += "cell " + cell + " " + cellContent + "\n";
 
+			Frame1.SetContentsOfCell(cell, cellContent);
+
             // Send change to server
             model.SendMessage(message);
 
@@ -185,9 +187,15 @@ namespace SpreadsheetGUI
 			f2.Show();
 		}
 
+		/// <summary>
+		/// Sends a command to server to undo last operation
+		/// </summary>
+		/// <param name="msg"></param>
+		/// <param name="keyData"></param>
+		/// <returns></returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == (Keys.Control | Keys.Y))
+            if (keyData == (Keys.Control | Keys.Z))
             {
                 model.SendMessage("undo\n");
                 return true;
@@ -196,6 +204,10 @@ namespace SpreadsheetGUI
             return false;
         }
 
+		/// <summary>
+		/// Called when we receive an update command from the server
+		/// </summary>
+		/// <param name="cmd"></param>
         private void CellUpdateCommand(string cmd)
         {
             int row, col;
@@ -208,7 +220,11 @@ namespace SpreadsheetGUI
             col = (int)colChar - 65;
             row = Convert.ToInt32(cellName.Substring(1)) - 1;
 
-            spreadsheetPanel1.SetValue(col, row, words[2]);
+			string newContents = "";
+			for (int i = 2; i < words.Length; i++)
+				newContents += words[i];
+
+			spreadsheetPanel1.SetValue(col, row, newContents);
             UpdateCurrCellTextBoxes();
         }
 
@@ -222,7 +238,7 @@ namespace SpreadsheetGUI
         /// <summary>
         /// Sets the value of a a cell to be what is entered in the content display box, and updates the other cells in the table.
         /// </summary>
-        private void Update_Cells()
+        /*private void Update_Cells()
         {
             // Updates cells and catches circular exception to display error.
             IEnumerable<string> recalc = null;
@@ -241,12 +257,12 @@ namespace SpreadsheetGUI
             spreadsheetPanel1.SetValue(col, row, Frame1.GetCellValue(currCell).ToString());
             UpdateCurrCellTextBoxes();
 
-        }
+        }*/
 
         /// <summary>
         /// Clears all of the cells to be empty before opening a new spreadsheet.
         /// </summary>
-        private void ClearAllCells()
+        /*private void ClearAllCells()
         {
             for (int i = 0; i < 26; i++)
             {
@@ -255,14 +271,14 @@ namespace SpreadsheetGUI
                     spreadsheetPanel1.SetValue(i, j, "");
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Provdes the open dialog box and information.
         /// Also checks for .sprd extension and appends if necessary.
         /// </summary>
         /// <returns></returns>
-        private string OpenSpreadsheetDialog()
+        /*private string OpenSpreadsheetDialog()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Spreadsheet Files|*.sprd|All Files|*.*";
@@ -279,7 +295,7 @@ namespace SpreadsheetGUI
             }
 
             return dialog.FileName;
-        }
+        }*/
 
         /// <summary>
         /// Provides a close all function in the file menu and makes sure the user wants to exit all windows.
@@ -303,8 +319,7 @@ namespace SpreadsheetGUI
             //DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
 			this.Invoke(new Action(() =>
 			{
-				New_SS_Form newSpForm = new New_SS_Form(model);
-				newSpForm.Show();
+				DemoApplicationContext.getAppContext().RunForm(new New_SS_Form(model));
 			}));
         }
 
@@ -327,8 +342,7 @@ namespace SpreadsheetGUI
 		{
 			this.Invoke(new Action(() =>
 			{
-				Add_User_Form addUserForm = new Add_User_Form(model);
-				addUserForm.Show();
+				DemoApplicationContext.getAppContext().RunForm(new Add_User_Form(model));
 			}));
 		}
 	}

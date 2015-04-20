@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SpreadsheetGUI;
+using System.Threading;
 
 namespace ClientGui
 {
@@ -68,9 +69,8 @@ namespace ClientGui
         {
 			this.Invoke(new Action(() =>
 				{
-					this.Hide();
-					SS_GUI_Form spForm = new SS_GUI_Form(model);
-					spForm.Show();
+					DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(model));
+					this.Close();
 				}));
         }
     }

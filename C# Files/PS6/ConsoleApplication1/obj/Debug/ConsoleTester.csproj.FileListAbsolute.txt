@@ -11,3 +11,16 @@
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleTester.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe.config
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\Formula.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\SpreadsheetUtilities.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\Spreadsheet.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\Formula.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\bin\Debug\SpreadsheetUtilities.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleTester.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb

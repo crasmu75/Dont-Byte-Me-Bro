@@ -1,6 +1,22 @@
 We are Number 1 Team
 # Dont-Byte-Me-Bro
 
+4/19/15
+KILLER CREW KAMERON AND CAMILLE
+dawgs
+
+IMPLEMENTED UNDO!!!
+
+GOT SINGLETON TO WORK --- Now you can close any of the forms and the others will stay open... and when 
+you close the last running one (doesn't matter which form) it will end the application.
+
+NEW FOUND ERRORS IN GUI:
+*cell doesn't display value in actual cell (when it's a formula)
+
+
+
+
+
 4/18/15
 Relief team Kameron and Jessie worked in spreadsheetSession.cpp and server.cpp list of changes to follow
 *Server now saves spreadsheet every 10 seconds
@@ -42,3 +58,5 @@ Lock Queue when adding removing
 Lock Spreadsheet Session vector when adding/removing spreadsheet session.
 Remove spreadsheet session when last user disconnects.
 Deal with errors
+
+

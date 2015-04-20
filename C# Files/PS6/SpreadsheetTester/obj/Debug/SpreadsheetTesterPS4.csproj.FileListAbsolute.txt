@@ -11,3 +11,16 @@
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTesterPS4.csprojResolveAssemblyReference.cache
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTester.dll
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTester.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\SpreadsheetTester.XML
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\SpreadsheetTester.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\SpreadsheetTester.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\Formula.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\Spreadsheet.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\SpreadsheetUtilities.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\Spreadsheet.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\Spreadsheet.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\Formula.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\bin\Debug\SpreadsheetUtilities.xml
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTesterPS4.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTester.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetTester\obj\Debug\SpreadsheetTester.pdb

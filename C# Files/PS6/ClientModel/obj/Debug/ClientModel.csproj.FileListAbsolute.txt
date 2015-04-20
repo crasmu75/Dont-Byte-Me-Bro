@@ -6,3 +6,6 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.csprojResolveAssemblyReference.cache
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.dll
 \\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.pdb
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.csprojResolveAssemblyReference.cache
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.dll
+\\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\ClientModel\obj\Debug\ClientModel.pdb

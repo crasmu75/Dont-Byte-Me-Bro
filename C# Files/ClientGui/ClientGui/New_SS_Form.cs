@@ -1,4 +1,5 @@
 ﻿using Model;
+using SpreadsheetGUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,11 +36,11 @@ namespace ClientGui
 		{
 			this.Invoke(new Action(() =>
 			{
-				this.Close();
+				
 
 				// make sure to pass in the new model that has the new socket
-				New_SS_Form newSpForm = new New_SS_Form(newModel);
-				newSpForm.Show();
+				DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(newModel));
+				this.Close();
 			}));
 		}
 

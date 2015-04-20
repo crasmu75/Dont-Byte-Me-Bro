@@ -330,7 +330,7 @@ namespace SpreadsheetGUI
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-			model.Close();
+            model.Close();
         }
 
 		/// <summary>

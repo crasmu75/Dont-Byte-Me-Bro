@@ -10,8 +10,9 @@ IMPLEMENTED UNDO!!!
 GOT SINGLETON TO WORK --- Now you can close any of the forms and the others will stay open... and when 
 you close the last running one (doesn't matter which form) it will end the application.
 
-NEW FOUND ERRORS IN GUI:
+NEW FOUND ERRORS:
 *cell doesn't display value in actual cell (when it's a formula)
+*server can't read an existing XML file that is empty
 
 
 

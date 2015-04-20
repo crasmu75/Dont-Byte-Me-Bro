@@ -31,6 +31,8 @@ namespace Model
 		public string host, clientn, spreadsheet;
 		public int portn;
 
+        private bool listen;
+
 
         /// <summary>
         /// Regex to identify incoming connected message
@@ -68,6 +70,7 @@ namespace Model
 				{
 					TcpClient client = new TcpClient(hostname, port);
 					socket = client.Client;
+                    listen = true;
 
 					host = hostname;
 					portn = port;
@@ -81,7 +84,7 @@ namespace Model
 					}
 					catch(Exception e)
 					{
-						Close();
+						ServerLost();
 					}
 
 					// Start listening for messages back
@@ -93,7 +96,7 @@ namespace Model
 					}
 					catch(Exception e)
 					{
-						Close();
+						ServerLost();
 					}
 				}
 				catch(Exception e)
@@ -119,7 +122,7 @@ namespace Model
 				}
 				catch(Exception e)
 				{
-					Close();
+					ServerLost();
 				}
 			}
 		}
@@ -161,25 +164,37 @@ namespace Model
 
 			try
 			{
-				socket.BeginReceive(msg, 0, msg.Length,
-					SocketFlags.None, LineReceived, msg);
+                if(listen)
+				    socket.BeginReceive(msg, 0, msg.Length,
+					    SocketFlags.None, LineReceived, msg);
 			}
 			catch(Exception e)
 			{
-				Close();
+				ServerLost();
 			}
 		}
 
 		/// <summary>
 		/// Called when we can't send or receive to the server anymore.
 		/// </summary>
-		public void Close()
+		public void ServerLost()
 		{
 			// shutdown and close the socket
-			socket.Shutdown(SocketShutdown.Both);
+			//socket.Shutdown(SocketShutdown.Both);
 			socket.Close();
 
 			IncomingErrorEvent("Connection to the server lost. It is recommended that you restart\nthe application to restart the connection.");
+            listen = false;
 		}
+
+        public void Close()
+        {
+            if (listen)
+            {
+                listen = false;
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+        }
 	}
 }

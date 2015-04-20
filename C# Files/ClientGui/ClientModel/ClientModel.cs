@@ -21,7 +21,12 @@ namespace Model
         // Register event for an incoming cell update
         public event Action<String> IncomingCellUpdateEvent;
 
-        // Register event for an incoming error message
+        // Register event for an incoming cell update error message
+        public event Action<String> IncomingCellUpdateErrorEvent;
+
+        // Register event for an incoming username error message
+        public event Action<String> IncomingUsernameErrorEvent;
+
         public event Action<String> IncomingErrorEvent;
 
 		public event Action<String> testingevent;
@@ -45,9 +50,14 @@ namespace Model
         Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+(.)+");
 
         /// <summary>
-        /// Regex to identify incoming error message
+        /// Regex to identify incoming invalid cell change error message
         /// </summary>
-        Regex errorCommand = new Regex(@"(error)\s+(.)+");
+        Regex invalidCellErrorCommand = new Regex(@"(error)\s+1\s+(.)+");
+
+        /// <summary>
+        /// Regex to identify incoming invalid username error message
+        /// </summary>
+        Regex invalidUserErrorCommand = new Regex(@"(error)\s+4\s+(.)+");
 
 		/// <summary>
         /// Creates a not yet connected client model.
@@ -146,14 +156,17 @@ namespace Model
 				testingevent(line);
 
                 // Call proper event action based on Regex match
-				if (cellUpdateCommand.IsMatch(line))
-					IncomingCellUpdateEvent(line);
+                if (cellUpdateCommand.IsMatch(line))
+                    IncomingCellUpdateEvent(line);
 
-				else if (errorCommand.IsMatch(line))
-					IncomingErrorEvent(line);
+                else if (invalidCellErrorCommand.IsMatch(line))
+                    IncomingCellUpdateErrorEvent(line);
 
-				else if (connectedCommand.IsMatch(line))
-					ConnectionConfirmationEvent(line);
+                else if (invalidUserErrorCommand.IsMatch(line))
+                    IncomingUsernameErrorEvent(line);
+
+                else if (connectedCommand.IsMatch(line))
+                    ConnectionConfirmationEvent(line);
 
 				// delete the completed message from what we received
 				s = s.Substring(index + 1);

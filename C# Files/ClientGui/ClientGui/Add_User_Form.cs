@@ -1,4 +1,5 @@
 ﻿using Model;
+using ClientGui;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,16 +22,12 @@ namespace ClientGui
 		public Add_User_Form(ClientModel currModel)
 		{
 			InitializeComponent();
+            model = currModel;
 
 			// Added to connect to server
-			model = currModel;
-			model.ConnectionConfirmationEvent += (string line) => { };
-			model.testingevent += testin;
-		}
-
-		private void testin(string obj)
-		{
-			MessageBox.Show("Message received from server. Message:\n" + obj);
+            model = currModel;
+            model.IncomingUsernameErrorEvent += UsernameErrorCommand;
+            model.ConnectionConfirmationEvent += (string line) => { };
 		}
 
 		private void button_add_Click(object sender, EventArgs e)
@@ -42,5 +39,10 @@ namespace ClientGui
 				this.Close();
 			}));
 		}
+
+        private void UsernameErrorCommand(string obj)
+        {
+            MessageBox.Show("ERROR: \n\n" + obj + " is not a valid username.");
+        }
 	}
 }

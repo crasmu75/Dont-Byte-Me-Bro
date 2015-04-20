@@ -33,3 +33,4 @@ C:\Users\Camille\Documents\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\b
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.SS_GUI_Form.resources
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.Properties.Resources.resources
 \\chips.eng.utah.edu\home\camiller\.win_desktop\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
+\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\PS6\SpreadsheetGUI\obj\Debug\SpreadsheetGUI.SS_GUI_Form.resources

@@ -368,14 +368,7 @@ namespace SS
 			visited.Add(name);
 			foreach (String n in GetDirectDependents(name))
 			{
-				if (n.Equals(start))
-				{
-					throw new CircularException();
-				}
-				else if (!visited.Contains(n))
-				{
 					Visit(start, n, visited, changed);
-				}
 			}
 			changed.AddFirst(name);
 		}

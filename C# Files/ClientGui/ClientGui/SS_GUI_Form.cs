@@ -47,8 +47,7 @@ namespace SpreadsheetGUI
             // Added to connect to server
             model = currModel;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
-            model.IncomingErrorEvent += ErrorCommand;
-			model.ConnectionConfirmationEvent += (string line) => {};
+            model.IncomingCellUpdateErrorEvent += CellErrorCommand;
 			model.testingevent += (string line) => { };
 		}
 
@@ -70,7 +69,7 @@ namespace SpreadsheetGUI
 			currCell = "" + c + (row + 1);
 			Cell_Name_Display.Text = currCell;
 			Cell_Content_Display.Text = Frame1.GetCellContents(currCell).ToString();
-			Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
+            Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
 		}
 
 		/// <summary>
@@ -98,7 +97,7 @@ namespace SpreadsheetGUI
 					cellRow = (int)(cellR - 1);
 
 				}
-				spreadsheetPanel1.SetValue(cellCol, cellRow, Frame1.GetCellValue(s).ToString());
+                spreadsheetPanel1.SetValue(cellCol, cellRow, Frame1.GetCellValue(s).ToString());
 			}
 		}
 
@@ -109,9 +108,9 @@ namespace SpreadsheetGUI
 		{
 			this.Invoke((MethodInvoker)delegate
 			{
-				Cell_Content_Display.Text = Frame1.GetCellContents(currCell).ToString();
-				Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
-				Cell_Name_Display.Text = currCell;
+                    Cell_Content_Display.Text = Frame1.GetCellContents(currCell).ToString();
+                    Cell_Value_Display.Text = Frame1.GetCellValue(currCell).ToString();
+                    Cell_Name_Display.Text = currCell;
 			});
 		}
 
@@ -126,7 +125,7 @@ namespace SpreadsheetGUI
 		}
 
 		/// <summary>
-		/// Updates the cells when the set content button is clicked.
+		/// Sends cell update to server, but does not update the actual cell!
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -143,15 +142,26 @@ namespace SpreadsheetGUI
 
             string cellContent = Cell_Content_Display.Text;
 
-            // Create command to send to server
-            string message = "";
-            message += "cell " + cell + " " + cellContent + "\n";
+            Boolean okToSend = true;
 
-			Frame1.SetContentsOfCell(cell, cellContent);
+            if (cellContent[0] == '=')
+            {
+                if (!Frame1.isValidFormula(cellContent.Substring(1)))
+                {
+                    MessageBox.Show("Invalid Formula Entered.");
+                    okToSend = false;
+                }
+            }
 
-            // Send change to server
-            model.SendMessage(message);
+            if (okToSend)
+            {
+                // Create command to send to server
+                string message = "";
+                message += "cell " + cell + " " + cellContent + "\n";
 
+                // Send change to server
+                model.SendMessage(message);
+            }
 		}
 
 		/// <summary>
@@ -212,7 +222,7 @@ namespace SpreadsheetGUI
         {
             int row, col;
 
-            char[] delimiterChars = { ' ', '\n'};
+            char[] delimiterChars = { ' '};
             string[] words = cmd.Split(delimiterChars);
 
             string cellName = words[1];
@@ -224,13 +234,17 @@ namespace SpreadsheetGUI
 			for (int i = 2; i < words.Length; i++)
 				newContents += words[i];
 
-			spreadsheetPanel1.SetValue(col, row, newContents);
+            // Updates cells
+            IEnumerable<string> recalc = null;
+            recalc = Frame1.SetContentsOfCell(cellName, newContents);
+            UpdateSpreadsheetCells(recalc);
+            spreadsheetPanel1.SetValue(col, row, Frame1.GetCellValue(cellName).ToString());
             UpdateCurrCellTextBoxes();
         }
 
-        private void ErrorCommand(string obj)
+        private void CellErrorCommand(string obj)
         {
-            MessageBox.Show("An error occured: \n\n" + obj);
+            MessageBox.Show("ERROR: \n\n" + obj);
         }
 
     // UNUSED METHODS ----------------------------------------------------------------

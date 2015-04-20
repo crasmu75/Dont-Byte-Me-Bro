@@ -596,18 +596,8 @@ namespace SS
 				cells.Add(name, new Cell(name, formula, null));
 			}
 			dependencies.ReplaceDependees(name, formula.GetVariables());
-			try
-			{
-				Changed = true;
-				return new HashSet<string>(GetCellsToRecalculate(name));
-			}
-			catch (CircularException)
-			{
-				Changed = originalChangedState;
-				dependencies.ReplaceDependees(name, origDeps);
-				cells = origCells;
-				throw new CircularException();
-			}
+			Changed = true;
+			return new HashSet<string>(GetCellsToRecalculate(name));
 		}
 
 
@@ -690,7 +680,14 @@ namespace SS
 					continue;
 				}
 				Formula formula = (Formula)outCell.Content;
-				outCell.Value = formula.Evaluate(GetValue);
+                try
+                {
+                    outCell.Value = formula.Evaluate(GetValue);
+                }
+				catch (ArgumentException)
+                {
+                    outCell.Value = outCell.Content;
+                }
 			}
 
 		}
@@ -703,12 +700,25 @@ namespace SS
 		private double GetValue(string s)
 		{
 			Cell c = new Cell();
-			if (!cells.TryGetValue(s, out c))
-				throw new ArgumentException();
+            if (!cells.TryGetValue(s, out c))
+                throw new ArgumentException();
 			if (!(c.Value is double))
 				throw new ArgumentException();
 			return (double)c.Value;
 		}
+
+        public Boolean isValidFormula(string s)
+        {
+            try
+            {
+                Formula f = new Formula(s);
+                return true;
+            }
+            catch (FormulaFormatException)
+            {
+                return false;
+            }
+        }
 	}
 }
 

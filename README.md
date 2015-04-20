@@ -2,18 +2,25 @@ We are Number 1 Team
 # Dont-Byte-Me-Bro
 
 4/19/15
-KILLER CREW KAMERON AND CAMILLE
+KILLER CREW KAMERON AND CAMILLE (Kam and Cam)
 dawgs
 
-IMPLEMENTED UNDO!!!
-
-GOT SINGLETON TO WORK --- Now you can close any of the forms and the others will stay open... and when 
-you close the last running one (doesn't matter which form) it will end the application.
+*IMPLEMENTED UNDO!!!
+*GOT SINGLETON TO WORK --- Now you can close any of the forms and the others will stay open... and when 
+	you close the last running one (doesn't matter which form) it will end the application.
+*Client and server successfully close open sockets and/or connections when appropriate.
 
 NEW FOUND ERRORS:
-*cell doesn't display value in actual cell (when it's a formula)
+*cell doesn't display value in actual selected cell (when it's a formula)
+*we do not know if the client side still needs dependency graph (when you change a cell that another depends on...)
+*client still doesn't evaluate formulas
 *server can't read an existing XML file that is empty
 
+STILL TO DO
+*all username stuff still needs to be implemented
+*finish client corrections and changes
+*multithreading?
+*bugs mentioned above
 
 
 

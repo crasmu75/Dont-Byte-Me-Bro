@@ -15,6 +15,7 @@ Removing sockets and cleaning up shit when stuff goes wrong and when it doesn't
 All user name stuff
 Finish client corrections and changes
 Make sure multithreading is bomber 
+Client parser needs help
 
 
 Added more methods to commandParser.cpp

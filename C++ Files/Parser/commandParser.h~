@@ -9,6 +9,7 @@
  */
 
 #include<string>
+#include<list>
 
 class commandParser
 {
@@ -32,6 +33,8 @@ class commandParser
   static std::string parseAdditionalInformation(std::string);
   //Returns the error id from an Error command
   static int parseErrorID(std::string);
+  static std::list<std::string> parseCells(std::string);
+  
  private:
 };
 

@@ -31,6 +31,8 @@ class commandParser
   static int parseNumberOfCells(std::string);
   //Returns additional error info from an Error command
   static std::string parseAdditionalInformation(std::string);
+  //Returns username from register command
+  static std::string parseUsername(std::string);
   //Returns the error id from an Error command
   static int parseErrorID(std::string);
   static std::list<std::string> parseCells(std::string);

@@ -36,15 +36,14 @@ int main (int argc, char* argv[])
   */
 
     // Close file.
-  vector<string>* vec = getUsers();
-  /*
+
   string msg = "register balsdfjks 1weirfow\n";
 
   std::size_t posFirstWord = msg.find(" ") + 1;
   std::string s = msg.substr(posFirstWord);
   boost::algorithm::trim(s);
   cout << s << endl;
-  */
+
     /*
     // Populate a map from cells in the file created by the previous write.
     string filename2 = argv[2];

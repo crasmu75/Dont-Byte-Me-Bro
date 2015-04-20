@@ -116,6 +116,14 @@ std::string commandParser::parseAdditionalInformation(std::string msg)
   boost::algorithm::trim(s);
   return s;
 }
+
+std::string commandParser::parseUsername(std::string msg)
+{
+   std::size_t posFirstWord = msg.find(" ") + 1;
+   std::string s = msg.substr(posFirstWord);
+  boost::algorithm::trim(s);
+  return s;
+}
 //Returns the error id of an Error command
 int commandParser::parseErrorID(std::string msg)
 {

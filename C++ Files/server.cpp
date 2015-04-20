@@ -8,8 +8,10 @@
 #include <netinet/in.h>
 #include <pthread.h>
 #include <unistd.h>
+#include<algorithm>
 #include <vector>
 #include "Parser/commandParser.h"
+#include "Parser/xmlParser.h"
 #include "spreadsheetSession/spreadsheetSession.h"
 #include "spreadsheetSession/workItem.h"
 
@@ -27,9 +29,11 @@ void error(const char *msg)
 */
 typedef struct
 {
+  // All of the sockets currently connected to the server.
   vector<int> *sockets;
   int socketFD;
   vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions;
+  vector<string> *users;
 } socketArgs;
 
 
@@ -53,13 +57,32 @@ void * receiveConnection(void * skts)
       readCount = read(socket,buffer,255);
       if(readCount == 0)
 	{
-	  cout << "read error" << endl;
+	  cout << clientSockets->sockets->size() << endl;
+	  cout << "read error in accepting connections." << endl;
+	  vector<int>::iterator it;
+	  it = find(clientSockets->sockets->begin(),clientSockets->sockets->end(), socket);
+	  close(socket);
+	  clientSockets->sockets->erase(it);
+	  cout << clientSockets->sockets->size() << endl;
+	  return (void *) skts;
 	}
       //Get the command from the incoming message buffer
       string commandStr = commandParser::parseCommand(buffer);
       if(commandStr.compare("connect") == 0)
 	{
 	  string clientName = commandParser::parseClientName(buffer);
+	  // Check valid client name.
+	  if (std::find(clientSockets->users->begin(), clientSockets->users->end(), clientName) == clientSockets->users->end())
+	    {
+	      cout << "Client has not been added to server." << endl;
+	      char buffer[256];
+	      bzero(buffer, 256);
+	      sprintf(buffer, "error 4 %s\n", clientName.c_str());
+	      writeCount = write(socket, buffer, strlen(buffer));
+	      continue;
+	    }
+
+	  // Get spreadsheet name from command.
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
 	  bool foundSheet = false;
 	  //Check if spreadsheet Session exist by iterating over the vector of current sessions
@@ -80,7 +103,7 @@ void * receiveConnection(void * skts)
 	  if(!foundSheet)
 	    {
 	        cout << " creating new session....." << endl;
-	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName);
+	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName, clientSockets->users);
 		string addCommand = "add " + clientName;
 		cout<< "addCommand: " << addCommand << endl;
 		//Enqueue add request
@@ -99,6 +122,10 @@ int main(int argc, char *argv[])
 {
   // Provides a vector of spreadsheet session pointers representing the active spreadsheet sessions.
   vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions = new vector<spreadsheetSession::spreadsheetSession*>();
+
+  // Represents the Users that are registered on the server.
+  vector<string> *users = getUsers();
+  
   
   // Represents the socket and port number the server will listen over for connection requests.
   int socketFD, portno;
@@ -174,6 +201,7 @@ int main(int argc, char *argv[])
 
      //Populate the necessary structures for the new thread
      allSockets->push_back(newSocketFD);
+     clientSockets->users = users;
      clientSockets->sockets = allSockets;
      clientSockets->socketFD = newSocketFD;
      clientSockets->spreadsheetSessions = spreadsheetSessions;

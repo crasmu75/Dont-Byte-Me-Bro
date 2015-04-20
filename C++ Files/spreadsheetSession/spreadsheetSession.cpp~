@@ -190,9 +190,13 @@ void * doWork(void * args)
 		       cell::cell* lastCell = new cell::cell(cellName, qArgs->cellContentsMap->operator[](cellName));
 		       qArgs->sessionStack->push(lastCell);
 		       cout << "cell Name: " << cellName << endl;
-		       cout << "cell Contents: " << qArgs->cellContentsMap->operator[](cellName);
+		       cout << "old cell Contents: " << qArgs->cellContentsMap->operator[](cellName) << endl;
 		     }
+		   else{
 		   qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
+		   cell::cell* lastCell = new cell::cell(cellName,"");
+		   qArgs->sessionStack->push(lastCell);
+		   }
 		   //Send the cell change to all the users
 		   bzero(buffer,256);
 		   sprintf(buffer, "cell %s %s\n", cellName.c_str(), cellContents.c_str());

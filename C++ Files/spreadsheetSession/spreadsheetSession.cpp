@@ -38,6 +38,7 @@ typedef struct
 typedef struct
 {
   queue<workItem::workItem*> *sessionQueue;
+  vector<int> *socketFDs;
   int socketFD;
 } listenArgs;
 
@@ -55,7 +56,13 @@ void * listenSocket(void * args)
       readCount = read(lArgs->socketFD, buffer, 255);
       if (readCount == 0)
 	{
+	  cout << lArgs->socketFDs->size() << endl;
 	cout << "read error in listen" << endl;
+	vector<int>::iterator it;
+	it = find(lArgs->socketFDs->begin(),lArgs->socketFDs->end(),lArgs->socketFD);
+	close(lArgs->socketFD);
+	lArgs->socketFDs->erase(it);
+	cout << lArgs->socketFDs->size() << endl;
 	return (void *) args;
 	}
       else 
@@ -114,6 +121,7 @@ void * doWork(void * args)
 	       //Create a new thread for the user to listen on
 	       listen->sessionQueue = qArgs->sessionQueue;
 	       listen->socketFD = wrkItem->getSocket();
+	       listen->socketFDs = qArgs->socketFDs;
 	       pthread_create(&thread, 0, listenSocket, (void *) listen);
 	       pthread_detach(thread);
 	       //Keep the socket in a vector of active users

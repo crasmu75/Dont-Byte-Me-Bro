@@ -17,11 +17,15 @@ NEW FOUND ERRORS:
 *server can't read an existing XML file that is empty
 
 STILL TO DO
+*locking queue
+*locking spreadsheetsession vector
+*remove spreadsheet session when last user disconnects
 *all username stuff still needs to be implemented
 *finish client corrections and changes
 *multithreading?
 *bugs mentioned above
-
+*fix evaluating cells
+*fix loading empty xml
 
 
 

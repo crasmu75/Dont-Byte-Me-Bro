@@ -42,41 +42,48 @@ void * receiveConnection(void * skts)
   int writeCount, readCount;
   socketArgs * clientSockets = (socketArgs *) skts;
  
-  
   char buffer[256];
   char buffer2[256];
   int socket = clientSockets->socketFD;
   while(1)
     {
+      ///Buffer needs to be zero'd in c++
       bzero(buffer, 256);
+      //Read incoming message into the buffer
       readCount = read(socket,buffer,255);
       if(readCount == 0)
 	{
 	  cout << "read error" << endl;
 	}
+      //Get the command from the incoming message buffer
       string commandStr = commandParser::parseCommand(buffer);
       if(commandStr.compare("connect") == 0)
 	{
 	  string clientName = commandParser::parseClientName(buffer);
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
-	  //Check if spreadsheet Session exist
 	  bool foundSheet = false;
+	  //Check if spreadsheet Session exist by iterating over the vector of current sessions
 	  for (vector<spreadsheetSession::spreadsheetSession*>::iterator it = clientSockets->spreadsheetSessions->begin(); it != clientSockets->spreadsheetSessions->end(); it++)
 	    {
+	      //If the spreadsheetName corresponds to an active session enque and add request for the user to
+	      //join that session
 	      if(spreadsheetName.compare((*it)->spreadsheetSession::getspreadsheetName()) == 0)
 	      {
 		string addCommand = "add " + clientName;
+		//Enqueue add request
 		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
 		(*it)->enqueue(addRequest);
 		foundSheet = true;
 	      }
 	    }
+	  //If the spreadsheet isn't found create a new session for the incoming user.
 	  if(!foundSheet)
 	    {
 	        cout << " creating new session....." << endl;
 	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName);
 		string addCommand = "add " + clientName;
 		cout<< "addCommand: " << addCommand << endl;
+		//Enqueue add request
 		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
 		session->enqueue(addRequest);
 		//Maybe lock this? what if two connection try to push onto the spreadsheetSessions?
@@ -85,26 +92,7 @@ void * receiveConnection(void * skts)
 	  break;
 	}
     }
-	
 
-  /*
-     bzero(buffer,256);
-     bzero(buffer2,256);
-     sprintf(buffer, "connected 7\n");
-     
-     vector<int> allSockets;
-     allSockets = *(clientSockets->sockets); 
-
-     
-     for (vector<int>::iterator it = allSockets.begin(); it != allSockets.end(); it++)
-       {
-	 writeCount = write((*it),buffer,strlen(buffer));
-       }
-     */
-
-
-
-    
 }
 
 int main(int argc, char *argv[])
@@ -184,10 +172,12 @@ int main(int argc, char *argv[])
      if (newSocketFD < 0) 
           error("ERROR on accept");
 
+     //Populate the necessary structures for the new thread
      allSockets->push_back(newSocketFD);
      clientSockets->sockets = allSockets;
      clientSockets->socketFD = newSocketFD;
      clientSockets->spreadsheetSessions = spreadsheetSessions;
+     //Spin a new thread for the incoming connection
      pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);
   }

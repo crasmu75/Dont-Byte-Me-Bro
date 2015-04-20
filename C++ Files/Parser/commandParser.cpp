@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <boost/algorithm/string.hpp>
+#include <algorithm>
 
 /*Filename: commandParser.cpp
 /*The goal of this class is to be able to call static methods from
@@ -59,6 +60,14 @@ std::string commandParser::parseCellName(std::string msg)
   std::string s = msg.substr(posFirstWord);
   std::size_t posSecondWord = s.find(" ") + 1;
   s = msg.substr(posFirstWord,posSecondWord);
+  std::locale loc;
+  std::string result = "";
+  //Make cellContents uppercase
+  for(int i = 0;i< s.length();i++)
+  {
+    result += std::toupper(s.at(i),loc);
+  }
+  s = result;
   boost::algorithm::trim(s);
   return s;
 }
@@ -69,6 +78,17 @@ std::string commandParser::parseCellContents(std::string msg)
   std::string s = msg.substr(posFirstWord);
   std::size_t posSecondWord = s.find(" ") + 1;
   s = s.substr(posSecondWord);
+  if(s.substr(0,1).compare("=") == 0)
+  {
+  std::string result = "";
+  std::locale loc;
+  //Make cellContents uppercase
+  for(int i = 0;i< s.length();i++)
+  {
+    result += std::toupper(s.at(i),loc);
+  }
+  s = result;
+  }
   boost::algorithm::trim(s);
   return s;
 }

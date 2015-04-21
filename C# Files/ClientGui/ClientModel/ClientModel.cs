@@ -86,6 +86,7 @@ namespace Model
 					portn = port;
 					clientn = clientName;
 					spreadsheet = spreadsheetName;
+				
 
 					// Send message to connect to the server
 					try
@@ -112,6 +113,17 @@ namespace Model
 				catch(Exception e)
 				{
 					IncomingErrorEvent(e.Message);
+				}
+			}
+			else
+			{
+				try
+				{
+					SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
+				}
+				catch (Exception e)
+				{
+					ServerLost();
 				}
 			}
 		}

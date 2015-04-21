@@ -35,7 +35,13 @@ namespace ClientGui
             model.ConnectionConfirmationEvent += MessageReceived;
 			model.testingevent += testgghgh;
 			model.IncomingErrorEvent += ErrorReceived;
+			model.IncomingUsernameErrorEvent += UsernameError;
         }
+
+		private void UsernameError(string obj)
+		{
+			MessageBox.Show("Username not registered or currently in use. Try again.");
+		}
 
 		private void ErrorReceived(string obj)
 		{

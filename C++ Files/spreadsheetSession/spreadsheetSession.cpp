@@ -10,6 +10,7 @@
 #include <ctime>
 #include <math.h>
 #include <algorithm>
+#include <mutex>
 
 
 using namespace std;
@@ -53,6 +54,7 @@ void * listenSocket(void * args)
   char buffer[256];
   int readCount;
   string command;
+  mutex lock;
   while(1)
     {
       bzero(buffer, 256);
@@ -74,11 +76,14 @@ void * listenSocket(void * args)
 	  if (command.compare("register") == 0)
 	    {
 	      // **********LOCK USER VECTOR**************
+	      lock.lock();
 	      string username = commandParser::parseUsername(buffer);
 	      if (username.compare("") == 0)
-		cout << "invalid username received." << endl;
+	      cout << "invalid username received." << endl;
+	      
 	      lArgs->users->push_back(username);
 	      writeUsers(lArgs->users);
+	      lock.unlock();
 	    }
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, buffer);
 	  lArgs->sessionQueue->push(item);
@@ -278,6 +283,7 @@ spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *us
   //and populate the map of cell contents
   else
     {
+      cout << "got to here" << endl;
       this->cellContentsMap = getCells(xmlName);
     }
   this->sessionQueue = queue<workItem::workItem*>();

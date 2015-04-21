@@ -2,6 +2,7 @@
 #include "../Parser/xmlParser.h"
 #include "../Parser/commandParser.h"
 #include <fstream>
+#include<vector>
 #include <pthread.h>
 #include <iostream>
 #include <stdio.h>
@@ -26,6 +27,7 @@ class circularException: public exception
 //Structures needed for the new thread
 typedef struct
 {
+  vector<string>* users;
   queue<workItem::workItem*> *sessionQueue;
   stack<cell::cell*> *sessionStack;
   vector<int> *socketFDs;
@@ -40,6 +42,7 @@ typedef struct
   queue<workItem::workItem*> *sessionQueue;
   vector<int> *socketFDs;
   int socketFD;
+  vector<string> *users;
 } listenArgs;
 
 
@@ -68,6 +71,15 @@ void * listenSocket(void * args)
       else 
 	{
 	  command = commandParser::parseCommand(buffer);
+	  if (command.compare("register") == 0)
+	    {
+	      // **********LOCK USER VECTOR**************
+	      string username = commandParser::parseUsername(buffer);
+	      if (username.compare("") == 0)
+		cout << "invalid username received." << endl;
+	      lArgs->users->push_back(username);
+	      writeUsers(lArgs->users);
+	    }
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, buffer);
 	  lArgs->sessionQueue->push(item);
 	}
@@ -119,6 +131,7 @@ void * doWork(void * args)
 	       pthread_t thread;
 	       listenArgs* listen = new listenArgs();
 	       //Create a new thread for the user to listen on
+	       listen->users = qArgs->users;
 	       listen->sessionQueue = qArgs->sessionQueue;
 	       listen->socketFD = wrkItem->getSocket();
 	       listen->socketFDs = qArgs->socketFDs;
@@ -247,7 +260,7 @@ void * doWork(void * args)
 }
 //Constructor for a spreadsheetSession. This constructor creates a spreadsheetSession on a new thread
 //and handles enqueuing and dequeueing incoming spreadsheet commands.
-spreadsheetSession::spreadsheetSession(std::string name)
+spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *users)
 {
   spreadsheetName = name;
   string xmlName = name + ".xml";
@@ -274,6 +287,7 @@ spreadsheetSession::spreadsheetSession(std::string name)
   
   //Set up the structures needed for the new thread
   queueArgs* qArgs = new queueArgs();
+  qArgs->users = users;
   qArgs->sessionQueue = &(this->sessionQueue);
   qArgs->sessionStack = &(this->sessionStack);
   qArgs->socketFDs = &(this->socketFDs);

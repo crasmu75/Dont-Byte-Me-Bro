@@ -6,11 +6,9 @@ We are Number 1 Team
 STILL TO DO
 *dealing with not receiving entire command (server and session)
 *dealing with receiving multiple commands (session)
-*lock queue
-*lock spreadsheetsession vector
-*lock username file
 *remove spreadsheet session when last user disconnects
 *send error if server receives invalid command
+*test locking and threading/blocking
 *error checking
 *free memory
 *finish client corrections and changes

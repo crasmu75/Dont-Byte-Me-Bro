@@ -35,6 +35,8 @@ typedef struct
   DependencyGraph::DependencyGraph *dependencyGraph;
   map<string, string> *cellContentsMap;
   string spreadsheetName;
+  mutex *usersLock;
+  mutex *queueLock;
 } queueArgs;
 
 //Strucutres needed for the listensocket thread
@@ -44,6 +46,9 @@ typedef struct
   vector<int> *socketFDs;
   int socketFD;
   vector<string> *users;
+  mutex *socketsLock;
+  mutex *usersLock;
+  mutex *queueLock;
 } listenArgs;
 
 
@@ -54,7 +59,6 @@ void * listenSocket(void * args)
   char buffer[256];
   int readCount;
   string command;
-  mutex lock;
   while(1)
     {
       bzero(buffer, 256);
@@ -64,10 +68,11 @@ void * listenSocket(void * args)
 	  cout << lArgs->socketFDs->size() << endl;
 	cout << "read error in listen" << endl;
 	vector<int>::iterator it;
+	lArgs->socketsLock->lock();
 	it = find(lArgs->socketFDs->begin(),lArgs->socketFDs->end(),lArgs->socketFD);
 	close(lArgs->socketFD);
 	lArgs->socketFDs->erase(it);
-	cout << lArgs->socketFDs->size() << endl;
+	lArgs->socketsLock->unlock();
 	return (void *) args;
 	}
       else 
@@ -76,17 +81,16 @@ void * listenSocket(void * args)
 	  if (command.compare("register") == 0)
 	    {
 	      // **********LOCK USER VECTOR**************
-	      lock.lock();
 	      string username = commandParser::parseUsername(buffer);
-	      if (username.compare("") == 0)
-	      cout << "invalid username received." << endl;
-	      
+	      lArgs->usersLock->lock();
 	      lArgs->users->push_back(username);
 	      writeUsers(lArgs->users);
-	      lock.unlock();
+	      lArgs->usersLock->unlock();
 	    }
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, buffer);
+	  lArgs->queueLock->lock();
 	  lArgs->sessionQueue->push(item);
+	  lArgs->queueLock->unlock();
 	}
       sleep(1);
     }
@@ -103,7 +107,7 @@ void * doWork(void * args)
   time_t testTime;
   int timePassed;
   const int SAVE_TIMER_SEC = 10;
-
+  mutex *socketsLock = new mutex();
   while(true)
     {
       //Get the time that has passed
@@ -122,6 +126,7 @@ void * doWork(void * args)
       /*
        *Queue work session
        */
+      qArgs->queueLock->lock();
       if(qArgs->sessionQueue->size() > 0)
 	{
 	   workItem::workItem* wrkItem;
@@ -140,10 +145,15 @@ void * doWork(void * args)
 	       listen->sessionQueue = qArgs->sessionQueue;
 	       listen->socketFD = wrkItem->getSocket();
 	       listen->socketFDs = qArgs->socketFDs;
+	       listen->usersLock = qArgs->usersLock;
+	       listen->queueLock = qArgs->queueLock;
+	       listen->socketsLock = socketsLock;
 	       pthread_create(&thread, 0, listenSocket, (void *) listen);
 	       pthread_detach(thread);
 	       //Keep the socket in a vector of active users
+	       socketsLock->lock();
 	       qArgs->socketFDs->push_back(wrkItem->getSocket());
+	       socketsLock->unlock();
 	       //Send connection conmand to the client
 	       bzero(buffer,256); 
 	       sprintf(buffer, "connected %d\n", qArgs->cellContentsMap->size());
@@ -237,17 +247,18 @@ void * doWork(void * args)
 		   //Send the cell change to all the users
 		   bzero(buffer,256);
 		   sprintf(buffer, "cell %s %s\n", cellName.c_str(), cellContents.c_str());
+		   socketsLock->lock();
 		   for (vector<int>::iterator it = qArgs->socketFDs->begin(); it != qArgs->socketFDs->end(); it++)
 		     {
 		       writeCount = write((*it),buffer,strlen(buffer));
 		     }
+		   socketsLock->unlock();
 		 }
 	     }
 	   if(command.compare("undo") == 0)
 	     {
 	       string cellContents = "";
 	       string cellName = "";
-	       cout << qArgs->sessionStack->size() << " stack size" << endl;
 	       if (qArgs->sessionStack->size() > 0)
 		 {
 		 cell:cell* lastCell; 
@@ -265,18 +276,21 @@ void * doWork(void * args)
 	      //Send the cell change to all the users
 	      bzero(buffer,256);
 	      sprintf(buffer, "cell %s %s\n", cellName.c_str(), cellContents.c_str());
+	      socketsLock->lock();
 	      for (vector<int>::iterator it = qArgs->socketFDs->begin(); it != qArgs->socketFDs->end(); it++)
 	       {
 		 writeCount = write((*it),buffer,strlen(buffer));
 	       }
+	      socketsLock->unlock();
 	     }
 	}
+      qArgs->queueLock->unlock();
      sleep(1);
     }
 }
 //Constructor for a spreadsheetSession. This constructor creates a spreadsheetSession on a new thread
 //and handles enqueuing and dequeueing incoming spreadsheet commands.
-spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *users)
+spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *users, mutex *usersLock)
 {
   spreadsheetName = name;
   string xmlName = name + ".xml";
@@ -301,6 +315,7 @@ spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *us
   this->sessionStack = stack<cell::cell*>();
   this->socketFDs = vector<int>();
   this->dependencyGraph = DependencyGraph::DependencyGraph();
+  this->queueLock = new mutex();
   
   //Set up the structures needed for the new thread
   queueArgs* qArgs = new queueArgs();
@@ -311,6 +326,8 @@ spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *us
   qArgs->cellContentsMap = &(this->cellContentsMap);
   qArgs->dependencyGraph = &(this->dependencyGraph);
   qArgs->spreadsheetName = this->spreadsheetName;
+  qArgs->queueLock = this->queueLock;
+  qArgs->usersLock = usersLock;
 
   pthread_t thread;
   pthread_create(&thread, 0, doWork,  (void *) qArgs);
@@ -336,4 +353,8 @@ std::string spreadsheetSession::getspreadsheetName()
 void spreadsheetSession::enqueue(workItem::workItem* item)
 {
   sessionQueue.push(item);
+}
+std::mutex* spreadsheetSession::getQueueLock()
+{
+  return this->queueLock;
 }

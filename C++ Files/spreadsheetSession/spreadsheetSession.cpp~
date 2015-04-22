@@ -35,6 +35,11 @@ typedef struct
   DependencyGraph::DependencyGraph *dependencyGraph;
   map<string, string> *cellContentsMap;
   string spreadsheetName;
+  mutex *usersLock;
+  mutex *queueLock;
+  mutex *stackLock;
+  mutex *dpLock;
+  mutex *mapLock;
 } queueArgs;
 
 //Strucutres needed for the listensocket thread
@@ -76,14 +81,11 @@ void * listenSocket(void * args)
 	  if (command.compare("register") == 0)
 	    {
 	      // **********LOCK USER VECTOR**************
-	      lock.lock();
 	      string username = commandParser::parseUsername(buffer);
 	      if (username.compare("") == 0)
 	      cout << "invalid username received." << endl;
-	      
 	      lArgs->users->push_back(username);
 	      writeUsers(lArgs->users);
-	      lock.unlock();
 	    }
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, buffer);
 	  lArgs->sessionQueue->push(item);
@@ -215,13 +217,24 @@ void * doWork(void * args)
 		     {
 		       cell::cell* lastCell = new cell::cell(cellName, qArgs->cellContentsMap->operator[](cellName));
 		       qArgs->sessionStack->push(lastCell);
-		       cout << "cell Name: " << cellName << endl;
-		       cout << "old cell Contents: " << qArgs->cellContentsMap->operator[](cellName) << endl;
+		       if(cellContents.compare("") == 0)
+			 {
+			   qArgs->cellContentsMap->erase(cellName);
+			   
+			 }
+		       else
+			 {
+			   qArgs->cellContentsMap->operator[](cellName) = cellContents;
+			 }  
 		     }
-		   else{
-		   qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
-		   cell::cell* lastCell = new cell::cell(cellName,"");
-		   qArgs->sessionStack->push(lastCell);
+		   else
+		   {
+		     if(cellContents.compare("") != 0)
+		       {
+			 qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
+			 cell::cell* lastCell = new cell::cell(cellName,"");
+			 qArgs->sessionStack->push(lastCell);
+		       }
 		   }
 		   //Send the cell change to all the users
 		   bzero(buffer,256);
@@ -290,6 +303,7 @@ spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *us
   this->sessionStack = stack<cell::cell*>();
   this->socketFDs = vector<int>();
   this->dependencyGraph = DependencyGraph::DependencyGraph();
+  this->queueLock = new mutex();
   
   //Set up the structures needed for the new thread
   queueArgs* qArgs = new queueArgs();
@@ -325,4 +339,8 @@ std::string spreadsheetSession::getspreadsheetName()
 void spreadsheetSession::enqueue(workItem::workItem* item)
 {
   sessionQueue.push(item);
+}
+std::mutex* spreadsheetSession::getQueueLock()
+{
+  return this->queueLock;
 }

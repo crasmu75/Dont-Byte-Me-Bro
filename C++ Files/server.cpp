@@ -14,6 +14,7 @@
 #include "Parser/xmlParser.h"
 #include "spreadsheetSession/spreadsheetSession.h"
 #include "spreadsheetSession/workItem.h"
+#include <mutex>
 
 using namespace std;
 
@@ -34,6 +35,9 @@ typedef struct
   int socketFD;
   vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions;
   vector<string> *users;
+  mutex *socketsLock;
+  mutex *sessionsLock;
+  mutex *usersLock;
 } socketArgs;
 
 
@@ -45,10 +49,10 @@ void * receiveConnection(void * skts)
   pthread_t thread;
   int writeCount, readCount;
   socketArgs * clientSockets = (socketArgs *) skts;
- 
   char buffer[256];
   char buffer2[256];
   int socket = clientSockets->socketFD;
+  mutex *queueLock;
   while(1)
     {
       ///Buffer needs to be zero'd in c++
@@ -57,29 +61,25 @@ void * receiveConnection(void * skts)
       readCount = read(socket,buffer,255);
       if(readCount == 0)
 	{
-	  cout << clientSockets->sockets->size() << endl;
 	  cout << "read error in accepting connections." << endl;
 	  vector<int>::iterator it;
+	  clientSockets->socketsLock->lock();
 	  it = find(clientSockets->sockets->begin(),clientSockets->sockets->end(), socket);
 	  close(socket);
 	  clientSockets->sockets->erase(it);
-	  cout << clientSockets->sockets->size() << endl;
+	  clientSockets->socketsLock->unlock();
 	  return (void *) skts;
 	}
       //Get the command from the incoming message buffer
       string commandStr = commandParser::parseCommand(buffer);
-      if(commandStr.compare("register") == 0)
-	{
-	  string clientName = commandParser::parseClientName(buffer);
-	  clientSockets->users->push_back(clientName);
-	}
       if(commandStr.compare("connect") == 0)
 	{
 	  string clientName = commandParser::parseClientName(buffer);
-	  
 	  // Check valid client name.
+	  clientSockets->usersLock->lock();
 	  if (std::find(clientSockets->users->begin(), clientSockets->users->end(), clientName) == clientSockets->users->end())
 	    {
+	     
 	      cout << "Client has not been added to server." << endl;
 	      char buffer[256];
 	      bzero(buffer, 256);
@@ -87,37 +87,46 @@ void * receiveConnection(void * skts)
 	      writeCount = write(socket, buffer, strlen(buffer));
 	      continue;
 	    }
-	  
-
+	  clientSockets->usersLock->unlock();
 	  // Get spreadsheet name from command.
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
 	  bool foundSheet = false;
 	  //Check if spreadsheet Session exist by iterating over the vector of current sessions
+	  clientSockets->sessionsLock->lock();
 	  for (vector<spreadsheetSession::spreadsheetSession*>::iterator it = clientSockets->spreadsheetSessions->begin(); it != clientSockets->spreadsheetSessions->end(); it++)
 	    {
 	      //If the spreadsheetName corresponds to an active session enque and add request for the user to
 	      //join that session
 	      if(spreadsheetName.compare((*it)->spreadsheetSession::getspreadsheetName()) == 0)
 	      {
+		queueLock = (*it)->getQueueLock();
 		string addCommand = "add " + clientName;
 		//Enqueue add request
 		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
+		queueLock->lock();
 		(*it)->enqueue(addRequest);
+	        queueLock->unlock();
 		foundSheet = true;
 	      }
 	    }
+	  clientSockets->sessionsLock->unlock();
 	  //If the spreadsheet isn't found create a new session for the incoming user.
 	  if(!foundSheet)
 	    {
 	        cout << " creating new session....." << endl;
-	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName, clientSockets->users);
+	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName, clientSockets->users, clientSockets->usersLock);
 		string addCommand = "add " + clientName;
 		cout<< "addCommand: " << addCommand << endl;
 		//Enqueue add request
 		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
+		queueLock = session->getQueueLock();
+		queueLock->lock();
 		session->enqueue(addRequest);
+		queueLock->unlock();
 		//Maybe lock this? what if two connection try to push onto the spreadsheetSessions?
+		clientSockets->sessionsLock->lock();
 		clientSockets->spreadsheetSessions->push_back(session);
+		clientSockets->sessionsLock->unlock();
 	    }
 	  break;
 	}
@@ -176,7 +185,7 @@ int main(int argc, char *argv[])
   serverAddr.sin_port = htons(portno);
 
   // Binds the socket (referenced by the socket file descriptor) with the provided server address created above.
-  if (bind(socketFD, (struct sockaddr *) &serverAddr,
+  if (::bind(socketFD, (struct sockaddr *) &serverAddr,
        sizeof(serverAddr)) < 0) 
        error("ERROR on binding");
 
@@ -212,6 +221,9 @@ int main(int argc, char *argv[])
      clientSockets->sockets = allSockets;
      clientSockets->socketFD = newSocketFD;
      clientSockets->spreadsheetSessions = spreadsheetSessions;
+     clientSockets->usersLock = new mutex();
+     clientSockets->socketsLock = new mutex();
+     clientSockets->sessionsLock = new mutex();
      //Spin a new thread for the incoming connection
      pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);

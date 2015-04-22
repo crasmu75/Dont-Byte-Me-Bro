@@ -7,9 +7,12 @@
 #include "cell.h"
 #include<vector>
 #include "../DependencyGraph/DependencyGraph.h"
+#include <mutex>
+
 class spreadsheetSession
 {
   private:
+  std::mutex *queueLock;
   std::string spreadsheetName;
   std::map<std::string,std::string> cellContentsMap;
   std::queue<workItem::workItem*> sessionQueue;
@@ -23,7 +26,7 @@ class spreadsheetSession
   
   
  public:
-  spreadsheetSession(std::string, std::vector<std::string>*);
+  spreadsheetSession(std::string, std::vector<std::string>*, std::mutex*);
   spreadsheetSession(const spreadsheetSession &other);
   ~spreadsheetSession();
   void createNewSession();
@@ -35,5 +38,6 @@ class spreadsheetSession
   void enqueue(workItem::workItem*);
   void dequeue(workItem::workItem*);
   void addSocketFD(int);
+  std::mutex* getQueueLock();
 };
 

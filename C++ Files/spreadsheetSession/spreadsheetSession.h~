@@ -5,6 +5,7 @@
 #include <stack>
 #include "workItem.h"
 #include "cell.h"
+#include<vector>
 #include "../DependencyGraph/DependencyGraph.h"
 class spreadsheetSession
 {
@@ -22,7 +23,7 @@ class spreadsheetSession
   
   
  public:
-  spreadsheetSession(std::string);
+  spreadsheetSession(std::string, std::vector<std::string>*);
   spreadsheetSession(const spreadsheetSession &other);
   ~spreadsheetSession();
   void createNewSession();

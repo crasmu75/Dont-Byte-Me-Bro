@@ -19,7 +19,6 @@ namespace SpreadsheetGUI
 	{
 		Spreadsheet Frame1;
 		string currCell;
-		string lastFileName;
 
         // Added to connect to server
 
@@ -39,7 +38,6 @@ namespace SpreadsheetGUI
 			spreadsheetPanel1.SelectionChanged += displaySelection;
 			spreadsheetPanel1.SetSelection(0, 0);
 			currCell = "A1";
-			lastFileName = null;
 			this.Text = spName;
 			AcceptButton = Set_Content_Button;
 			WindowState = FormWindowState.Maximized;
@@ -233,7 +231,11 @@ namespace SpreadsheetGUI
 
 			string newContents = "";
 			for (int i = 2; i < words.Length; i++)
+			{
 				newContents += words[i];
+				if(i < words.Length -1)
+					newContents += " ";
+			}
 
             // Updates cells
             IEnumerable<string> recalc = null;

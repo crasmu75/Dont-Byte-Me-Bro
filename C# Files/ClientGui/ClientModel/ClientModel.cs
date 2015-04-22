@@ -47,7 +47,7 @@ namespace Model
         /// <summary>
         /// Regex to identify incoming cell update
         /// </summary>
-        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s+(.)+");
+        Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s*(.)*");
 
         /// <summary>
         /// Regex to identify incoming invalid cell change error message

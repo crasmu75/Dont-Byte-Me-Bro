@@ -87,6 +87,7 @@ void * receiveConnection(void * skts)
 	      writeCount = write(socket, buffer, strlen(buffer));
 	      continue;
 	    }
+	  
 
 	  // Get spreadsheet name from command.
 	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);

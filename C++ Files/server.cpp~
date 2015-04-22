@@ -68,9 +68,15 @@ void * receiveConnection(void * skts)
 	}
       //Get the command from the incoming message buffer
       string commandStr = commandParser::parseCommand(buffer);
+      if(commandStr.compare("register") == 0)
+	{
+	  string clientName = commandParser::parseClientName(buffer);
+	  clientSockets->users->push_back(clientName);
+	}
       if(commandStr.compare("connect") == 0)
 	{
 	  string clientName = commandParser::parseClientName(buffer);
+	  
 	  // Check valid client name.
 	  if (std::find(clientSockets->users->begin(), clientSockets->users->end(), clientName) == clientSockets->users->end())
 	    {

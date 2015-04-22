@@ -59,33 +59,39 @@ vector<string>* getUsers()
 {
   vector<string> *userlist = new vector<string>();
   string line;
-  ifstream filestream("users.txt");
-  if (filestream.is_open())
+  ifstream exists("users.txt");
+  if (!exists.is_open())
     {
+      ofstream outstream("users.txt");
+      if (outstream.is_open())
+	{
+	  cout << "Creating new username file." << endl;
+	  outstream << "sysadmin\n";
+	  outstream.close();
+	}
+    }
+  ifstream filestream("users.txt");
       while (getline(filestream, line))
 	{
 	  userlist->push_back(line);
 	}
 	filestream.close();
-    }
+    
 
- else 
-   cout << "Could not open user file for reading." << endl;
 
-  if (userlist->size() == 0)
-    userlist->push_back("sysadmin");
+
 
 return userlist;
 
   
 }
 
-void writeUsers(vector<string> users)
+void writeUsers(vector<string>* users)
 {
   ofstream filestream("users.txt");
   if (filestream.is_open())
     {
-      for (vector<string>::iterator iter = users.begin(); iter != users.end(); iter++)
+      for (vector<string>::iterator iter = users->begin(); iter != users->end(); iter++)
 	{
 	  filestream << *iter << "\n";
 	}

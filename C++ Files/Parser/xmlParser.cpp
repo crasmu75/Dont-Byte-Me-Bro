@@ -73,14 +73,11 @@ vector<string>* getUsers()
   ifstream filestream("users.txt");
       while (getline(filestream, line))
 	{
-	  userlist->push_back(line);
+	  string s = line.substr(0,line.length()-1);
+	  userlist->push_back(s);
 	}
 	filestream.close();
     
-
-
-
-
 return userlist;
 
   

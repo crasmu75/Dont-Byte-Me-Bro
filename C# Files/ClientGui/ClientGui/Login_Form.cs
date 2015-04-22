@@ -23,7 +23,7 @@ namespace ClientGui
 		/// <summary>
 		/// Hardcoded port number for connection
 		/// </summary>
-		private int portno = 2114;
+		private int portno = 2113;
 
 		/// <summary>
 		/// Initialization of this form, the connection form
@@ -75,7 +75,7 @@ namespace ClientGui
         {
 			this.Invoke(new Action(() =>
 				{
-					DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(model));
+					DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(model, model.spreadsheet));
 					this.Close();
 				}));
         }

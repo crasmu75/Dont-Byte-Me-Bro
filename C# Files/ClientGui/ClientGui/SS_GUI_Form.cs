@@ -32,7 +32,7 @@ namespace SpreadsheetGUI
 		/// Initializes a new form, or spreadsheet window.
 		/// Also creates a new spreadsheet and sets the default startup values.
 		/// </summary>
-		public SS_GUI_Form(ClientModel currModel)
+		public SS_GUI_Form(ClientModel currModel, string spName)
 		{
 			InitializeComponent();
 			Frame1 = new Spreadsheet(s => true, s => s.ToUpper(), "ps6");
@@ -40,7 +40,7 @@ namespace SpreadsheetGUI
 			spreadsheetPanel1.SetSelection(0, 0);
 			currCell = "A1";
 			lastFileName = null;
-			this.Text = "New Spreadsheet";
+			this.Text = spName;
 			AcceptButton = Set_Content_Button;
 			WindowState = FormWindowState.Maximized;
 
@@ -144,14 +144,15 @@ namespace SpreadsheetGUI
 
             Boolean okToSend = true;
 
-            if (cellContent[0] == '=')
-            {
-                if (!Frame1.isValidFormula(cellContent.Substring(1)))
-                {
-                    MessageBox.Show("Invalid Formula Entered.");
-                    okToSend = false;
-                }
-            }
+			if(cellContent != "")
+				if (cellContent[0] == '=')
+				{
+					if (!Frame1.isValidFormula(cellContent.Substring(1)))
+					{
+						MessageBox.Show("Invalid Formula Entered.");
+						okToSend = false;
+					}
+				}
 
             if (okToSend)
             {

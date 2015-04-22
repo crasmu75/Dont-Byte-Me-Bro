@@ -39,7 +39,7 @@ namespace ClientGui
 				
 
 				// make sure to pass in the new model that has the new socket
-				DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(newModel));
+				DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(newModel, textBox_spreadsheet_name.Text));
 				this.Close();
 			}));
 		}

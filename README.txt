@@ -1,6 +1,24 @@
 We are Number 1 Team
 # Dont-Byte-Me-Bro
 
+4/22/15
+
+STILL TO DO
+*dealing with not receiving entire command (server and session)
+*dealing with receiving multiple commands (session)
+*lock queue
+*lock spreadsheetsession vector
+*lock username file
+*remove spreadsheet session when last user disconnects
+*send error if server receives invalid command
+*error checking
+*free memory
+*finish client corrections and changes
+*commenting
+*readme for makefile
+*submit code before checkoff
+
+
 4/19/15
 KILLER CREW KAMERON AND CAMILLE (Kam and Cam)
 dawgs
@@ -15,19 +33,6 @@ NEW FOUND ERRORS:
 *we do not know if the client side still needs dependency graph (when you change a cell that another depends on...)
 *client still doesn't evaluate formulas
 *server can't read an existing XML file that is empty
-
-STILL TO DO
-*locking queue
-*locking spreadsheetsession vector
-*remove spreadsheet session when last user disconnects
-*all username stuff still needs to be implemented
-*finish client corrections and changes
-*multithreading?
-*bugs mentioned above
-*fix evaluating cells
-*fix loading empty xml
-
-
 
 4/18/15
 Relief team Kameron and Jessie worked in spreadsheetSession.cpp and server.cpp list of changes to follow

@@ -215,13 +215,24 @@ void * doWork(void * args)
 		     {
 		       cell::cell* lastCell = new cell::cell(cellName, qArgs->cellContentsMap->operator[](cellName));
 		       qArgs->sessionStack->push(lastCell);
-		       cout << "cell Name: " << cellName << endl;
-		       cout << "old cell Contents: " << qArgs->cellContentsMap->operator[](cellName) << endl;
+		       if(cellContents.compare("") == 0)
+			 {
+			   qArgs->cellContentsMap->erase(cellName);
+			   
+			 }
+		       else
+			 {
+			   qArgs->cellContentsMap->operator[](cellName) = cellContents;
+			 }  
 		     }
-		   else{
-		   qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
-		   cell::cell* lastCell = new cell::cell(cellName,"");
-		   qArgs->sessionStack->push(lastCell);
+		   else
+		   {
+		     if(cellContents.compare("") != 0)
+		       {
+			 qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
+			 cell::cell* lastCell = new cell::cell(cellName,"");
+			 qArgs->sessionStack->push(lastCell);
+		       }
 		   }
 		   //Send the cell change to all the users
 		   bzero(buffer,256);

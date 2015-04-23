@@ -2,16 +2,22 @@ We are Number 1 Team
 # Dont-Byte-Me-Bro
 
 4/22/15
+Drew and Kameron (Team BIG Dicks)
+
+We fixed the opening a blank spreadsheet error
+We added locking
+We think that we receive all commands even with latency
+
+
 
 STILL TO DO
-*dealing with not receiving entire command (server and session)
-*dealing with receiving multiple commands (session)
 *remove spreadsheet session when last user disconnects
 *send error if server receives invalid command
 *test locking and threading/blocking
 *error checking
 *free memory
 *finish client corrections and changes
+*test writing all data to sockets
 *commenting
 *readme for makefile
 *submit code before checkoff

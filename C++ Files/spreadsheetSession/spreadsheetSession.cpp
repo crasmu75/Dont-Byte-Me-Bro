@@ -59,13 +59,19 @@ void * listenSocket(void * args)
   char buffer[256];
   int readCount;
   string command;
+  string incMsg = "";
   while(1)
     {
       bzero(buffer, 256);
+      size_t posEndLine = string::npos;
+      while(posEndLine == string::npos)
+      {
       readCount = read(lArgs->socketFD, buffer, 255);
+      incMsg += buffer;
+      posEndLine = incMsg.find('\n');
       if (readCount == 0)
 	{
-	  cout << lArgs->socketFDs->size() << endl;
+	cout << lArgs->socketFDs->size() << endl;
 	cout << "read error in listen" << endl;
 	vector<int>::iterator it;
 	lArgs->socketsLock->lock();
@@ -75,19 +81,24 @@ void * listenSocket(void * args)
 	lArgs->socketsLock->unlock();
 	return (void *) args;
 	}
-      else 
+	}
+      while(incMsg.find('\n') != string::npos)
 	{
-	  command = commandParser::parseCommand(buffer);
-	  if (command.compare("register") == 0)
-	    {
-	      // **********LOCK USER VECTOR**************
-	      string username = commandParser::parseUsername(buffer);
-	      lArgs->usersLock->lock();
-	      lArgs->users->push_back(username);
-	      writeUsers(lArgs->users);
-	      lArgs->usersLock->unlock();
-	    }
-	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, buffer);
+	  posEndLine = incMsg.find('\n');
+	  string msg = incMsg.substr(0,posEndLine);
+	  cout << msg << endl;
+	  incMsg = incMsg.substr(posEndLine + 1);
+	
+	command = commandParser::parseCommand(msg);
+	if (command.compare("register") == 0)
+	 {
+	   string username = commandParser::parseUsername(msg);
+	   lArgs->usersLock->lock();
+	   lArgs->users->push_back(username);
+	   writeUsers(lArgs->users);
+	   lArgs->usersLock->unlock();
+	  }
+	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, msg);
 	  lArgs->queueLock->lock();
 	  lArgs->sessionQueue->push(item);
 	  lArgs->queueLock->unlock();
@@ -284,7 +295,11 @@ void * doWork(void * args)
 	      socketsLock->unlock();
 	     }
 	}
-      qArgs->queueLock->unlock();
+     qArgs->queueLock->unlock();
+     if(qArgs->socketFDs->size() == 0)
+       {
+	 //~spreadsheetSession();
+       }
      sleep(1);
     }
 }

@@ -53,38 +53,63 @@ void * receiveConnection(void * skts)
   char buffer2[256];
   int socket = clientSockets->socketFD;
   mutex *queueLock;
-  while(1)
+  string incMsg = "";
+  bool clientConnected = false;
+  while(!clientConnected)
     {
       ///Buffer needs to be zero'd in c++
       bzero(buffer, 256);
       //Read incoming message into the buffer
-      readCount = read(socket,buffer,255);
-      if(readCount == 0)
+      size_t posEndLine = string::npos;
+      while(posEndLine == string::npos)
 	{
-	  cout << "read error in accepting connections." << endl;
-	  vector<int>::iterator it;
-	  clientSockets->socketsLock->lock();
-	  it = find(clientSockets->sockets->begin(),clientSockets->sockets->end(), socket);
-	  close(socket);
-	  clientSockets->sockets->erase(it);
-	  clientSockets->socketsLock->unlock();
-	  return (void *) skts;
+	  readCount = read(socket,buffer,255);
+	  cout << "This is the incoming buffer " << buffer << endl;
+	   if(readCount == 0)
+	     {
+	       cout << "read error in accepting connections." << endl;
+	       vector<int>::iterator it;
+	       clientSockets->socketsLock->lock();
+	       it = find(clientSockets->sockets->begin(),clientSockets->sockets->end(), socket);
+	       close(socket);
+	       clientSockets->sockets->erase(it);
+	       clientSockets->socketsLock->unlock();
+	       return (void *) skts;
+	     }
+	  incMsg += buffer;
+	  posEndLine = incMsg.find('\n');
 	}
+      cout << "incoming message:\t" << incMsg << endl;
+      while(incMsg.find('\n') != string::npos)
+	{
+	  posEndLine = incMsg.find('\n');
+	  string msg = incMsg.substr(0,posEndLine);
+	  cout << msg << endl;
+	  incMsg = incMsg.substr(posEndLine + 1);
+	  cout << "Inc message after msg:" << incMsg << endl;
+     
       //Get the command from the incoming message buffer
-      string commandStr = commandParser::parseCommand(buffer);
+      string commandStr = commandParser::parseCommand(msg);
       if(commandStr.compare("connect") == 0)
 	{
-	  string clientName = commandParser::parseClientName(buffer);
+	  string clientName = commandParser::parseClientName(msg);
 	  // Check valid client name.
 	  clientSockets->usersLock->lock();
 	  if (std::find(clientSockets->users->begin(), clientSockets->users->end(), clientName) == clientSockets->users->end())
 	    {
-	     
 	      cout << "Client has not been added to server." << endl;
 	      char buffer[256];
 	      bzero(buffer, 256);
 	      sprintf(buffer, "error 4 %s\n", clientName.c_str());
-	      writeCount = write(socket, buffer, strlen(buffer));
+	      writeCount = 0;
+	      do{
+	      writeCount += write(socket, buffer, strlen(buffer));
+	      string s = buffer;
+	      s = s.substr(writeCount);
+	      bzero(buffer,256);
+	      sprintf(buffer, s.c_str());
+	      }while(writeCount < strlen(buffer));
+	      
 	      continue;
 	    }
 	  clientSockets->usersLock->unlock();
@@ -128,8 +153,9 @@ void * receiveConnection(void * skts)
 		clientSockets->spreadsheetSessions->push_back(session);
 		clientSockets->sessionsLock->unlock();
 	    }
-	  break;
+	  clientConnected = true;
 	}
+       }
     }
 
 }

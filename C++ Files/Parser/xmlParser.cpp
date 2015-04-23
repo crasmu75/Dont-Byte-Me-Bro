@@ -18,8 +18,12 @@ map<string, string> getCells(string filename)
   string cell_name;
   string cell_contents;
   map<string, string> cell_map = map<string, string>();
+  
   read_xml(filename, p_tree);
-
+  if(p_tree.empty())
+    {
+      return cell_map;
+    }
   BOOST_FOREACH(ptree::value_type const &val_type, p_tree.get_child("spreadsheet"))
     {
     
@@ -73,7 +77,7 @@ vector<string>* getUsers()
   ifstream filestream("users.txt");
       while (getline(filestream, line))
 	{
-	  string s = line.substr(0,line.length()-1);
+	  string s = line.substr(0,line.length());
 	  userlist->push_back(s);
 	}
 	filestream.close();

@@ -33,7 +33,7 @@ namespace ClientGui
 		private void button_add_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("Username being added.");
-			model.SendMessage("register " + textBox_username.Text);
+			model.SendMessage("register " + textBox_username.Text + "\n");
 			this.Invoke(new Action(() =>
 			{
 				this.Close();

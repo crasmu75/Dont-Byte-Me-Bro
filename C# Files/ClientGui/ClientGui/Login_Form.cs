@@ -21,11 +21,6 @@ namespace ClientGui
 		private ClientModel model;
 
 		/// <summary>
-		/// Hardcoded port number for connection
-		/// </summary>
-		private int portno = 2113;
-
-		/// <summary>
 		/// Initialization of this form, the connection form
 		/// </summary>
         public Login_Form()
@@ -60,10 +55,14 @@ namespace ClientGui
 		/// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-			if (textBox_host.Text == "" || textBox_username.Text == "" || textBox_spreadsheet.Text == "")
+            int n;
+            bool isNumber = int.TryParse(textBox_portno.Text, out n);
+
+			if (textBox_host.Text == "" || textBox_username.Text == "" || textBox_spreadsheet.Text == "" || textBox_portno.Text == "")
 				MessageBox.Show("Please fill out all fields.");
 			else
-				model.Connect(textBox_host.Text, portno, textBox_username.Text, textBox_spreadsheet.Text);
+                if (isNumber)
+				    model.Connect(textBox_host.Text, n, textBox_username.Text, textBox_spreadsheet.Text);
         }
 
 		/// <summary>

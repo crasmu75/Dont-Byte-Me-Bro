@@ -29,6 +29,9 @@
 // CS 3500-F14
 // 10/15/2014
 
+// Implemented for CS 3505 to be used as a collaborative spreadsheet
+// 4/23/15
+
 
 using System;
 using System.Collections.Generic;
@@ -39,8 +42,6 @@ using System.Xml;
 
 namespace SS
 {
-
-
 
 	// PARAGRAPHS 2 and 3 modified for PS5.
 	/// <summary>
@@ -90,16 +91,20 @@ namespace SS
 	/// </summary>
 	public class Spreadsheet : AbstractSpreadsheet
 	{
-		// A dictionary mapping cell names to cell objects (which contain name, content, and value).
+		/// <summary>
+        /// A dictionary mapping cell names to cell objects (which contain name, content, and value).
+		/// </summary>
 		private Dictionary<string, Cell> cells;
-		// Dependency Graph representing the relationship of cells and their dependency on one-another.
+
+		/// <summary>
+        /// Dependency Graph representing the relationship of cells and their dependency on one-another.
+		/// </summary>
 		private DependencyGraph dependencies;
-		// A boolean value representing if the spreadsheet has changed after original construction or after performing a save.
+
+		/// <summary>
+        /// A boolean value representing if the spreadsheet has changed after original construction or after performing a save.
+		/// </summary>
 		private bool hasChanged;
-
-
-
-
 
 		/// <summary>
 		/// Zero argument constructor for a spreadsheet.
@@ -115,8 +120,6 @@ namespace SS
 			hasChanged = false;
 		}
 
-
-
 		/// <summary>
 		/// Provides a three argument constructor for a spreadsheet.
 		/// This constructor will use the provided Validator and Normalizer, and will set the version to be the provided version string.
@@ -128,8 +131,6 @@ namespace SS
 			dependencies = new DependencyGraph();
 			hasChanged = false;
 		}
-
-
 
 		/// <summary>
 		/// Provides a four argument constructor for a spreadsheet.
@@ -149,14 +150,6 @@ namespace SS
 			{
 				using (XmlTextReader xmlReader = new XmlTextReader(filePath))
 				{
-					//}
-					//catch (Exception)
-					//{
-					//	xmlReader.Dispose();
-					//	throw new SpreadsheetReadWriteException("File could not be opened using XmlTextReader");
-					//}
-					// Reads cells from XML spreadsheet.
-					// TODO FIX THIS!
 					while (xmlReader.Read())
 					{
 						string name = "";
@@ -184,9 +177,6 @@ namespace SS
 			hasChanged = false;
 		}
 
-
-
-		// TODO : ADDED FOR PS5
 		/// <summary>
 		/// True if this spreadsheet has been modified since it was created or saved                  
 		/// (whichever happened most recently); false otherwise.
@@ -203,164 +193,6 @@ namespace SS
 			}
 		}
 
-
-
-		// TODO : ADDED FOR PS5
-		/// <summary>
-		/// Returns the version information of the spreadsheet saved in the named file.
-		/// If there are any problems opening, reading, or closing the file, the method
-		/// should throw a SpreadsheetReadWriteException with an explanatory message.
-		/// </summary>
-		public override string GetSavedVersion(string filename)
-		{
-			string vers = "";
-			//XmlTextReader xmlReader = null;
-			try
-			{
-				using (XmlTextReader xmlReader = new XmlTextReader(filename))
-				{
-
-					//}
-					//catch (Exception)
-					//{
-					//	xmlReader.Dispose();
-					//	throw new SpreadsheetReadWriteException("File could not be opened using XmlTextReader");
-					//}
-					//try
-					//{
-					// Attempts to read the spreadsheet version from the XML file.
-					if (!xmlReader.ReadToFollowing("spreadsheet") || !xmlReader.MoveToFirstAttribute())
-						throw new SpreadsheetReadWriteException("Spreadsheet version could not be found");
-					//}
-					//catch (Exception)
-					//{
-					//	throw new SpreadsheetReadWriteException("Spreadsheet version could not be found.");
-					//}
-					vers = xmlReader.Value;
-					// Attemtps to close the XML reader.
-					//try
-					//{
-					//	xmlReader.Close();
-					//}
-					//catch (Exception)
-					//{
-					//	xmlReader.Dispose();
-					//	throw new SpreadsheetReadWriteException("File could not be closed.");
-					//}
-				}
-			}
-			catch (Exception e)
-			{
-				throw new SpreadsheetReadWriteException("File version could not be read. - " + e.Message);
-			}
-			return vers;
-		}
-
-
-
-		// TODO : ADDED FOR PS5
-		/// <summary>
-		/// Writes the contents of this spreadsheet to the named file using an XML format.
-		/// The XML elements should be structured as follows:
-		/// 
-		/// <spreadsheet version="version information goes here">
-		/// 
-		/// <cell>
-		/// <name>
-		/// cell name goes here
-		/// </name>
-		/// <contents>
-		/// cell contents goes here
-		/// </contents>    
-		/// </cell>
-		/// 
-		/// </spreadsheet>
-		/// 
-		/// There should be one cell element for each non-empty cell in the spreadsheet.  
-		/// If the cell contains a string, it should be written as the contents.  
-		/// If the cell contains a double d, d.ToString() should be written as the contents.  
-		/// If the cell contains a Formula f, f.ToString() with "=" prepended should be written as the contents.
-		/// 
-		/// If there are any problems opening, writing, or closing the file, the method should throw a
-		/// SpreadsheetReadWriteException with an explanatory message.
-		/// </summary>
-		public override void Save(string filename)
-		{
-			//XmlWriter x = null;
-			// Attempts to create an XML writer with certain settings.
-			//try
-			//{
-
-			XmlWriterSettings settings = new XmlWriterSettings();
-			settings.NewLineChars = "\n";
-			settings.IndentChars = "";
-			settings.Indent = true;
-			try
-			{
-				using (XmlWriter x = XmlWriter.Create(filename, settings))
-				{
-					//}
-					//catch (Exception e)
-					//{
-					//if (x != null)
-					//	x.Dispose();
-					//throw new SpreadsheetReadWriteException("Could not open file: " + e.Message);
-					//}
-					// Attempts to save each cell in XML format.
-					//try
-					//{
-
-					x.WriteStartDocument();
-					x.WriteStartElement("spreadsheet");
-					x.WriteAttributeString("version", Version);
-					foreach (Cell c in cells.Values)
-					{
-						x.WriteStartElement("cell");
-						x.WriteStartElement("name");
-						x.WriteString(c.Name);
-						x.WriteEndElement();
-						x.WriteStartElement("contents");
-						if (c.Content is Formula)
-							x.WriteString("=" + c.Content.ToString());
-						else
-							x.WriteString(c.Content.ToString());
-						x.WriteEndElement();
-						x.WriteEndElement();
-					}
-					x.WriteEndElement();
-					x.WriteEndDocument();
-
-					//}
-					//catch (Exception)
-					//{
-					//	x.Dispose();
-					//	throw new SpreadsheetReadWriteException("Could not write file.");
-					//}
-					//// Attempts to close the Spreadsheet Writer.
-					//try
-					//{
-					//	x.Close();
-					//}
-					//catch (Exception)
-					//{
-					//	x.Dispose();
-					//	throw new SpreadsheetReadWriteException("Could not close file.");
-					//}
-				}
-			}
-			catch (Exception e)
-			{
-				throw new SpreadsheetReadWriteException("Could not use file. - " + e.Message);
-			}
-
-
-
-			Changed = false;
-		}
-
-
-
-		// ADDED FOR PS5
 		/// <summary>
 		/// If name is null or invalid, throws an InvalidNameException.
 		/// 
@@ -383,8 +215,6 @@ namespace SS
 			return "";
 		}
 
-
-
 		/// <summary>
 		/// Enumerates the names of all the non-empty cells in the spreadsheet.
 		/// </summary>
@@ -392,8 +222,6 @@ namespace SS
 		{
 			return cells.Keys;
 		}
-
-
 
 		/// <summary>
 		/// If name is null or invalid, throws an InvalidNameException.
@@ -415,9 +243,6 @@ namespace SS
 			return "";
 		}
 
-
-
-		// TODO : ADDED FOR PS5
 		/// <summary>
 		/// If content is null, throws an ArgumentNullException.
 		/// 
@@ -457,9 +282,11 @@ namespace SS
 			CheckValidCellName(name);
 			HashSet<string> recalculate = new HashSet<string>();
 			double @double = 0;
+
 			// Attempts to parse the content as a double.
 			if (Double.TryParse(content, out @double))
 				recalculate = new HashSet<string>(SetCellContents(name, @double));
+
 			// Attempts to parse the content as a formula.
 			else if (content != "" && content.ElementAt(0) == '=')
 			{
@@ -467,6 +294,7 @@ namespace SS
 				Formula formula = new Formula(content, Normalize, IsValid);
 				recalculate = new HashSet<string>(SetCellContents(name, formula));
 			}
+
 			// If the content was not a formula or a double, the contents are kept as a string.
 			else
 				recalculate = new HashSet<string>(SetCellContents(name, content));
@@ -476,9 +304,6 @@ namespace SS
 			return recalculate;
 		}
 
-
-
-		// MODIFIED PROTECTION FOR PS5
 		/// <summary>
 		/// If name is null or invalid, throws an InvalidNameException.
 		/// 
@@ -509,9 +334,6 @@ namespace SS
 			return new HashSet<string>(GetCellsToRecalculate(name));
 		}
 
-
-
-		// MODIFIED PROTECTION FOR PS5
 		/// <summary>
 		/// If text is null, throws an ArgumentNullException.
 		/// 
@@ -553,9 +375,6 @@ namespace SS
 			return new HashSet<string>(GetCellsToRecalculate(name));
 		}
 
-
-
-		// MODIFIED PROTECTION FOR PS5
 		/// <summary>
 		/// If formula parameter is null, throws an ArgumentNullException.
 		/// 
@@ -600,8 +419,6 @@ namespace SS
 			return new HashSet<string>(GetCellsToRecalculate(name));
 		}
 
-
-
 		/// <summary>
 		/// If name is null, throws an ArgumentNullException.
 		/// 
@@ -621,16 +438,13 @@ namespace SS
 		/// </summary>
 		protected override IEnumerable<string> GetDirectDependents(string name)
 		{
-
 			if (name == null)
 				throw new ArgumentNullException();
 			name = Normalize(name);
 			CheckValidCellName(name);
 
-			return dependencies.GetDependents(name);													// GET DEPENDENTS
+			return dependencies.GetDependents(name);    // GET DEPENDENTS
 		}
-
-
 
 		/// <summary>
 		/// Determines if a cell name is valid.
@@ -641,25 +455,28 @@ namespace SS
 		{
 			if (cellName == null)
 				throw new InvalidNameException();
-			string varCheckLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+			string varCheckLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			string varCheckNumbers = "0123456789";
 			char[] chars = cellName.ToCharArray();
 			int j = 0;
+
 			while (j < chars.Count() && varCheckLetters.Contains(chars[j]))
 				j++;
+
 			if (j == chars.Count() || j == 0)
 				throw new InvalidNameException();
+
 			while (j < chars.Count())
 			{
 				if (!varCheckNumbers.Contains(chars[j]))
 					throw new InvalidNameException();
 				j++;
 			}
+
 			if (!IsValid(cellName))
 				throw new InvalidNameException();
 		}
-
 
 		/// <summary>
 		/// Evaluates a set of cells in the order they appear.
@@ -707,6 +524,11 @@ namespace SS
 			return (double)c.Value;
 		}
 
+        /// <summary>
+        /// Check if the string is a formula
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public Boolean isValidFormula(string s)
         {
             try

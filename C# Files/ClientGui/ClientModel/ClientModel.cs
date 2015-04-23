@@ -11,33 +11,75 @@ namespace Model
 {
     public class ClientModel
     {
-		// The socket used to communicate with the server.  If no connection has been
-		// made yet, this is null.
+        /// <summary>
+		/// The socket used to communicate with the server.  If no connection has been
+		/// made yet, this is null.
+        /// </summary>
 		private Socket socket;
 
-		// Register for this event to be motified when a line of text arrives.
-		public event Action<String> ConnectionConfirmationEvent;
+        /// <summary>
+        /// Buffer to hold bytes to be sent to server
+        /// </summary>
+        private byte[] buffer;
 
-        // Register event for an incoming cell update
-        public event Action<String> IncomingCellUpdateEvent;
+        /// <summary>
+        /// Sign-in credentials
+        /// </summary>
+        public string host, clientn, spreadsheet;
 
-        // Register event for an incoming cell update error message
-        public event Action<String> IncomingCellUpdateErrorEvent;
+        /// <summary>
+        /// Port number to connect to server
+        /// </summary>
+        public int portn;
 
-        // Register event for an incoming username error message
-        public event Action<String> IncomingUsernameErrorEvent;
-
-        public event Action<String> IncomingErrorEvent;
-
-		public event Action<String> testingevent;
-
-		private byte[] buffer;
-
-		public string host, clientn, spreadsheet;
-		public int portn;
-
+        /// <summary>
+        /// Boolean to listen when connected to server
+        /// </summary>
         private bool listen;
 
+        // Actions to be registered as commands are received from the server -----------------------------------------------
+
+        /// <summary>
+		/// Confirm successful connection
+        /// </summary>
+		public event Action<String> ConnectionConfirmationEvent;
+
+        /// <summary>
+        /// Update a cell
+        /// </summary>
+        public event Action<String> IncomingCellUpdateEvent;
+
+        /// <summary>
+        /// Error 0 -- Generic
+        /// </summary>
+        public event Action<String> IncomingGenericErrorEvent;
+
+        /// <summary>
+        /// Error 1 -- Invalid cell update
+        /// </summary>
+        public event Action<String> IncomingCellUpdateErrorEvent;
+
+        /// <summary>
+        /// Error 2 -- Invalid command
+        /// </summary>
+        public event Action<String> InvalidCommandEvent;
+
+        /// <summary>
+        /// Error 3 -- Invalid request in current state
+        /// </summary>
+        public event Action<String> InvalidStateErrorEvent;
+
+        /// <summary>
+        /// Error 4 -- Invalid username
+        /// </summary>
+        public event Action<String> IncomingUsernameErrorEvent;
+
+        /// <summary>
+        /// Alert of a lost connection
+        /// </summary>
+        public event Action<String> ConnectionLostErrorEvent;
+
+        // Regex to identify incoming messages from Server -------------------------------------------------------
 
         /// <summary>
         /// Regex to identify incoming connected message
@@ -50,12 +92,27 @@ namespace Model
         Regex cellUpdateCommand = new Regex(@"(cell)\s+[A-Z][0-9]+\s*(.)*");
 
         /// <summary>
-        /// Regex to identify incoming invalid cell change error message
+        /// ERROR 0 -- Regex to identify incoming generic error message
+        /// </summary>
+        Regex genericErrorCommand = new Regex(@"(error)\s+0\s+(.)+");
+
+        /// <summary>
+        /// ERROR 1 -- Regex to identify incoming invalid cell change error message
         /// </summary>
         Regex invalidCellErrorCommand = new Regex(@"(error)\s+1\s+(.)+");
 
         /// <summary>
-        /// Regex to identify incoming invalid username error message
+        /// ERROR 2 -- Regex to identify incoming invalid command
+        /// </summary>
+        Regex invalidCommandErrorCommand = new Regex(@"(error)\s+2\s+(.)+");
+
+        /// <summary>
+        /// ERROR 3 -- Regex to identify incoming invalid state error message
+        /// </summary>
+        Regex invalidStateErrorCommand = new Regex(@"(error)\s+3\s+(.)+");
+
+        /// <summary>
+        /// ERROR 4 -- Regex to identify incoming invalid username error message
         /// </summary>
         Regex invalidUserErrorCommand = new Regex(@"(error)\s+4\s+(.)+");
 
@@ -67,15 +124,16 @@ namespace Model
             socket = null;
         }
 
-
 		/// <summary>
 		/// Connect to the server at the given hostname and port and with the given spreadsheet 
 		/// and user names.
 		/// </summary>
 		public void Connect(string hostname, int port, string clientName, string spreadsheetName)
 		{
+            // Check if socket is currently null
 			if (socket == null)
 			{
+                // Try to connect to server via TcpClient
 				try
 				{
 					TcpClient client = new TcpClient(hostname, port);
@@ -87,7 +145,6 @@ namespace Model
 					clientn = clientName;
 					spreadsheet = spreadsheetName;
 				
-
 					// Send message to connect to the server
 					try
 					{
@@ -112,11 +169,13 @@ namespace Model
 				}
 				catch(Exception e)
 				{
-					IncomingErrorEvent(e.Message);
+					ConnectionLostErrorEvent(e.Message);
 				}
 			}
+
 			else
 			{
+                // Send connection message
 				try
 				{
 					SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
@@ -134,8 +193,11 @@ namespace Model
 		/// <param name="line"></param>
 		public void SendMessage(String line)
 		{
+            // Create ASCII encoded message
 			byte[] msg = new byte[1024];
 			msg = Encoding.ASCII.GetBytes(line);
+
+            // If socket is not null, send the message
 			if (socket != null)
 			{
 				try
@@ -154,6 +216,7 @@ namespace Model
 		/// </summary>
 		private void LineReceived(IAsyncResult result)
 		{
+            // Store incoming message as a string
 			byte[] msg = (byte[])(result.AsyncState);
 			String s = Encoding.ASCII.GetString(msg);
 			int index;
@@ -164,8 +227,6 @@ namespace Model
 				// take the string from beginning to where \n occurs
 				String line = s.Substring(0, index);
 				line = line.Trim();
-
-				testingevent(line);
 
                 // Call proper event action based on Regex match
                 if (cellUpdateCommand.IsMatch(line))
@@ -180,6 +241,15 @@ namespace Model
                 else if (connectedCommand.IsMatch(line))
                     ConnectionConfirmationEvent(line);
 
+                else if (genericErrorCommand.IsMatch(line))
+                    IncomingGenericErrorEvent(line);
+
+                else if (invalidCommandErrorCommand.IsMatch(line))
+                    InvalidCommandEvent(line);
+
+                else if (invalidStateErrorCommand.IsMatch(line))
+                    InvalidStateErrorEvent(line);
+
 				// delete the completed message from what we received
 				s = s.Substring(index + 1);
 			}
@@ -193,6 +263,7 @@ namespace Model
 				    socket.BeginReceive(msg, 0, msg.Length,
 					    SocketFlags.None, LineReceived, msg);
 			}
+
 			catch(Exception e)
 			{
 				ServerLost();
@@ -204,16 +275,19 @@ namespace Model
 		/// </summary>
 		public void ServerLost()
 		{
-			// shutdown and close the socket
-			//socket.Shutdown(SocketShutdown.Both);
+			// Close the socket
 			socket.Close();
 
-			IncomingErrorEvent("Connection to the server lost. It is recommended that you restart\nthe application to restart the connection.");
+			ConnectionLostErrorEvent("Connection to the server lost. It is recommended that you restart\nthe application to restart the connection.");
             listen = false;
 		}
 
+        /// <summary>
+        /// Closes socket when application closes
+        /// </summary>
         public void Close()
         {
+            // If server is still connected, shutdown and close
             if (listen)
             {
                 listen = false;

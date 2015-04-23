@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Team author: DONT_BYTE_ME_BRO -- Jessie Delacenserie, Drew McClelland, Kameron Paulsen, Camille Rasmussen
+// CS 3505 -- final project -- Collaborative Spreadsheet
+// 4/23/15
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,10 +21,15 @@ namespace SpreadsheetGUI
 {
 	public partial class SS_GUI_Form : Form
 	{
+        /// <summary>
+        /// Spreadsheet connected to the GUI
+        /// </summary>
 		Spreadsheet Frame1;
-		string currCell;
 
-        // Added to connect to server
+        /// <summary>
+        /// String to hold the current cell content
+        /// </summary>
+		string currCell;
 
         /// <summary>
         /// New model for processing
@@ -33,8 +42,9 @@ namespace SpreadsheetGUI
 		/// </summary>
 		public SS_GUI_Form(ClientModel currModel, string spName)
 		{
+            // Set initial state of the GUI -- start the form
 			InitializeComponent();
-			Frame1 = new Spreadsheet(s => true, s => s.ToUpper(), "ps6");
+			Frame1 = new Spreadsheet(s => true, s => s.ToUpper(), spName);
 			spreadsheetPanel1.SelectionChanged += displaySelection;
 			spreadsheetPanel1.SetSelection(0, 0);
 			currCell = "A1";
@@ -42,16 +52,14 @@ namespace SpreadsheetGUI
 			AcceptButton = Set_Content_Button;
 			WindowState = FormWindowState.Maximized;
 
-            // Added to connect to server
+            // Process model events
             model = currModel;
             model.IncomingCellUpdateEvent += CellUpdateCommand;
+            model.IncomingGenericErrorEvent += GenericErrorReceived;
             model.IncomingCellUpdateErrorEvent += CellErrorCommand;
-			model.testingevent += (string line) => { };
-		}
-
-		private void testingeee(string obj)
-		{
-			//MessageBox.Show("Message received from server. Message:\n" + obj);
+            model.ConnectionLostErrorEvent += ConnectionErrorReceived;
+            model.InvalidCommandEvent += InvalidCommandReceived;
+            model.InvalidStateErrorEvent += InvalidStateRecieved;
 		}
 
 		/// <summary>
@@ -180,9 +188,7 @@ namespace SpreadsheetGUI
 		{
 			MessageBox.Show("The mouse can be used to navigate to different cells and select the cotent box.\n\n"
 			+ "The content box can be edited for any given cell.\n\nPressing \"Enter\" or clicking the \"Set Contents\" button will set the cell contents to the string, double or formula provided in the \"Cell Contents\" box. Formulas are designated with an \"=\" sign at the begining."
-			+ "\n\nMy additional feature was the addition of a calculator, which can be found by clicking the \"Calculator\" menu next to the file menu. The calculator can take input from the buttons, or from your keyboard!"
-			+"\n\nI also had a lot of trouble getting Coded UI tests to work. I made a few really long ones only to realize that they don't work. For some reason the test doesn't record"
-			+" some of the key presses and doesn't correctly update the cells. I Eventually deleted all the tests because I couldn't get them to pass, even though I proved they should pass by manually doing each command.", "Help");
+			+ "\n\nMy additional feature was the addition of a calculator, which can be found by clicking the \"Calculator\" menu next to the file menu. The calculator can take input from the buttons, or from your keyboard!", "Help");
 		}
  
 		/// <summary>
@@ -219,16 +225,20 @@ namespace SpreadsheetGUI
 		/// <param name="cmd"></param>
         private void CellUpdateCommand(string cmd)
         {
+            // Ints to hold row and col number
             int row, col;
 
+            // Split the command by spaces
             char[] delimiterChars = { ' '};
             string[] words = cmd.Split(delimiterChars);
 
+            // Get cell name from command and convert to row and col numbers
             string cellName = words[1];
             char colChar = cellName[0];
             col = (int)colChar - 65;
             row = Convert.ToInt32(cellName.Substring(1)) - 1;
 
+            // Get the contents of the cell from the command
 			string newContents = "";
 			for (int i = 2; i < words.Length; i++)
 			{
@@ -245,123 +255,51 @@ namespace SpreadsheetGUI
             UpdateCurrCellTextBoxes();
         }
 
+        /// <summary>
+        /// Show error message when an invalid cell update is requested
+        /// </summary>
+        /// <param name="obj"></param>
         private void CellErrorCommand(string obj)
         {
             MessageBox.Show("ERROR: \n\n" + obj);
         }
 
-    // UNUSED METHODS ----------------------------------------------------------------
-
         /// <summary>
-        /// Sets the value of a a cell to be what is entered in the content display box, and updates the other cells in the table.
+        /// Show error message when connection is lost
         /// </summary>
-        /*private void Update_Cells()
+        /// <param name="obj"></param>
+        private void ConnectionErrorReceived(string obj)
         {
-            // Updates cells and catches circular exception to display error.
-            IEnumerable<string> recalc = null;
-            try
-            {
-                recalc = Frame1.SetContentsOfCell(currCell, Cell_Content_Display.Text);
-            }
-            catch (CircularException)
-            {
-                MessageBox.Show("The formula you entered caused a circular exception. Cells must not have a circular dependency.");
-                return;
-            }
-            int row, col;
-            spreadsheetPanel1.GetSelection(out col, out row);
-            UpdateSpreadsheetCells(recalc);
-            spreadsheetPanel1.SetValue(col, row, Frame1.GetCellValue(currCell).ToString());
-            UpdateCurrCellTextBoxes();
-
-        }*/
-
-        /// <summary>
-        /// Clears all of the cells to be empty before opening a new spreadsheet.
-        /// </summary>
-        /*private void ClearAllCells()
-        {
-            for (int i = 0; i < 26; i++)
-            {
-                for (int j = 0; j < 100; j++)
-                {
-                    spreadsheetPanel1.SetValue(i, j, "");
-                }
-            }
-        }*/
-
-        /// <summary>
-        /// Provdes the open dialog box and information.
-        /// Also checks for .sprd extension and appends if necessary.
-        /// </summary>
-        /// <returns></returns>
-        /*private string OpenSpreadsheetDialog()
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Spreadsheet Files|*.sprd|All Files|*.*";
-            dialog.ShowDialog();
-            if (dialog.FilterIndex == 1)
-            {
-                Regex r = new Regex("(.sprd)");
-                if (!r.IsMatch(dialog.FileName))
-                {
-                    MessageBox.Show("The file you entered is not a file with the spreadsheet (.sprd) extension.\n" +
-                     "Please select a file with a .sprd extension, or change the filter to \"All Files\"");
-                    return null;
-                }
-            }
-
-            return dialog.FileName;
-        }*/
-
-        /// <summary>
-        /// Provides a close all function in the file menu and makes sure the user wants to exit all windows.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-              Environment.Exit(0);
+            MessageBox.Show(obj);
         }
 
         /// <summary>
-        /// Provides a button to run a new instance of this form to provide a new window.
+        /// Show error message when request cannot be completed in current state
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <param name="obj"></param>
+        private void InvalidStateRecieved(string obj)
         {
-            // Tell the application context to run the form on the same
-            // thread as the other forms.
-            //DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form());
-			this.Invoke(new Action(() =>
-			{
-				DemoApplicationContext.getAppContext().RunForm(new New_SS_Form(model));
-			}));
+            MessageBox.Show("ERROR:\n\n" + obj);
         }
 
         /// <summary>
-        /// When the user attempts to close a form, a dialog box asks if the user would like to save the spreadsheet if it has been changed.
+        /// Show error message when invalid command was received by server
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        /// <param name="obj"></param>
+        private void InvalidCommandReceived(string obj)
         {
-            model.Close();
+            MessageBox.Show("ERROR:\nInvalid command received: " + obj);
         }
 
-		/// <summary>
-		/// menu strip button to click to add a new user
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			this.Invoke(new Action(() =>
-			{
-				DemoApplicationContext.getAppContext().RunForm(new Add_User_Form(model));
-			}));
-		}
+        /// <summary>
+        /// Show error message when any other generic error is sent by server
+        /// </summary>
+        /// <param name="obj"></param>
+        private void GenericErrorReceived(string obj)
+        {
+            MessageBox.Show("ERROR: \n\n" + obj);
+        }
+
 	}
 
 }

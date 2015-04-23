@@ -51,7 +51,7 @@ namespace SpreadsheetGUI
 
 		private void testingeee(string obj)
 		{
-			MessageBox.Show("Message received from server. Message:\n" + obj);
+			//MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		/// <summary>

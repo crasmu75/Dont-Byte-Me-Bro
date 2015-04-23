@@ -2,7 +2,7 @@ We are Number 1 Team
 # Dont-Byte-Me-Bro
 
 4/22/15
-Drew and Kameron (Team BIG Dicks)
+Drew and Kameron
 
 We fixed the opening a blank spreadsheet error
 We added locking

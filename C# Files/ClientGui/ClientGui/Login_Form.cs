@@ -45,7 +45,7 @@ namespace ClientGui
 
 		private void testgghgh(string obj)
 		{
-			MessageBox.Show("Message received from server. Message:\n" + obj);
+			//MessageBox.Show("Message received from server. Message:\n" + obj);
 		}
 
 		/// <summary>

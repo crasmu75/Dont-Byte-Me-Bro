@@ -11,12 +11,9 @@ We think that we receive all commands even with latency
 
 
 STILL TO DO
-*remove spreadsheet session when last user disconnects
-*send error if server receives invalid command
 *test locking and threading/blocking
 *error checking
 *free memory
-*finish client corrections and changes
 *test writing all data to sockets
 *commenting
 *readme for makefile

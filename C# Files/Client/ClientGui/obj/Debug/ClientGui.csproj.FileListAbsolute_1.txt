@@ -140,6 +140,3 @@ B:\Documents\2015 - Spring Class\CS 3505\Spreadsheet_Repository\Dont-Byte-Me-Bro
 \\chips.eng.utah.edu\home\delacens\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.Properties.Resources.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\SpreadsheetGUI.SS_GUI_Form.resources
 \\chips.eng.utah.edu\home\delacens\.win_desktop\Dont-Byte-Me-Bro\C# Files\ClientGui\ClientGui\obj\Debug\ClientGui.csproj.GenerateResource.Cache
-\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\Client\ClientGui\bin\Debug\ClientGui.exe.config
-\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\Client\ClientGui\obj\Debug\ClientGui.exe
-\\chips.eng.utah.edu\home\delacens\.win_desktop\GitHub\Dont-Byte-Me-Bro\C# Files\Client\ClientGui\obj\Debug\ClientGui.pdb

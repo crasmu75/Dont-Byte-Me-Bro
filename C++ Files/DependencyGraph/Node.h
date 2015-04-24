@@ -45,20 +45,20 @@
     // the cell name of this node
     std::string name;
       
-    // this node's list of dependent nodes
+    // Pointer to this node's list of dependent nodes
     std::list<Node> *dependents;
       
-    // this node's list of dependee nodes
+    // Pointer to this node's list of dependee nodes
     std::list<Node> *dependees;
 
   private:
-    // when a dependee is added to this node, the node passed in needs this node added as a dependent
+    // Helper method for add_dependee
     void add_dependent2(Node n);
       
-    // when a dependent is added to this node, the node passed in needs this node added as a dependee
+    // Helper method for add_dependent
     void add_dependee2(Node n);
       
-    // when a de
+    // Helper method for remove_dependee
     void remove_dependent2(Node n);
   };
 

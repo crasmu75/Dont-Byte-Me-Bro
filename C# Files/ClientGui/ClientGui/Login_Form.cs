@@ -75,6 +75,8 @@ namespace ClientGui
             this.Invoke(new Action(() =>
             {
                 DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(model, model.spreadsheet));
+				model.InvalidCommandEvent -= InvalidCommandReceived;
+				model.ConnectionLostErrorEvent -= ConnectionErrorReceived;
                 this.Close();
             }));
         }

@@ -15,6 +15,10 @@
 
 using namespace std;
 
+//This class creates a spreadsheet session. The session creates
+//all threads needed to ensure asynchronous communication is 
+//continuous between the users of the spreadsheet and the server
+
 //Circular exception for circular dependencies of cells
 class circularException: public exception
 {
@@ -25,7 +29,9 @@ class circularException: public exception
 }circularException;
 
 
-//Structures needed for the new thread
+//Structures needed for the doWork thread. This thread
+//will dequeue items from the queue and try to process the
+//commands
 typedef struct
 {
   vector<string>* users;
@@ -42,6 +48,8 @@ typedef struct
 
 
 //Strucutres needed for the listensocket thread
+//This thread will continue listening on the connected users
+//socket and enqueue commands 
 typedef struct
 {
   queue<workItem::workItem*> *sessionQueue;
@@ -54,6 +62,7 @@ typedef struct
 } listenArgs;
 
 //Used to add a new user to the session.
+//And listen for incoming commands
 void * listenSocket(void * args)
 {
   listenArgs *lArgs = (listenArgs *) args;
@@ -65,16 +74,21 @@ void * listenSocket(void * args)
     {
       bzero(buffer, 256);
       size_t posEndLine = string::npos;
+      //Make sure all of the message is recieved up until the
+      //\n return.
       while(posEndLine == string::npos)
       {
       readCount = read(lArgs->socketFD, buffer, 255);
       incMsg += buffer;
       posEndLine = incMsg.find('\n');
+      //If the readcount is 0, the user's socket
+      //has been closed or diconected
       if (readCount == 0)
 	{
 	cout << "read error in listen" << endl;
 	vector<int>::iterator it;
 	lArgs->socketsLock->lock();
+	//Find the socket that diconected in the socketFDs list and remove it
 	it = find(lArgs->socketFDs->begin(),lArgs->socketFDs->end(),lArgs->socketFD);
 	close(lArgs->socketFD);
 	lArgs->socketFDs->erase(it);
@@ -82,20 +96,26 @@ void * listenSocket(void * args)
 	return (void *) args;
 	}
 	}
+      //Make sure to receive all bytes of the incoming
+      //message unti the \n
       while(incMsg.find('\n') != string::npos)
 	{
 	  posEndLine = incMsg.find('\n');
 	  string msg = incMsg.substr(0,posEndLine);
 	  incMsg = incMsg.substr(posEndLine + 1);
 	command = commandParser::parseCommand(msg);
+	//Register the user
 	if (command.compare("register") == 0)
 	 {
 	   string username = commandParser::parseUsername(msg);
 	   lArgs->usersLock->lock();
+	   //add the user to the list of users
 	   lArgs->users->push_back(username);
+	   //write the new user to the file of users
 	   writeUsers(lArgs->users);
 	   lArgs->usersLock->unlock();
 	  }
+	//Create a new workItem to enqueue the command
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, msg);
 	  lArgs->queueLock->lock();
 	  lArgs->sessionQueue->push(item);
@@ -105,6 +125,10 @@ void * listenSocket(void * args)
     }
 }
 
+//This function is called on a new thread in order to process the 
+//spreadsheet session queue. The queue contains workItems that hold
+//a command and the socket the command came in on. This allows the 
+//session to keep track of what sockets sent what commands.
 void * doWork(void * args)
 {
   queueArgs *qArgs = (queueArgs *) args;
@@ -137,10 +161,12 @@ void * doWork(void * args)
       qArgs->queueLock->lock();
       if(qArgs->sessionQueue->size() > 0)
 	{
+	  //Get the workItem off the queue
 	   workItem::workItem* wrkItem;
 	   wrkItem = qArgs->sessionQueue->front();
 	   qArgs->sessionQueue->pop();
 	   string msg = wrkItem->getCommand();
+	   //Parse the command
 	   string command = commandParser::parseCommand(msg);
 
 	   //Add Request
@@ -218,11 +244,12 @@ void * doWork(void * args)
 	       //Only want to actually update structures if a circular dependency didn't happen
 	       if (!cirDep)
 		 {
+		   //Get dependents of every cell involved in the change request and remove the old dependencies
 		   for (list<string>::iterator it = incomingCellDependents.begin(); it != incomingCellDependents.end(); it++)
 		     {
 		       qArgs->dependencyGraph->RemoveDependency(cellName, (*it));
 		     }
-		  
+		   //Update the new dependencies for the incoming cell
 		   for(list<string>::iterator itr = listOfCells.begin(); itr != listOfCells.end(); itr++)
 		     {
 		       qArgs->dependencyGraph->AddDependency(cellName, (*itr));
@@ -245,6 +272,7 @@ void * doWork(void * args)
 		     }
 		   else
 		   {
+		     //add the new cell to the map
 		     if(cellContents.compare("") != 0)
 		       {
 			 qArgs->cellContentsMap->insert(pair<string, string>(cellName, cellContents));
@@ -267,6 +295,7 @@ void * doWork(void * args)
 	     {
 	       string cellContents = "";
 	       string cellName = "";
+	       //If the stack is < 0 there's nothing to undo
 	       if (qArgs->sessionStack->size() > 0)
 		 {
 		 cell:cell* lastCell; 

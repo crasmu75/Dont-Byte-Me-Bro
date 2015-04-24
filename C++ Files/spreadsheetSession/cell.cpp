@@ -3,6 +3,8 @@
 
 using namespace std;
 
+//This class creates a cell object that will be used in the spreadsheet
+//to keep track of contents and the name of the cell
 cell::cell()
 {
   this->name = "";

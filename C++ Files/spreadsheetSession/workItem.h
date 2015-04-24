@@ -3,6 +3,9 @@
 #ifndef WORKITEM_H
 #define WORKITEM_H
 
+//This header file creates a workItem. The workItem is used in the 
+//spreadsheetSession.cpp class in order to add command request
+//onto the queue and stack
 class workItem
 {
  public:

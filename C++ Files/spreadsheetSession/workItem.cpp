@@ -5,6 +5,8 @@ using namespace std;
 
 workItem::workItem(){}
 
+//The workItem class is used to push commands onto
+//the stack and queue in spreadsheet session.
 workItem::workItem(int _socketFD, string _command)
 {
   this->socketFD = _socketFD;

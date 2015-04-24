@@ -9,11 +9,9 @@
 #include "../DependencyGraph/DependencyGraph.h"
 #include <mutex>
 
-
 class spreadsheetSession
 {
   private:
-  
   std::mutex *queueLock;
   std::string spreadsheetName;
   std::map<std::string,std::string> cellContentsMap;

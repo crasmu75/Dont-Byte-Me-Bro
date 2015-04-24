@@ -15,7 +15,6 @@
 #include "spreadsheetSession/spreadsheetSession.h"
 #include "spreadsheetSession/workItem.h"
 #include <mutex>
-#include <signal.h>
 
 using namespace std;
 
@@ -25,21 +24,10 @@ void error(const char *msg)
   exit(1);
 }
 
-void handler(int s)
-{
-  cout << "caught sigpipe exception " << endl;
-}
 
 /*
   Provides a structure to hold the socket information of the client who has connected to a socket
 */
-
-typedef struct
-{
-  vector<spreadsheetSession::spreadsheetSession*> *spreadsheetSessions;
-  mutex *sessionsLock;
-}deleteArgs;
-
 typedef struct
 {
   // All of the sockets currently connected to the server.
@@ -52,24 +40,6 @@ typedef struct
   mutex *usersLock;
 } socketArgs;
 
-void * updateSessions(void * args)
-{
-  deleteArgs * dArgs = (deleteArgs *) args;
-  while(true){
-  dArgs->sessionsLock->lock();
-  for(vector<spreadsheetSession::spreadsheetSession*>::iterator it = dArgs->spreadsheetSessions->begin();it!= dArgs->spreadsheetSessions->end();it++)
-       {
-	 if((*it)->isClosed())
-	   {
-	     dArgs->spreadsheetSessions->erase(it);
-	     //delete (*it);
-	     break;
-	   }
-       }
-  dArgs->sessionsLock->unlock();
-  usleep(100000);
-  }
-}
 
 // Receives a connection from a user who just connected to a client. This socket waits until the user sends a 'connect' command.
 // After receiving a connect command over the socket, this thread either adds the user to an exisitng spreadsheet session 
@@ -91,10 +61,10 @@ void * receiveConnection(void * skts)
       bzero(buffer, 256);
       //Read incoming message into the buffer
       size_t posEndLine = string::npos;
-      incMsg = "";
       while(posEndLine == string::npos)
 	{
 	  readCount = read(socket,buffer,255);
+	  cout << "This is the incoming buffer " << buffer << endl;
 	   if(readCount == 0)
 	     {
 	       cout << "read error in accepting connections." << endl;
@@ -109,13 +79,14 @@ void * receiveConnection(void * skts)
 	  incMsg += buffer;
 	  posEndLine = incMsg.find('\n');
 	}
-      cout << "incoming message: " << incMsg << endl;
+      cout << "incoming message:\t" << incMsg << endl;
       while(incMsg.find('\n') != string::npos)
 	{
 	  posEndLine = incMsg.find('\n');
 	  string msg = incMsg.substr(0,posEndLine);
+	  cout << msg << endl;
 	  incMsg = incMsg.substr(posEndLine + 1);
-	
+	  cout << "Inc message after msg:" << incMsg << endl;
      
       //Get the command from the incoming message buffer
       string commandStr = commandParser::parseCommand(msg);
@@ -138,12 +109,12 @@ void * receiveConnection(void * skts)
 	      bzero(buffer,256);
 	      sprintf(buffer, s.c_str());
 	      }while(writeCount < strlen(buffer));
-	      clientSockets->usersLock->unlock();
+	      
 	      continue;
 	    }
 	  clientSockets->usersLock->unlock();
 	  // Get spreadsheet name from command.
-	  string spreadsheetName = commandParser::parseSpreadsheetName(msg);
+	  string spreadsheetName = commandParser::parseSpreadsheetName(buffer);
 	  bool foundSheet = false;
 	  //Check if spreadsheet Session exist by iterating over the vector of current sessions
 	  clientSockets->sessionsLock->lock();
@@ -161,16 +132,16 @@ void * receiveConnection(void * skts)
 		(*it)->enqueue(addRequest);
 	        queueLock->unlock();
 		foundSheet = true;
-		clientConnected = true;
 	      }
 	    }
 	  clientSockets->sessionsLock->unlock();
 	  //If the spreadsheet isn't found create a new session for the incoming user.
 	  if(!foundSheet)
 	    {
-	      cout << "creating new session....." << spreadsheetName << endl;
-	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName, clientSockets->users, clientSockets->usersLock, clientSockets->spreadsheetSessions);
+	        cout << " creating new session....." << endl;
+	      	spreadsheetSession::spreadsheetSession* session = new spreadsheetSession::spreadsheetSession(spreadsheetName, clientSockets->users, clientSockets->usersLock);
 		string addCommand = "add " + clientName;
+		cout<< "addCommand: " << addCommand << endl;
 		//Enqueue add request
 		workItem::workItem* addRequest = new workItem::workItem(socket,addCommand);
 		queueLock = session->getQueueLock();
@@ -181,20 +152,13 @@ void * receiveConnection(void * skts)
 		clientSockets->sessionsLock->lock();
 		clientSockets->spreadsheetSessions->push_back(session);
 		clientSockets->sessionsLock->unlock();
-		clientConnected = true;
 	    }
+	  clientConnected = true;
 	}
-      else
-	{
-	  bzero(buffer, 256);
-	  sprintf(buffer, "error 2 Did not recieve a connect command from this user\n");
-	  cout << "got else" << endl;
-	  writeCount = write(socket,buffer,255);
-	}
-      }
-    }//client connected while
+       }
+    }
 
-}//Method
+}
 
 int main(int argc, char *argv[])
 {
@@ -218,9 +182,6 @@ int main(int argc, char *argv[])
   pthread_t thread;
 
   socklen_t clientLength;
-  //This will make the server ignore broken pipe exceptions and continue 
-  //executing code. The broken sockets should later be closed.
-  signal(SIGPIPE,handler);
   
   // If the user doesn't provide a port, the server uses 2000 as default.
   if(argc < 2)
@@ -260,17 +221,6 @@ int main(int argc, char *argv[])
  
   // Represents a vector of all of the sockets currently connected to the server.
   vector<int> *allSockets = new vector<int>;
-  deleteArgs* dArgs = new deleteArgs();
-  pthread_t thread2;
-  mutex* usersLock = new mutex();
-  mutex* socketsLock = new mutex();
-  mutex* sessionsLock = new mutex();
-  dArgs->spreadsheetSessions = spreadsheetSessions;
-  dArgs->sessionsLock = sessionsLock;
-  pthread_create(&thread2, 0, updateSessions, (void*) dArgs);
-  pthread_detach(thread2);
- 
-  
 
   // Continually accepts client sockets
   while (1)
@@ -297,10 +247,9 @@ int main(int argc, char *argv[])
      clientSockets->sockets = allSockets;
      clientSockets->socketFD = newSocketFD;
      clientSockets->spreadsheetSessions = spreadsheetSessions;
-     clientSockets->usersLock = usersLock;
-     clientSockets->socketsLock = socketsLock;
-     clientSockets->sessionsLock = sessionsLock;
-     
+     clientSockets->usersLock = new mutex();
+     clientSockets->socketsLock = new mutex();
+     clientSockets->sessionsLock = new mutex();
      //Spin a new thread for the incoming connection
      pthread_create(&thread, 0, receiveConnection, (void *) clientSockets);
      pthread_detach(thread);

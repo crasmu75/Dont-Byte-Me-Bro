@@ -69,9 +69,13 @@ void * listenSocket(void * args)
       {
       readCount = read(lArgs->socketFD, buffer, 255);
       incMsg += buffer;
+      cout << "buffer: " << buffer << endl;
+      cout << posEndLine << endl;
       posEndLine = incMsg.find('\n');
+      cout << posEndLine << endl;
       if (readCount == 0)
 	{
+	cout << lArgs->socketFDs->size() << endl;
 	cout << "read error in listen" << endl;
 	vector<int>::iterator it;
 	lArgs->socketsLock->lock();
@@ -86,6 +90,7 @@ void * listenSocket(void * args)
 	{
 	  posEndLine = incMsg.find('\n');
 	  string msg = incMsg.substr(0,posEndLine);
+	  cout << msg << endl;
 	  incMsg = incMsg.substr(posEndLine + 1);
 	command = commandParser::parseCommand(msg);
 	if (command.compare("register") == 0)
@@ -101,7 +106,7 @@ void * listenSocket(void * args)
 	  lArgs->sessionQueue->push(item);
 	  lArgs->queueLock->unlock();
 	}
-      usleep(100000);
+      sleep(1);
     }
 }
 
@@ -177,7 +182,7 @@ void * doWork(void * args)
 		 } 
 	     }
 	   //New cell change
-	   else if (command.compare("cell") == 0)
+	   if (command.compare("cell") == 0)
 	     {	  
 	       string cellName = commandParser::parseCellName(wrkItem->getCommand());
 	       string cellContents = commandParser::parseCellContents(wrkItem->getCommand());
@@ -225,6 +230,7 @@ void * doWork(void * args)
 		  
 		   for(list<string>::iterator itr = listOfCells.begin(); itr != listOfCells.end(); itr++)
 		     {
+		       cout << (*itr) << "\t";
 		       qArgs->dependencyGraph->AddDependency(cellName, (*itr));
 		     }
 	       	   //Update the cell map
@@ -269,6 +275,7 @@ void * doWork(void * args)
 	       string cellName = "";
 	       if (qArgs->sessionStack->size() > 0)
 		 {
+		 cout << "stack size " << qArgs->sessionStack->size() << endl;
 		 cell:cell* lastCell; 
 		 lastCell = qArgs->sessionStack->top();
 		 cellName = lastCell->getName();
@@ -288,7 +295,8 @@ void * doWork(void * args)
 	      sprintf(buffer, "cell %s %s\n", cellName.c_str(), cellContents.c_str());
 	      socketsLock->lock();
 	      for (vector<int>::iterator it = qArgs->socketFDs->begin(); it != qArgs->socketFDs->end(); it++)
-	       {		 
+	       {
+		 
 		 writeCount = write((*it),buffer,strlen(buffer));
 	       }
 	      socketsLock->unlock();
@@ -297,20 +305,23 @@ void * doWork(void * args)
 	   else
 	     {
 	       bzero(buffer,256);
-	       sprintf(buffer, "error 2 Did not recieve a valid command from this user\n");
+	       sprintf(buffer, "error 2 Did not recieve a connect command from this user\n");
 	       int senderSocketFD = wrkItem->getSocketFD();
 	       writeCount = write(senderSocketFD,buffer,255);
 	
 	     }
 	}
      qArgs->queueLock->unlock();
+     cout << "socketFDs size: " << qArgs->socketFDs->size() << endl;
+     cout << "sessionQueue size: " << qArgs->sessionQueue->size() << endl;
      if(qArgs->socketFDs->size() == 0 && qArgs->sessionQueue->size() == 0)
        {
 	 (*qArgs->closed) = true;
-	 //delete socketsLock;
-	 //delete (queueArgs*)args;
+	 cout << "We are in the doWork method sessions delete: " <<(*qArgs->closed) << endl;
+	 delete socketsLock;
+	 delete (queueArgs*)args;
        }
-     usleep(10000);
+     sleep(1);
     }
 }
 //Constructor for a spreadsheetSession. This constructor creates a spreadsheetSession on a new thread
@@ -333,6 +344,7 @@ spreadsheetSession::spreadsheetSession(std::string name, std::vector<string> *us
   //and populate the map of cell contents
   else
     {
+      cout << "got to here" << endl;
       this->cellContentsMap = getCells(xmlName);
     }
   this->sessionQueue = queue<workItem::workItem*>();
@@ -368,6 +380,7 @@ spreadsheetSession::spreadsheetSession(const spreadsheetSession &other)
 }
 spreadsheetSession::~spreadsheetSession()
 {
+  
   this->active = false;
 }
 

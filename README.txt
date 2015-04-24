@@ -1,5 +1,14 @@
-We are Number 1 Team
 # Dont-Byte-Me-Bro
+makefile commands:
+
+make - makes the project into a an executable called 'server'.
+./server - runs the server on default port number 2000.
+./server (portnumber) - runs the server on the provided port number (ex: ./server 2114).
+
+The only argument the server takes is the port number to run it off of.
+
+
+********** The information below was used by us to keep track of what the team had done during that commit ************
 
 4/22/15
 Drew and Kameron
@@ -13,7 +22,7 @@ We think that we receive all commands even with latency
 STILL TO DO
 *test locking and threading/blocking
 *error checking
-*free memory
+*free memory?
 *test writing all data to sockets
 *commenting
 *readme for makefile

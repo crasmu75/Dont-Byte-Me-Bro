@@ -48,5 +48,6 @@ class spreadsheetSession
   void dequeue(workItem::workItem*);
   void addSocketFD(int);
   std::mutex* getQueueLock();
+  bool isClosed();
 };
 

@@ -81,40 +81,6 @@
             equal.
             </summary>
         </member>
-        <member name="M:SS.AbstractSpreadsheet.GetSavedVersion(System.String)">
-            <summary>
-            Returns the version information of the spreadsheet saved in the named file.
-            If there are any problems opening, reading, or closing the file, the method
-            should throw a SpreadsheetReadWriteException with an explanatory message.
-            </summary>
-        </member>
-        <member name="M:SS.AbstractSpreadsheet.Save(System.String)">
-            <summary>
-            Writes the contents of this spreadsheet to the named file using an XML format.
-            The XML elements should be structured as follows:
-            
-            <spreadsheet version="version information goes here">
-            
-            <cell>
-            <name>
-            cell name goes here
-            </name>
-            <contents>
-            cell contents goes here
-            </contents>    
-            </cell>
-            
-            </spreadsheet>
-            
-            There should be one cell element for each non-empty cell in the spreadsheet.  
-            If the cell contains a string, it should be written as the contents.  
-            If the cell contains a double d, d.ToString() should be written as the contents.  
-            If the cell contains a Formula f, f.ToString() with "=" prepended should be written as the contents.
-            
-            If there are any problems opening, writing, or closing the file, the method should throw a
-            SpreadsheetReadWriteException with an explanatory message.
-            </summary>
-        </member>
         <member name="M:SS.AbstractSpreadsheet.GetCellValue(System.String)">
             <summary>
             If name is null or invalid, throws an InvalidNameException.
@@ -398,6 +364,21 @@
             dependency.
             </summary>
         </member>
+        <member name="F:SS.Spreadsheet.cells">
+            <summary>
+            A dictionary mapping cell names to cell objects (which contain name, content, and value).
+            </summary>
+        </member>
+        <member name="F:SS.Spreadsheet.dependencies">
+            <summary>
+            Dependency Graph representing the relationship of cells and their dependency on one-another.
+            </summary>
+        </member>
+        <member name="F:SS.Spreadsheet.hasChanged">
+            <summary>
+            A boolean value representing if the spreadsheet has changed after original construction or after performing a save.
+            </summary>
+        </member>
         <member name="M:SS.Spreadsheet.#ctor">
             <summary>
             Zero argument constructor for a spreadsheet.
@@ -418,40 +399,6 @@
             This constructor will use the provided Validator and Normalizer, and will set the version to be the provided version string.
             This constructor will also construct cells based on an XMl spreadsheet representation of a spreadsheet.
             If the version passed into the constructor does not match the version in the XML file, an exception is thrown.
-            </summary>
-        </member>
-        <member name="M:SS.Spreadsheet.GetSavedVersion(System.String)">
-            <summary>
-            Returns the version information of the spreadsheet saved in the named file.
-            If there are any problems opening, reading, or closing the file, the method
-            should throw a SpreadsheetReadWriteException with an explanatory message.
-            </summary>
-        </member>
-        <member name="M:SS.Spreadsheet.Save(System.String)">
-            <summary>
-            Writes the contents of this spreadsheet to the named file using an XML format.
-            The XML elements should be structured as follows:
-            
-            <spreadsheet version="version information goes here">
-            
-            <cell>
-            <name>
-            cell name goes here
-            </name>
-            <contents>
-            cell contents goes here
-            </contents>    
-            </cell>
-            
-            </spreadsheet>
-            
-            There should be one cell element for each non-empty cell in the spreadsheet.  
-            If the cell contains a string, it should be written as the contents.  
-            If the cell contains a double d, d.ToString() should be written as the contents.  
-            If the cell contains a Formula f, f.ToString() with "=" prepended should be written as the contents.
-            
-            If there are any problems opening, writing, or closing the file, the method should throw a
-            SpreadsheetReadWriteException with an explanatory message.
             </summary>
         </member>
         <member name="M:SS.Spreadsheet.GetCellValue(System.String)">
@@ -586,6 +533,13 @@
             This provides a function to be used as a lookup function for the evaluator.
             </summary>
             <param name="s">Returns a value associated with a cell</param>
+            <returns></returns>
+        </member>
+        <member name="M:SS.Spreadsheet.isValidFormula(System.String)">
+            <summary>
+            Check if the string is a formula
+            </summary>
+            <param name="s"></param>
             <returns></returns>
         </member>
         <member name="P:SS.Spreadsheet.Changed">

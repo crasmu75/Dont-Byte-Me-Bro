@@ -143,8 +143,6 @@ namespace SS
 		{
 			cells = new Dictionary<string, Cell>();
 			dependencies = new DependencyGraph();
-			if (GetSavedVersion(filePath) != version)
-				throw new SpreadsheetReadWriteException("The saved version of the XML file does not match the version provided to the constructor.");
 
 			try
 			{

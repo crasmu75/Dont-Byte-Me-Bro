@@ -21,8 +21,6 @@ namespace ClientGui
 			model = currModel;
 			newModel = new ClientModel();
 			newModel.ConnectionConfirmationEvent += ConnectionReceived;
-			model.testingevent += testinggggg;
-			newModel.testingevent += testinggggg;
 
 			InitializeComponent();
 		}

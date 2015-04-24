@@ -25,17 +25,10 @@ namespace ClientGui
 			InitializeComponent();
 		}
 
-		private void testinggggg(string obj)
-		{
-			MessageBox.Show("Message received from server. Message:\n" + obj);
-		}
-
 		private void ConnectionReceived(string obj)
 		{
 			this.Invoke(new Action(() =>
 			{
-				
-
 				// make sure to pass in the new model that has the new socket
 				DemoApplicationContext.getAppContext().RunForm(new SS_GUI_Form(newModel, textBox_spreadsheet_name.Text));
 				this.Close();

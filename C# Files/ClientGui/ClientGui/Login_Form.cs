@@ -36,10 +36,10 @@ namespace ClientGui
             // Process model events
             model.ConnectionConfirmationEvent += MessageReceived;
             model.IncomingGenericErrorEvent += GenericErrorReceived;
-			model.ConnectionLostErrorEvent += ConnectionErrorReceived;
 			model.IncomingUsernameErrorEvent += UsernameError;
             model.InvalidCommandEvent += InvalidCommandReceived;
             model.InvalidStateErrorEvent += InvalidStateRecieved;
+			model.ConnectionLostErrorEvent += ConnectionErrorReceived;
         }
 
         /// <summary>
@@ -54,11 +54,15 @@ namespace ClientGui
             bool isNumber = int.TryParse(textBox_portno.Text, out n);
 
             // Checks that all fields are filled out and sends message to server
-            if (textBox_host.Text == "" || textBox_username.Text == "" || textBox_spreadsheet.Text == "" || textBox_portno.Text == "")
-                MessageBox.Show("Please fill out all fields.");
-            else
-                if (isNumber)
-                    model.Connect(textBox_host.Text, n, textBox_username.Text, textBox_spreadsheet.Text);
+			if (textBox_host.Text == "" || textBox_username.Text == "" || textBox_spreadsheet.Text == "" || textBox_portno.Text == "")
+				MessageBox.Show("Please fill out all fields.");
+			else
+			{
+				if (isNumber)
+					model.Connect(textBox_host.Text, n, textBox_username.Text, textBox_spreadsheet.Text);
+				else
+					MessageBox.Show("Port Number must be an integer.");
+			}
         }
 
         /// <summary>

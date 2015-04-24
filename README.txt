@@ -1,4 +1,5 @@
-# Dont-Byte-Me-Bro
+# Team: Dont-Byte-Me-Bro (Camille Rasmussen, Jessie Delacenserie, Drew McClelland, Kameron Paulsen)
+
 makefile commands:
 
 make - makes the project into a an executable called 'server'.
@@ -9,6 +10,13 @@ The only argument the server takes is the port number to run it off of.
 
 
 ********** The information below was used by us to keep track of what the team had done during that commit ************
+4/23/15 -- final push
+Fixed GUI bugs
+Locks added
+Accept all errors
+Send all errors
+Comments finished
+
 
 4/22/15
 Drew and Kameron
@@ -31,7 +39,6 @@ STILL TO DO
 
 4/19/15
 KILLER CREW KAMERON AND CAMILLE (Kam and Cam)
-dawgs
 
 *IMPLEMENTED UNDO!!!
 *GOT SINGLETON TO WORK --- Now you can close any of the forms and the others will stay open... and when 
@@ -54,7 +61,7 @@ Relief team Kameron and Jessie worked in spreadsheetSession.cpp and server.cpp l
 
 TODO:
 Undo
-Removing sockets and cleaning up shit when stuff goes wrong and when it doesn't 
+Removing sockets and cleaning up stuff when stuff goes wrong and when it doesn't 
 All user name stuff
 Finish client corrections and changes
 Make sure multithreading is bomber 

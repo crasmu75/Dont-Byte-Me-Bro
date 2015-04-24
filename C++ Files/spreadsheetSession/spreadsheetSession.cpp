@@ -85,7 +85,7 @@ void * listenSocket(void * args)
       //has been closed or diconected
       if (readCount == 0)
 	{
-	cout << "read error in listen" << endl;
+	cout << "closing socket" << endl;
 	vector<int>::iterator it;
 	lArgs->socketsLock->lock();
 	//Find the socket that diconected in the socketFDs list and remove it
@@ -107,6 +107,7 @@ void * listenSocket(void * args)
 	//Register the user
 	if (command.compare("register") == 0)
 	 {
+	   cout << command << endl;
 	   string username = commandParser::parseUsername(msg);
 	   lArgs->usersLock->lock();
 	   //add the user to the list of users
@@ -114,12 +115,14 @@ void * listenSocket(void * args)
 	   //write the new user to the file of users
 	   writeUsers(lArgs->users);
 	   lArgs->usersLock->unlock();
-	  }
+	 }
+	else{
 	//Create a new workItem to enqueue the command
 	  workItem::workItem* item = new workItem::workItem(lArgs->socketFD, msg);
 	  lArgs->queueLock->lock();
 	  lArgs->sessionQueue->push(item);
 	  lArgs->queueLock->unlock();
+	}
 	}
       usleep(100000);
     }
@@ -325,6 +328,7 @@ void * doWork(void * args)
 	     }
 	   else
 	     {
+	       cout << msg << endl;
 	       bzero(buffer,256);
 	       sprintf(buffer, "error 2 Did not recieve a valid command from this user\n");
 	       int senderSocketFD = wrkItem->getSocketFD();

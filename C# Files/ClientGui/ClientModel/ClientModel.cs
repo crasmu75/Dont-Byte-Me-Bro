@@ -178,6 +178,13 @@ namespace Model
                 // Send connection message
 				try
 				{
+					listen = true;
+
+					host = hostname;
+					portn = port;
+					clientn = clientName;
+					spreadsheet = spreadsheetName;
+
 					SendMessage("connect " + clientName + " " + spreadsheetName + " \n");
 				}
 				catch (Exception e)

@@ -300,6 +300,18 @@ namespace SpreadsheetGUI
             MessageBox.Show("ERROR: \n\n" + obj);
         }
 
+		private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Add_User_Form newUser = new Add_User_Form(model);
+			newUser.Show();
+		}
+
+		private void newToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			New_SS_Form openSS = new New_SS_Form(model);
+			openSS.Show();
+		}
+
 	}
 
 }

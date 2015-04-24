@@ -2,26 +2,21 @@
 #include <iostream>
 #include <exception>
 
-// Dependency Graph constructor
 DependencyGraph::DependencyGraph()
 {
   nodes = new std::list<Node::Node>();
   size = 0;
 }
 
-// Empty destructor
 DependencyGraph::~DependencyGraph(){}
 
-// Returns the size of the Dependency Graph
 int DependencyGraph::GetSize()
 {
   return size;
 }
 
-// Checks if the current node has dependents
 bool DependencyGraph::HasDependents(std::string s)
 {
-	// Check if parameter node exists
   Node::Node current("");
   try
     {
@@ -32,17 +27,14 @@ bool DependencyGraph::HasDependents(std::string s)
       return false;
     }
   
-  // Check if dependents list contains any nodes
   if ((current.dependents)->size() != 0)
      return true;
 
   else return false;
 }
 
-// Checks if current node has dependees
 bool DependencyGraph::HasDependees(std::string s)
 {
-	// Check if parameter node exists
   Node::Node current("");
   try
     {
@@ -53,17 +45,14 @@ bool DependencyGraph::HasDependees(std::string s)
       return false;
     }
   
-  // Check if dependees list contains any nodes
   if ((current.dependees)->size() != 0)
      return true;
 
   else return false;
 }
 
-// Get a list of all dependents of a node
 std::list<std::string> DependencyGraph::GetDependents(std::string s)
 {
-	// Check if parameter node exists
   Node::Node current("");
   std::list<std::string> dependentsList;
   try
@@ -75,7 +64,6 @@ std::list<std::string> DependencyGraph::GetDependents(std::string s)
       return dependentsList;
     }
 
-  // Iterate list of dependents and add all nodes to the list to return
   std::list<Node::Node>::iterator it;
   for(it = (current.dependents)->begin(); it != (current.dependents)->end(); ++it)
     {
@@ -83,14 +71,11 @@ std::list<std::string> DependencyGraph::GetDependents(std::string s)
       dependentsList.push_back(currentName);
     }
   
-  // Return list of dependents
   return dependentsList;
 }
 
-// Get a list of dependees of a node
 std::list<std::string> DependencyGraph::GetDependees(std::string s)
 {
-	// Check if parameter node exists
   Node::Node current("");
   std::list<std::string> dependeesList;
   try
@@ -102,7 +87,6 @@ std::list<std::string> DependencyGraph::GetDependees(std::string s)
       return dependeesList;
     }
 
-  // Iterate list of dependees and add all ndoes to the list to return
   std::list<Node::Node>::iterator it;
   for(it = (current.dependees)->begin(); it != (current.dependees)->end(); ++it)
     {
@@ -110,11 +94,9 @@ std::list<std::string> DependencyGraph::GetDependees(std::string s)
       dependeesList.push_back(currentName);
     }
   
-  // Return list of dependees
   return dependeesList;
 }
 
-// Add a dependency (s, t) where t is a dependent of s
 void DependencyGraph::AddDependency(std::string s, std::string t)
 {
   Node::Node s_node("");
@@ -145,7 +127,6 @@ void DependencyGraph::AddDependency(std::string s, std::string t)
 
   bool tDep = false;
 
-  // Check if t is already a dependent of s
   std::list<Node::Node>::iterator it;
   for(it = (s_node.dependents)->begin(); it != (s_node.dependents)->end(); ++it)
     {
@@ -155,7 +136,6 @@ void DependencyGraph::AddDependency(std::string s, std::string t)
 	}
     }
 
-  // If not, add t as a dependent
   if (!tDep)
     {
       s_node.add_dependent(t_node);
@@ -163,7 +143,6 @@ void DependencyGraph::AddDependency(std::string s, std::string t)
     }
 }
 
-// Remove dependency (s, t) where t was a dependent of s
 void DependencyGraph::RemoveDependency(std::string s, std::string t)
 {
   Node::Node s_node("");
@@ -192,7 +171,6 @@ void DependencyGraph::RemoveDependency(std::string s, std::string t)
 
   bool tDep = false;
 
-  // Check if t was previously a dependent of s
   std::list<Node::Node>::iterator it;
   for(it = (s_node.dependents)->begin(); it != (s_node.dependents)->end(); ++it)
     {
@@ -202,7 +180,6 @@ void DependencyGraph::RemoveDependency(std::string s, std::string t)
 	}
     }
 
-  // If it was, remove the dependency
   if (tDep)
     {
       s_node.remove_dependent(t_node);
@@ -210,10 +187,8 @@ void DependencyGraph::RemoveDependency(std::string s, std::string t)
     }
 }
 
-// Get the node with a specified name
 Node::Node DependencyGraph::GetNode(std::string s)
 {
-	// Check if the node exists
   std::list<Node::Node>::iterator it;
   for(it = (nodes)->begin(); it != (nodes)->end(); ++it)
     {
@@ -222,7 +197,5 @@ Node::Node DependencyGraph::GetNode(std::string s)
 	  return *it;
 	}
     }
-  
-  // Throw an exception if the node does not exist
   throw std::exception();
 }

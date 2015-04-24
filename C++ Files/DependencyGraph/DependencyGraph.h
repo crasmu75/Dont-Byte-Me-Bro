@@ -58,8 +58,13 @@ class DependencyGraph
 
  private:
   
+  // Pointer to a list of nodes
   std::list<Node::Node> *nodes;
+
+  // Size of the dependency graph
   int size;
+
+  // Private helper method to get the node with a specific name
   Node::Node GetNode(std::string s);
 };
 
